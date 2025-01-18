@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Add DLC</title>
+		<link rel="stylesheet" href="../styles/styles.css">
+		<link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
+	</head>
+	<body>
+		<%- include("../components/navbar.ejs") %>
+		<section>
+			<div class="container-top">
+				<div class="horizontal-grid">
+					<div class="game-image-s" style="width: 20%;">
+						<img class="game-image" src="../images/dlcs/dlc1.png">
+						<input style="margin-top: 1rem;" type="file" id="image" name="image" accept="image/*" required>
+						<div class="horizontal-grid" style="gap: .5rem;margin-top: 3rem;">
+							<div class="vertical-grid">
+								<div class="horizontal-grid" style="justify-content: right;">
+									<p>Price:</p>
+									<input class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
+								</div>
+								<div class="horizontal-grid" style="justify-content: right;">
+									<p>Date:</p>
+									<input class="textbox-date" type="date" style="margin-left: 1rem;">
+								</div>
+								<div class="horizontal-grid" style="justify-content: right;">
+									<p>Stock:</p>
+									<input class="textbox" type="text" placeholder="0" style="width: 8rem; margin-left: 1rem;">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="grid-object-l">
+						<div class="vertical-grid">
+							<div class="vertical-grid">
+								<h1>Title:</h1>
+								<input class="textbox" type="text" style="width: 20rem;">
+							</div>
+							<div class="vertical-grid">
+								<p>Description:</p>
+								<textarea class="textarea" style="width: 40rem;"></textarea>
+							</div>
+							<div class="horizontal-grid" style="justify-content: left;">
+								<h1>Game:</h1>
+							</div>
+                            <table class="auction-items" style="width: 80%;">
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Release date</th>
+                                    <th>Status</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img class="game-image" src="../images/games/game1.png" alt="Game 1" style="height: 7rem; margin: 1rem 0;">
+                                    </td>
+                                    <td>
+                                        <p class="text">The binding of Isaac Rebirth</p>
+                                    </td>
+                                    <td>
+                                        <p class="text">25/10/24</p>
+                                    </td>
+                                    <td>
+                                        <p class="text paid">In Stock</p>
+                                    </td>
+                                </tr>
+                            </table>
+						</div>
+					</div>
+				</div>
+				<div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 4rem;">
+					<a href="/staff_page" class="button">Save</a>
+					<a href="/staff_page" class="button cancel">Cancel</a>
+				</div>
+			</div>
+		</section>
+		<footer></footer>
+	</body>
+</html>

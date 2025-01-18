@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <%- include("../components/navbar.ejs") %>
+    <section>
+        <div class="container horizontal-grid" style="width: 50rem;margin-top: 1rem;">
+
+            <div class="vertical-grid grid-object-m">
+                <div class="horizontal-grid">
+                    <h1>Payment</h1>
+                </div>
+                <div class="horizontal-grid" style="width: 80%;">
+                    <div class="vertical-grid left">
+                        <p>Card Number:</p>
+                        <input class="textbox" type="text" style="width: 16rem;">
+                    </div>
+                </div>
+
+                <div class="horizontal-grid" style="width: 80%;">
+                    <div class="vertical-grid left">
+                        <p>Expiry Date:</p>
+                        <input class="textbox-date" type="date">
+                    </div>
+                    <div class="vertical-grid left" style="margin-left: 1rem;"> 
+                        <p>CVC:</p>
+                        <input class="textbox" type="text" style="width: 4rem;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-object-m">
+                <div class="container vertical-grid" style="width: 80%;">
+                    <div>
+                        <h1>Summary</h1>
+                        <h4 class="paid">13 in stock!</h4>
+                    </div>
+                    <div class="horizontal-grid">
+                        <p>SubTotal:</p>
+                        <p>119.98€</p>
+                    </div>
+                    <div class="horizontal-grid">
+                        <p>Total:</p>
+                        <p>119.98€</p>
+                    </div>
+                    <div class="vertical-grid center">
+                        <a class="button button-l" href="/profile">Pay</a>
+                    </div>
+                    <div class="vertical-grid center">
+                        <a class="button button-l cancel" href="/cart_page">Go back to cart</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+    </section>
+    <footer>
+
+    </footer>
+</body>
+</html>

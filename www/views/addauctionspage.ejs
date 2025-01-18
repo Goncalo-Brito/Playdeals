@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Auction</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
+</head>
+<body>
+    <%- include("../components/navbar.ejs") %>
+    <section>
+        <div class="container-top">
+            <div class="horizontal-grid">
+                <div class="grid-object-l" style="width: 66%; gap: 1rem;">
+                    <div>
+                        <h2>Tittle</h2>
+                        <input type="text" class="textbox" style="width: 80%;" placeholder="Tittle for a Auction">
+                    </div>
+                    <div>
+                        <h2>Description</h2>
+                        <textarea class="textarea" style="width: 80%;" placeholder="Write here..."></textarea>
+                    </div>
+                    <div>
+                        <h2>Game</h2>
+                        <table class="auction-items" style="width: 80%;">
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Release date</th>
+                                <th>Status</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img class="game-image" src="../images/games/game2.png" alt="Game 1" style="height: 7rem; margin: 1rem 0;">
+                                </td>
+                                <td>
+                                    <p class="text">Call of Duty Black ops 6</p>
+                                </td>
+                                <td>
+                                    <p class="text">25/10/24</p>    
+                                </td>
+                                <td>
+                                    <p class="text paid">In Stock</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img class="game-image" src="../images/games/game3.png" alt="Game 1" style="height: 7rem; margin: 1rem 0;">
+                                </td>
+                                <td>
+                                    <p class="text">Gran turismo 7</p>
+                                </td>
+                                <td>
+                                    <p class="text">04/03/22</p>
+                                </td>
+                                <td>
+                                    <p class="text canceled">Not in stock</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img class="game-image" src="../images/games/game4.png" alt="Game 1" style="height: 7rem; margin: 1rem 0;">
+                                </td>
+                                <td>
+                                    <p class="text">Assassins Creed Mirage</p>
+                                </td>
+                                <td>
+                                    <p class="text">05/10/23</p>
+                                </td>
+                                <td>
+                                    <p class="text pending">TBA</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="grid-object-s" style="width: 33%;">
+                    <div class="horizontal-grid">
+                        <h2>Start Date:</h2>
+                        <input class="textbox-date" type="date">
+                    </div>
+                    <div class="horizontal-grid">
+                        <h2>End Date:</h2>
+                        <input class="textbox-date" type="date">
+                    </div>
+                    <div class="horizontal-grid">
+                        <h2>Initial value:</h2>
+                        <input class="textbox" type="text" style="width: 8rem;" placeholder="50,00€">
+                    </div>
+                </div>
+            </div>
+            <div class="horizontal-grid" style="justify-content: right; gap: 1rem;">
+                <a href="/staff_page" class="button">Create</a>
+                <a href="/staff_page" class="button cancel">Cancel</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+
+    </footer>
+</body>
+</html>

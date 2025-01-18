@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Page</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
+</head>
+<body>
+  <%- include("../components/navbar.ejs") %>
+  <section>
+    <div class="container-top">
+      <div class="horizontal-grid">
+        <div class="grid-object-l center" style="width: 66%;">
+            <img class="game-image" src="../images/auctions/auction1.png">
+            <div class="horizontal-grid" style="justify-content: center; gap:.5rem">
+                <img class="game-image-m" src="../images/auctions/auction_1.png" alt="game">
+                <img class="game-image-m" src="../images/auctions/auction_2.png" alt="game">
+                <img class="game-image-m" src="../images/auctions/auction_3.png" alt="game">
+            </div>
+        </div>
+        <div class="grid-object-s" style="width: 33%;">
+          <div class="container vertical-grid" style="width: 80%;">
+            <div>
+              <h1>Tomb Raider - Every Game for PlayStation 1</h1>
+            </div>
+            <div class="horizontal-grid">
+              <p style="color: #f0bb28;">Latest bidding value:</p>
+              <p style="color: #339941;">59.99€</p>
+            </div>
+            <div class="grid-object-m center">
+                <input placeholder="59.99€" class="textbox" type="text" style="text-align: right;">
+            </div>
+            <a class="button button-m center">Place Bid</a>
+          </div>
+        </div>
+      </div>
+      <div class="grid-object-l">
+        <h2>About</h2>
+        <p>Lara Croft is the independent daughter of an eccentric adventurer who disappeared years ago. 
+          Hoping to solve the mystery of her father's disappearance, Lara embarks on a perilous journey 
+          to her last known destination - a legendary tomb on a mythical island that may be somewhere off 
+          the coast of Japan. The stakes could not be bigger, as Lara needs to rely on her sharp mind, 
+          blind faith and obstinate spirit to venture into the unknown.</p>
+      </div>
+      <div class="grid-object-l">
+        <h2>DLC's for this game</h2>
+        <p>There are no DLC's for this game.</p>
+      </div>
+    </div>
+  </section>
+  <footer>
+
+  </footer>
+</body>
+</html>

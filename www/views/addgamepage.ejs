@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Game</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
+</head>
+<body>
+  <%- include("../components/navbar.ejs") %>
+  <section>
+    <div class="container-top">
+      <div class="horizontal-grid">
+        <div class="game-image-s" style="width: 20%;">
+          <img class="game-image" src="../images/games/game9.png">
+          <input style="margin-top: 1rem;" type="file" id="image" name="image" accept="image/*" required>
+          <div class="horizontal-grid" style="gap: .5rem;margin-top: 3rem;">
+            <div class="vertical-grid">
+              <div class="horizontal-grid" style="justify-content: right;">
+                <p>Price:</p>
+                <input class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
+              </div>
+              <div class="horizontal-grid" style="justify-content: right;">
+                <p>Date:</p>
+                <input class="textbox-date" type="date" style="margin-left: 1rem;">
+              </div>
+              <div class="horizontal-grid" style="justify-content: right;">
+                <p>Stock:</p>
+                <input class="textbox" type="text" placeholder="0" style="width: 8rem; margin-left: 1rem;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid-object-l">
+          <div class="vertical-grid">
+            <div class="vertical-grid">
+              <h1>Title:</h1>
+              <input class="textbox" type="text" style="width: 20rem;">
+              <p>Company Name:</p>
+              <input class="textbox" type="text" style="width: 20rem;">
+            </div>
+            <div class="horizontal-grid">
+              <div class="vertical-grid">
+                <p>PEGI Rating:</p>
+                <input class="textbox" type="text" style="width: 2rem;align-items: left; text-align: center;">
+              </div>
+              <div class="vertical-grid">
+                <p>Platform:</p>
+                <div class="horizontal-grid">
+
+                  <div class="vertical-grid">
+                    <input type="radio" id="PS1" name="platform" value="PS1">
+                    <input type="radio" id="PS2" name="platform" value="PS2">
+                  </div>
+                  <div class="vertical-grid">
+                    <label for="PS1">PS1</label>
+                    <label for="PS2">PS2</label>
+                  </div>
+                  <div class="vertical-grid">
+                    <input type="radio" id="PS3" name="platform" value="PS3">
+                    <input type="radio" id="PS4" name="platform" value="PS4">
+                  </div>
+                  <div class="vertical-grid">
+                    <label for="PS3">PS3</label>
+                    <label for="PS4">PS4</label>
+                  </div>
+                  <div class="vertical-grid">
+                    <input type="radio" id="PS5" name="platform" value="PS5">
+                  </div>
+                  <div class="vertical-grid">
+                    <label for="PS5">PS5</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="vertical-grid">
+              <p>Description:</p>
+              <textarea class="textarea" style="width: 40rem;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 4rem;">
+        <a href="/staff_page" class="button">Save</a>
+        <a href="/staff_page" class="button cancel">Cancel</a>
+      </div>
+    </div>
+  </section>
+  <footer>
+
+  </footer>
+</body>
+</html>
