@@ -54,7 +54,7 @@ Create table if not exists Users (
     FName varchar(32) not null,
     LName varchar(32) not null,
     Email varchar(128) unique not null,
-    Pass varchar(32) not null,
+    Pass varchar(255) not null,
     CreationDate date not null,
     UserType char not null,
     AddressID int, -- Needs to be optional
@@ -249,77 +249,77 @@ INSERT INTO CardsInfo (CardNumber, CardCVC, CardVal, UserID)
 
 -- Profile Images: --------------------------------------------------
 INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpg', '/images/users', '1', 1);
+    VALUES ('jpg', 'images/users', '1', 1);
 
 INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpeg', '/images/users', '2', 2);
+    VALUES ('jpeg', 'images/users', '2', 2);
 
 INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpeg', '/images/users', '3', 3);
+    VALUES ('jpeg', 'images/users', '3', 3);
 
 INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpeg', '/images/users', '4', 4);
+    VALUES ('jpeg', 'images/users', '4', 4);
 
 -- Game Images: -----------------------------------------------------
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '1', 1);
+    VALUES ('jpg', 'images/games', '1', 1);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '1_1', 1);
+    VALUES ('jpg', 'images/games', '1_1', 1);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '2', 2);
+    VALUES ('jpg', 'images/games', '2', 2);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '2_2', 2);
+    VALUES ('jpg', 'images/games', '2_2', 2);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '3', 3);
+    VALUES ('jpg', 'images/games', '3', 3);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '3_3', 3);
+    VALUES ('jpg', 'images/games', '3_3', 3);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '4', 4);
+    VALUES ('jpg', 'images/games', '4', 4);
     
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '4_4', 4);
+    VALUES ('jpg', 'images/games', '4_4', 4);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '5', 5);
+    VALUES ('jpg', 'images/games', '5', 5);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '5_5', 5);
+    VALUES ('jpg', 'images/games', '5_5', 5);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '6', 6);
+    VALUES ('jpg', 'images/games', '6', 6);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '6_6', 6);
+    VALUES ('jpg', 'images/games', '6_6', 6);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '7', 7);
+    VALUES ('jpg', 'images/games', '7', 7);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '7_7', 7);
+    VALUES ('jpg', 'images/games', '7_7', 7);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '8', 8);
+    VALUES ('jpg', 'images/games', '8', 8);
     
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '8_8', 8);
+    VALUES ('jpg', 'images/games', '8_8', 8);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '9', 9);
+    VALUES ('jpg', 'images/games', '9', 9);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '9_9', 9);
+    VALUES ('jpg', 'images/games', '9_9', 9);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '10', 10);
+    VALUES ('jpg', 'images/games', '10', 10);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', '/image/games', '10_10', 10);
+    VALUES ('jpg', 'images/games', '10_10', 10);
 
 -- Gift Cards: ------------------------------------------------------
 INSERT INTO GiftCards (GFCValue, GFCStatus) 

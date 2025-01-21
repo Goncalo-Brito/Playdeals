@@ -27,6 +27,12 @@ class GameImage {
         return database.execute(sql);
     }
 
+    static getByGame(id) {
+        let sql = `select * from gameimage where GameID = ${id}`;
+
+        return database.execute(sql);
+    }
+
     async updateById(id) {
         let sql = `update gameimage set ImageExtention = ${this.imageextention}, ImageSource = ${this.imagesource}, ImageName = ${this.imagename}, GameID = ${this.gameID}`;
 

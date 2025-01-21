@@ -1,3 +1,6 @@
+var FeaturedGames = [];
+var FeaturedGamesImages = [];
+
 const express = require("express");
 const path = require("path");
 
@@ -5,12 +8,90 @@ const app = express();
 
 app.use(express.static("www"));
 
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "www", "views"));
+app.set("images", path.join(__dirname, "www", "images"));
+
 
 app.use(express.json());
 
 app.use("/users", require("./routes/userRoutes"));
+
+app.use("/games", require("./routes/gameRoutes"));
+
+app.use("/gameimages", require("./routes/gameimageRouter"));
+
+app.get("/", async (req, res) => {
+    try {
+      // Update the URL here
+      const response = await fetch("http://localhost:3000/games/", {  // <-- updated URL
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error trying to GET games: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      const games = data.games;
+
+      if (Array.isArray(games)) {
+        games.forEach((game) => {
+          if (game.FeaturedGame === 1) {
+            FeaturedGames.push(game);
+          }
+        });
+      } else {
+        console.error("Expected an array of games, but got:", games);
+      }
+
+      try {
+        // Update the URL here as well for the gameimages fetch
+        const responseImages = await fetch("http://localhost:3000/gameimages/", {  // <-- updated URL
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!responseImages.ok) {
+          throw new Error(`Error trying to GET game images: ${responseImages.statusText}`);
+        }
+
+        const dataimages = await responseImages.json();
+
+        const gameimages = dataimages.gameimages;
+
+        if (Array.isArray(gameimages)) {
+          for (let i = 0; i < gameimages.length; i++) {
+            let gameimage = gameimages[i];
+            for (let j = 0; j < FeaturedGames.length; j++) {
+              let FeaturedGame = FeaturedGames[j];
+              if (
+                gameimage.GameID === FeaturedGame.GameID &&
+                !gameimage.ImageName.includes("_")
+              ) {
+                FeaturedGamesImages.push(gameimage);
+              }
+            }
+          }
+        }
+
+        res.render("homepage", {
+          FeaturedGamesImages: FeaturedGamesImages,
+        });
+      } catch (error) {
+        console.error("Error trying to GET game images:", error);
+      }
+    } catch (error) {
+      console.error("Error trying to GET games:", error);
+    }
+  });
 
 app.get("/new_auction", (req, res) => {
     res.render("addauctionspage", { title: "New Auction" }); 

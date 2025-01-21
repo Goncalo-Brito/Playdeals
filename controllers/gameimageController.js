@@ -3,12 +3,12 @@ const GameImage = require("../models/GameImage");
 exports.getAll = async (req, res, next) => {
     try {
         const [GameImages, _] = await GameImage.getAll();
-        res.render("discoverygames", { GameImages });
+        res.status(200).json({ gameimages: GameImages });
     } catch (error) {
         console.log(error);
-        next(error);
+        res.status(500).json({ message: "An error occurred", error: error.message });
     }
-}
+};
 
 exports.getById = async (req, res, next) => {
     try {
