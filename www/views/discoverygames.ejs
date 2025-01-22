@@ -10,7 +10,8 @@
 <body>
     <%- include("../components/navbar.ejs") %>
     <section>
-        <div class="container" style="margin-top: 1rem;">
+        <div class="navbar-space"></div>
+        <div class="container" style="margin-top: 1rem; width: 85rem;">
             <div class="horizontal-grid">
                 <div class="grid-object-m">
                     <a class="button button-s" href="#games">Games</a>
@@ -23,182 +24,54 @@
                 </div>
             </div>
         </div>
-        <div class="container" style="margin-top: 1rem;">
+        <div class="container" style="margin-top: 1rem; width: 85rem;">
             <h1 id="games">Games</h1>
-            <div class="games-row">           
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game2.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game3.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game4.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game5.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">  
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game6.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game7.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game8.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game9.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game10.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game11.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game12.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game13.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game14.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game15.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game16.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game17.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game18.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game19.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game20.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game21.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game22.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game23.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game24.png" alt="game">
-                </a>
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game25.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">
-                <a href="/game_page">
-                    <img class="pad-1-2 game-image" src="../images/games/game26.png" alt="game">
-                </a>
-            </div>
+            <% let rowOpen = false; %>
+            <% gameimagesPath.forEach((gameimage, index) => { %>
+                <% if (index % 4 === 0) { %>
+                    <% if (rowOpen) { %></div><% } %>
+                    <div class="games-row">
+                    <% rowOpen = true; %>
+                <% } %>
+                    <a href="/game_page">
+                        <img class="pad-1-2 game-image" src="<%= gameimage %>">
+                    </a>
+                <% }); %>
+            <% if (rowOpen) { %></div><% } %>
         </div>
-        <div class="container" style="margin-top: 1rem;">
+        <div class="container" style="margin-top: 1rem; width: 85rem;">
             <h1 id="dlcs">DLC's</h1>
-            <div class="games-row">           
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc1.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc2.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc3.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc4.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">  
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc5.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc6.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc7.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc8.png" alt="game">
-                </a>
-            </div>
-            <div class="games-row">  
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc11.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc12.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc9.png" alt="game">
-                </a>
-                <a href="/dlc_page">
-                    <img class="pad-1-2 game-image" src="../images/dlcs/dlc10.png" alt="game">
-                </a>
-            </div>
+            <% let rowOpenDlc = false; %>
+            <% dlcimagesPath.forEach((dlcimage, index) => { %>
+                <% if (index % 4 === 0) { %>
+                    <% if (rowOpenDlc) { %></div><% } %>
+                    <div class="games-row">
+                    <% rowOpenDlc = true; %>
+                <% } %>
+                    <a href="/game_page">
+                        <img class="pad-1-2 game-image" src="<%= dlcimage %>">
+                    </a>
+                <% }); %>
+            <% if (rowOpenDlc) { %></div><% } %>
         </div>
-        <div class="container" style="margin-top: 1rem;">
+        <div class="container" style="margin-top: 1rem; width: 85rem;">
             <h1 id="gift_cards">Gift Cards</h1>
-            <div class="games-row">           
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc10.png" alt="Gift card 10€">
-                </a>
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc20.png" alt="Gift card 20€">
-                </a>
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc50.png" alt="Gift card 50€">
-                </a>
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc60.png" alt="Gift card 60€">
-                </a>
-            </div>
-            <div class="games-row">  
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc80.png" alt="Gift card 80€">
-                </a>
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc100.png" alt="Gift card 100€">
-                </a>
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc150.png" alt="Gift card 150€">
-                </a>
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc200.png" alt="Gift card 200€">
-                </a>
-            </div>
-            <div class="games-row">  
-                <a href="/gift_card_page">
-                    <img class="pad-1-2 game-image" src="../images/giftcards/gc250.png" alt="Gift card 250€">
-                </a>
-            </div>
+            <% let rowOpenAuctions = false; %>
+            <% giftcardsPath.forEach((giftcard, index) => { %>
+                <% if (index % 4 === 0) { %>
+                    <% if (rowOpenAuctions) { %></div><% } %>
+                    <div class="games-row">
+                    <% rowOpenAuctions = true; %>
+                <% } %>
+                    <a href="/game_page">
+                        <img class="pad-1-2 game-image" src="<%= giftcard %>">
+                    </a>
+                <% }); %>
+            <% if (rowOpenDlc) { %></div><% } %>
         </div>
     </section>
     <footer>
-
+        <script src="../scripts/toggleTables.js"></script>
     </footer>
 </body>
 </html> 

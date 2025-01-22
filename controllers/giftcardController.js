@@ -3,10 +3,10 @@ const GiftCard = require("../models/GiftCard");
 exports.getAll = async (req, res, next) => {
     try {
         const [GiftCards, _] = await GiftCard.getAll();
-        res.render("discoverygames", { GiftCards });
+        res.status(200).json({ giftcards : GiftCards });
     } catch (error) {
         console.log(error);
-        next(error);
+        res.status(500).json({ message: "An error occurred", error: error.message });
     }
 }
 

@@ -10,20 +10,21 @@
 <body>
     <%- include("../components/navbar.ejs") %>
     <section>
+        <div class="navbar-space"></div>
         <div class="featured-game">
             <a href="/game_page">
-                <img style="height: 25rem;" src="../images/games/game1.png" alt="The binding of isaac Rebirth">
+                <img style="height: 25rem;" src="../images/games/0.png" alt="The binding of isaac Rebirth">
             </a>
             <h2>Comes with 3 DLC's!</h2>
             <div class="featured-dlc">
                 <a href="/dlc_page">
-                    <img src="../images/dlcs/dlc_1.png" alt="The binding of isaac Afterbirth">
+                    <img src="../images/games/0_2_0.png" alt="The binding of isaac Afterbirth">
                 </a>
                 <a href="/dlc_page">
-                    <img src="../images/dlcs/dlc_2.png" alt="The binding of isaac Afterbirth+">
+                    <img src="../images/games/0_3_0.png" alt="The binding of isaac Afterbirth+">
                 </a>
                 <a href="/dlc_page">
-                    <img src="../images/dlcs/dlc_3.png" alt="The binding of isaac Repentance">
+                    <img src="../images/games/0_4_0.png" alt="The binding of isaac Repentance">
                 </a>
             </div>
         </div>
@@ -40,7 +41,7 @@
                         <img class="pad-1-2 game-image" src="<%= gameimage %>">
                     </a>
                 <% }); %>
-                <% if (rowOpen) { %></div><% } %>
+            <% if (rowOpen) { %></div><% } %>
         </div>
     </section>
     <footer>

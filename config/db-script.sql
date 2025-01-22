@@ -247,25 +247,28 @@ INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID)
     VALUES ('jpg', 'images/games', '2', 2);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '2_2', 2);
+    VALUES ('jpg', 'images/games', '2_1', 2);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
     VALUES ('jpg', 'images/games', '3', 3);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '3_3', 3);
+    VALUES ('jpg', 'images/games', '3_1', 3);
+
+INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
+    VALUES ('jpg', 'images/games', '3_2', 3);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
     VALUES ('jpg', 'images/games', '4', 4);
     
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '4_4', 4);
+    VALUES ('jpg', 'images/games', '4_1', 4);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
     VALUES ('jpg', 'images/games', '5', 5);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '5_5', 5);
+    VALUES ('jpg', 'images/games', '5_1', 5);
 
 -- Gift Cards: ------------------------------------------------------
 INSERT INTO GiftCards (GFCValue, GFCStatus) 
