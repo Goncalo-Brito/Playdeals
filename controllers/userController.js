@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 exports.getAll = async (req, res, next) => {
     try {
@@ -22,12 +24,23 @@ exports.getById = async (req, res, next) => {
 
 exports.getLogin = async (req, res, next) => {
     try {
-        const { username, password } = req.body;  
-        const [[user, _]] = await User.getLogin(username, password);
+        const { username, password } = req.body; 
+        const [[user, _]] = await User.getLogin(username);
         if (user) {
-            res.json({ user }); 
+            bcrypt.compare(password, user.Pass, (err, isMatch) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({ message: "Error comparing passwords." });
+                }
+                if (isMatch) {
+                    req.session.user = { id: user.id, username: user.username };
+                    res.status(200).json({ user });
+                } else {
+                    res.status(404).json({ message: "Invalid username or password." });
+                }
+            });
         } else {
-            res.status(404).json({ message: "User not found" }); 
+            res.status(404).json({ message: "User not found" });
         }
     } catch (error) {
         console.log(error);
@@ -36,14 +49,30 @@ exports.getLogin = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    let { username, fname, lname, email, pass, creationdate, usertype } = req.body;
+    let { username, fname, lname, email, password } = req.body;
 
-    let user = new user(username, fname, lname, email, pass, creationdate, usertype);
+    let date = new Date();
 
-    user = await User.create();
+    let creationdate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDay()}`;
 
-    res.send("User created: " + user);
-}
+    let usertype = 'U';
+
+    let user = new User(username, fname, lname, email, password, creationdate, usertype);
+
+    try {
+        await user.create();
+        res.status(201).json({ message: "User created successfully." });
+    } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+            res.status(401).json({ message: "Email or Username is already in use. Please use a different email." });
+        } else {
+            console.log(error);
+            res.status(500).send("Error creating user.");
+        }
+        next(error);
+
+    }
+};
 
 exports.updateById = async (req, res, next) => {
     try {

@@ -15,35 +15,67 @@ class Game {
     }
 
     async create() {
-        let sql = `insert into game(GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-                   values (${this.gamename}, ${this.gamecompany}, ${this.gameprice}, ${this.this.gamereleasedate}, ${this.gamePEGI}, 
-                   ${this.gameplatform}, ${this.gamediscount}, ${this.this.featuredgame}, ${this.gamestatus}, ${this.gamedescription})`;
-
-        return await database.execute(sql);
+        let sql = `insert into games(GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
+                   values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    
+        const params = [
+            this.gamename, 
+            this.gamecompany, 
+            this.gameprice, 
+            this.gamereleasedate, 
+            this.gamePEGI, 
+            this.gameplatform, 
+            this.gamediscount, 
+            this.featuredgame, 
+            this.gamestatus, 
+            this.gamedescription
+        ];
+    
+        return await database.execute(sql, params);
     }
 
     static getAll() {
-        let sql = "select * from game";
+        let sql = "select * from games";
+
+        return database.execute(sql);
+    }
+
+    static getAllFeatured() {
+        let sql = "select * from games where FeaturedGame = true";
 
         return database.execute(sql);
     }
 
     static getById(id) {
-        let sql = `select * from game where id = ${id}`;
+        let sql = `select * from games where GameID = ${id}`;
 
         return database.execute(sql);
     }
 
     async updateById(id) {
-        let sql = `update game set GameName = ${this.gamename}, GameCompany = ${this.gamecompany}, GamePrice = ${this.gameprice}, GameReleaseDate = ${this.gamereleasedate},
-        GamePEGI = ${this.gamePEGI}, GamePlatform = ${this.gameplatform}, GameDiscount = ${this.gamediscount}, FeaturedGame = ${this.this.featuredgame}, 
-        GameStatus = ${this.gamestatus}, GameDescription = ${this.gamedescription}`;
-
-        return await database.execute(sql);
+        let sql = `update games set GameName = ?, GameCompany = ?, GamePrice = ?, GameReleaseDate = ?, GamePEGI = ?, GamePlatform = ?, GameDiscount = ?, FeaturedGame = ?, 
+                   GameStatus = ?, GameDescription = ? where GameID = ?`;
+    
+        const params = [
+            this.gamename, 
+            this.gamecompany, 
+            this.gameprice, 
+            this.gamereleasedate, 
+            this.gamePEGI, 
+            this.gameplatform, 
+            this.gamediscount, 
+            this.featuredgame, 
+            this.gamestatus, 
+            this.gamedescription, 
+            id
+        ];
+    
+        return await database.execute(sql, params);
     }
+    
 
     async deleteById(id) {
-        let sql = `delete from game where id = ${id}`;
+        let sql = `delete from games where GameID = ${id}`;
 
         return database.execute(sql);
     }
