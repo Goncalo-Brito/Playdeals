@@ -27,6 +27,8 @@ app.use("/games", require("./routes/gameRoutes"));
 
 app.use("/gameimages", require("./routes/gameimageRouter"));
 
+app.use("/giftcard", require("./routes/giftcardRoutes"));
+
 app.get("/new_auction", (req, res) => {
     res.render("addauctionspage", { title: "New Auction" }); 
 });
@@ -39,7 +41,8 @@ app.get("/register", (req, res) => {
   res.render("register", { title: "Register" }); 
 });
 
-app.use(authMiddleware);
+//ATIVA A AUTH
+//app.use(authMiddleware); 
 
 app.get("/", async (req, res) => {
   const FeaturedGames = [];
@@ -73,7 +76,7 @@ app.get("/", async (req, res) => {
     }
 
     try {
-      const responseImages = await fetch("http://localhost:3000/gameimages/", {  // <-- updated URL
+      const responseImages = await fetch("http://localhost:3000/gameimages/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -93,10 +96,7 @@ app.get("/", async (req, res) => {
           let gameimage = gameimages[i];
           for (let j = 0; j < FeaturedGames.length; j++) {
             let FeaturedGame = FeaturedGames[j];
-            if (
-              gameimage.GameID === FeaturedGame.GameID &&
-              !gameimage.ImageName.includes("_")
-            ) {
+            if (gameimage.GameID === FeaturedGame.GameID && gameimage.ImageName.includes("_1")) {
               FeaturedGamesImages.push(gameimage);
             }
           }
@@ -126,8 +126,80 @@ app.get("/logout", (req, res) => {
       console.error("Erro ao terminar a sessão:", err);
       return res.status(500).send("Erro ao terminar a sessão.");
     }
-    res.redirect("/login"); // Redireciona para a página de login
+    res.redirect("/login");
   });
+});
+
+app.get("/store", async (req, res) => {
+  const gameimages = [];
+  const dlcimages = []
+  const gameimagesPath = [];
+  const dlcimagesPath = [];
+  let giftcards = [];
+  const giftcardsPath = [];
+
+    try {
+      const responseImages = await fetch("http://localhost:3000/gameimages/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const responseGiftCard = await fetch("http://localhost:3000/giftcard/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!responseImages.ok) {
+        throw new Error(`Error trying to GET game images: ${responseImages.statusText}`);
+      }
+
+      const dataimages = await responseImages.json();
+      const Arrayimages = dataimages.gameimages;
+
+      const dataGiftcards = await responseGiftCard.json();
+      giftcards = dataGiftcards.giftcards;
+
+      if (Array.isArray(Arrayimages)) {
+        for (let i = 0; i < Arrayimages.length; i++) {
+          let gameimage = Arrayimages[i];
+          if (gameimage.ImageName.includes("_1")) { //jogo
+            gameimages.push(gameimage);
+          } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1")) { //dlc
+            dlcimages.push(gameimage);
+          }
+        }
+      }
+
+      for (let i = 0; i < gameimages.length; i++) {
+        const image = gameimages[i];
+        const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+        gameimagesPath.push(imagePath);
+      }
+
+      for(let i = 0; i < dlcimages.length; i++) {
+        const image = dlcimages[i];
+        const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+        dlcimagesPath.push(imagePath);
+      }
+
+      for (let i = 0; i < giftcards.length; i++) {
+        const image = giftcards[i];
+        const imagePath = `../images/giftcards/${image.GFCValue}.png`;
+        giftcardsPath.push(imagePath);
+      }
+
+      res.render("discoverygames", {
+        gameimagesPath: gameimagesPath,
+        dlcimagesPath: dlcimagesPath,
+        giftcardsPath: giftcardsPath
+      });
+    } catch (error) {
+      console.error("Error trying to GET game images:", error);
+    }
 });
 
 app.get("/new_dlc", (req, res) => {
@@ -158,20 +230,12 @@ app.get("/auctions", (req, res) => {
     res.render("discoveryauctions", { title: "Auctions" }); 
 });
 
-app.get("/store", (req, res) => {
-    res.render("discoverygames", { title: "Store" }); 
-});
-
 app.get("/dlc_page", (req, res) => {
     res.render("dlcpage", { title: "DLC" }); 
 });
 
 app.get("/game_page", (req, res) => {
     res.render("gamepage", { title: "Game" }); 
-});
-
-app.get("/", (req, res) => {
-    res.render("homepage", { title: "Home Page" }); 
 });
 
 app.get("/payment", (req, res) => {

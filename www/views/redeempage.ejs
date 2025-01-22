@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redeem</title>
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
-</head>
-<body>
-    <%- include("../components/navbar.ejs") %>
-    <div class="container-s">
-        <h1>Redeem Codes:</h1>
-        <img class="round-image" src="../images/Logo_PW.png" alt="PlayDealz Logo">
-        <div class="horizontal-grid">
-            <p>Enter you 12-digit code:</p>
-        </div>
-        <input class="textbox" type="text" placeholder="Your code:">
-        <a class="button button-l" href="/">Redeem</a>
-        <div class="horizontal-grid" style="justify-content: center;">
-            <a class="text" href="/profile">Go back</a>
-        </div>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Redeem</title>
+		<link rel="stylesheet" href="../styles/styles.css">
+		<link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
+	</head>
+	<body>
+		<section>
+			<div class="navbar-space"></div>
+			<%- include("../components/navbar.ejs") %>
+			<div class="container-s">
+				<h1>Redeem Codes:</h1>
+				<img class="round-image" src="../images/Logo_PW.png" alt="PlayDealz Logo">
+				<div class="horizontal-grid">
+					<p>Enter you 12-digit code:</p>
+				</div>
+				<input class="textbox" type="text" placeholder="Your code:">
+				<a class="button button-l" href="/">Redeem</a>
+				<div class="horizontal-grid" style="justify-content: center;">
+					<a class="text" href="/profile">Go back</a>
+				</div>
+			</div>
+		</section>
+	</body>
 </html>

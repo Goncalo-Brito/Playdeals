@@ -1,101 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact us</title>
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
-</head>
-<body>
-    <%- include("../components/navbar.ejs") %>  <section>
-    <div class="container-top ">
-        
-
-        <div class="horizontal-grid" style="width: 80%;">
-
-            <div class="vertical-grid grid-object-l">
-                <h1>Our Team</h1>
-                <div>
-                    <div class="container horizontal-grid" style="width: auto;">
-    
-                        <div class="vertical-grid center">
-                            <img class="round-image" src="../images/users/user.png" alt="user profile picture">
-                            <p>Gonçalo Teixeira</p>
-                        </div>
-                        <div class="vertical-grid center">
-                            <img class="round-image" src="../images/users/user.png" alt="user profile picture">
-                            <p>André Pereira</p>
-                        </div>
-    
-                    </div>
-                </div>
-            </div>
-    
-            <div class="grid-object-s">
-                <h1>We are here to help!</h1>
-                <p>For general questions, feedback, or inquiries about our services, drop us an email at our@gmail.com or fill out the contact form below.</p>
-            </div>
-        </div>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Contact us</title>
+		<link rel="stylesheet" href="../styles/styles.css">
+		<link rel="icon" type="image/x-icon" href="../images/Logo_PW.png">
+	</head>
+	<body>
+		<%- include("../components/navbar.ejs") %>
+		<section>
+			<div class="navbar-space"></div>
+			<div class="container-top ">
 
 
-        <div class="container horizontal-grid" style="width: 80%;margin-top: 2rem;">
+				<div class="horizontal-grid" style="width: 80%;">
 
-            <div class="vertical-grid">
+					<div class="vertical-grid grid-object-l">
+						<h1>Our Team</h1>
+						<div>
+							<div class="container horizontal-grid" style="width: auto;">
 
-                <div class="horizontal-grid">
-                    <h1>Contact us:</h1>
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path d="M64 112c-8.8 0-16 7.2-16 16l0 22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1l0-22.1c0-8.8-7.2-16-16-16L64 112zM48 212.2L48 384c0 8.8 7.2 16 16 16l384 0c8.8 0 16-7.2 16-16l0-171.8L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64l384 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 448c-35.3 0-64-28.7-64-64L0 128z"/>
-                    </svg>
-                </div>
-                <form action="">
+								<div class="vertical-grid center">
+									<img class="round-image" src="../images/users/user.png" alt="user profile picture">
+									<p>Gonçalo Teixeira</p>
+								</div>
+								<div class="vertical-grid center">
+									<img class="round-image" src="../images/users/user.png" alt="user profile picture">
+									<p>André Pereira</p>
+								</div>
 
-                </form>
-                <div class="horizontal-grid grid-object-l">
-                    <div class="vertical-grid">
-                        <p>First name:</p>
-                        <input class="textbox" type="text" style="width: 50%;">
-                    </div>
+							</div>
+						</div>
+					</div>
 
-                    <div class="vertical-grid">
-                        <p>Last name:</p>
-                        <input class="textbox" type="text" style="width: 50%;">
-                    </div>
-                </div>
+					<div class="grid-object-s">
+						<h1>We are here to help!</h1>
+						<p>For general questions, feedback, or inquiries about our services, drop us an email at our@gmail.com or fill out the contact form below.</p>
+					</div>
+				</div>
 
-                <div class="horizontal-grid grid-object-l">
-                    <div class="vertical-grid">
-                        <p>Email*:</p>
-                        <input class="textbox" type="text" style="width: 50%;">
-                    </div>
 
-                    <div class="vertical-grid">
-                        <p>Order number:</p>
-                        <input class="textbox" type="text" style="width: 50%;" placeholder="Starts with #">
-                    </div>
-                </div>
+				<div class="container horizontal-grid" style="width: 80%;margin-top: 2rem;">
 
-                <div class="vertical-grid" style="width: 90%;">
-                    <p>Write a message:</p>
-                    <div class="horizontal-grid">
-                        <textarea class="textarea"></textarea>
-                    </div>
-                </div>
+					<div class="vertical-grid">
 
-                <div class="horizontal-grid center">
-                    <a class="button button-m" style="width: 30%;">Send</a>
-                </div>
-            </div>
+						<div class="horizontal-grid">
+							<h1>Contact us:</h1>
+							<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 512 512">
+								<path d="M64 112c-8.8 0-16 7.2-16 16l0 22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1l0-22.1c0-8.8-7.2-16-16-16L64 112zM48 212.2L48 384c0 8.8 7.2 16 16 16l384 0c8.8 0 16-7.2 16-16l0-171.8L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64l384 0c35.3 0 64 28.7 64 64l0 256c0 35.3-28.7 64-64 64L64 448c-35.3 0-64-28.7-64-64L0 128z"/>
+							</svg>
+						</div>
+						<form action=""></form>
+						<div class="horizontal-grid grid-object-l">
+							<div class="vertical-grid">
+								<p>First name:</p>
+								<input class="textbox" type="text" style="width: 50%;">
+							</div>
 
-        </div>
+							<div class="vertical-grid">
+								<p>Last name:</p>
+								<input class="textbox" type="text" style="width: 50%;">
+							</div>
+						</div>
 
-    </div>
-    
+						<div class="horizontal-grid grid-object-l">
+							<div class="vertical-grid">
+								<p>Email*:</p>
+								<input class="textbox" type="text" style="width: 50%;">
+							</div>
 
-  </section>
-  <footer>
+							<div class="vertical-grid">
+								<p>Order number:</p>
+								<input class="textbox" type="text" style="width: 50%;" placeholder="Starts with #">
+							</div>
+						</div>
 
-  </footer>
-</body>
+						<div class="vertical-grid" style="width: 90%;">
+							<p>Write a message:</p>
+							<div class="horizontal-grid">
+								<textarea class="textarea"></textarea>
+							</div>
+						</div>
+
+						<div class="horizontal-grid center">
+							<a class="button button-m" style="width: 30%;">Send</a>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+
+		</section>
+		<footer></footer>
+	</body>
 </html>
