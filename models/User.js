@@ -14,7 +14,7 @@ class User {
     }
 
     async create() {
-            console.log('Password:', this.pass);  // Add this log to see the password value
+            console.log('Password:', this.pass); 
 
         if (!this.pass) {
             throw new Error('Password is required');
@@ -24,7 +24,6 @@ class User {
                      VALUES (?, ?, ?, ?, ?, ?, ?)`;
         const hashedPassword = await bcrypt.hash(this.pass, 10);
 
-        const teste = 'asdfg'
         const params = [this.username, this.fname, this.lname, this.email, hashedPassword , this.creationdate, this.usertype];
 
         return await database.execute(sql, params);
@@ -44,7 +43,7 @@ class User {
 
     static getLogin(username) {
         let sql = `select * from users where UserName = '${username}'`;
-    
+        
         return database.execute(sql);
     }
 

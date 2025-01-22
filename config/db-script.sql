@@ -165,22 +165,7 @@ INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, 
     VALUES ('Spider-Man: Miles Morales', 'Insomniac Games', 50, '2020-11-12', 12, 'PS5', 5, TRUE, 'Available', 'Action-adventure game featuring Miles Morales as Spider-Man');
 
 INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Uncharted 4: A Thief’s End', 'Naughty Dog', 40, '2016-05-10', 16, 'PS4', 20, FALSE, 'Available', 'Action-adventure game with treasure hunting and exploration');
-
-INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Ghost of Tsushima', 'Sucker Punch', 60, '2020-07-17', 16, 'PS4', 10, TRUE, 'Available', 'Open-world action-adventure game set in feudal Japan');
-
-INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Bloodborne', 'FromSoftware', 50, '2015-03-24', 18, 'PS4', 0, FALSE, 'Available', 'Dark fantasy action RPG');
-
-INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Ratchet & Clank: Rift Apart', 'Insomniac Games', 70, '2021-06-11', 12, 'PS5', 5, TRUE, 'Available', 'Action-adventure game featuring interdimensional travel');
-
-INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Gran Turismo 7', 'Polyphony Digital', 80, '2022-03-04', 3, 'PS5', 0, FALSE, 'Available', 'Realistic racing simulation game');
-
-INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Demon’s Souls', 'Bluepoint Games', 70, '2020-11-12', 18, 'PS5', 10, TRUE, 'Available', 'Remake of the classic action RPG with enhanced graphics');
+    VALUES ('Uncharted 4: A Thief’s End', 'Naughty Dog', 40, '2016-05-10', 16, 'PS4', 20, TRUE, 'Available', 'Action-adventure game with treasure hunting and exploration');
 
 -- DLC's: -----------------------------------------------------------
 
@@ -189,15 +174,6 @@ INSERT INTO DLCs (DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLC
 
 INSERT INTO DLCs (DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) 
     VALUES ('The City That Never Sleeps', 15, '2018-09-28', 'Available', 10, 'Story DLC for Spider-Man with new missions and villains', 4);
-
-INSERT INTO DLCs (DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) 
-    VALUES ('Legends', 0, '2020-10-16', 'Available', 0, 'Multiplayer co-op mode for Ghost of Tsushima', 6);
-
-INSERT INTO DLCs (DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) 
-    VALUES ('Old Hunters', 20, '2015-11-24', 'Available', 5, 'Expansion pack for Bloodborne with new areas and bosses', 7);
-
-INSERT INTO DLCs (DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) 
-    VALUES ('Rift Apart Expansion', 15, '2021-09-01', 'Available', 10, 'Additional levels and challenges for Ratchet & Clank: Rift Apart', 8);
 
 -- Adress: ----------------------------------------------------------
 INSERT INTO Address (Country, Street, PostalCode) 
@@ -290,36 +266,6 @@ INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID)
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
     VALUES ('jpg', 'images/games', '5_5', 5);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '6', 6);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '6_6', 6);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '7', 7);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '7_7', 7);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '8', 8);
-    
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '8_8', 8);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '9', 9);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '9_9', 9);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '10', 10);
-
-INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
-    VALUES ('jpg', 'images/games', '10_10', 10);
 
 -- Gift Cards: ------------------------------------------------------
 INSERT INTO GiftCards (GFCValue, GFCStatus) 
@@ -455,4 +401,4 @@ INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, 
     VALUES ('2025-01-18 16:40:00', 50, 'l7v0nqx32p9fjk84', 4, NULL, NULL, 6);
 
 INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
-    VALUES ('2025-01-19 18:05:00', 15, 'rfj29klvq803xw7p', 5, NULL, 5, NULL);
+    VALUES ('2025-01-19 18:05:00', 15, 'rfj29klvq803xw7p', 5, NULL, 2, NULL);

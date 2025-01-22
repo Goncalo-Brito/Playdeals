@@ -31,7 +31,6 @@ document.getElementById("loginForm").addEventListener("submit", async function (
                 }
             } else {
                 const user = await response.json();
-                
                 window.location.href = "/";
             }    
         }
