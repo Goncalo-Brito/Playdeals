@@ -480,8 +480,107 @@ app.get("/redeem", (req, res) => {
 //__________________________________________________________________________________________________________
 
 
-app.get("/staff_page", (req, res) => {
-    res.render("staffpage", { title: "Staff" }); 
+app.get("/staff_page", async (req, res) => {
+
+  let games = []; 
+  let dlcs = [];
+  const auctions = [];
+  const gameimages = [];
+  const gameimagesPath = [];
+  const dlcimages = []; 
+  const dlcimagesPath = []; 
+
+  try {
+    const [gamesResponse, dlcsResponse, auctionsResponse, gameimagesResponse] = await Promise.all([
+      fetch("http://localhost:3000/games/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }),
+      fetch("http://localhost:3000/dlcs/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }),
+      fetch("http://localhost:3000/auctions/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }),
+      fetch("http://localhost:3000/gameimages/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }),
+    ]);
+
+
+    if (!gamesResponse.ok || !dlcsResponse.ok || !auctionsResponse.ok || !gameimagesResponse.ok) {
+      throw new Error("Error: Failed to fetch data");
+    }
+
+    const dataimages = await gameimagesResponse.json();
+    const Arrayimages = dataimages.gameimages;
+
+    const datagames = await gamesResponse.json();
+    games = datagames.games;
+
+    const datadlcs = await dlcsResponse.json();
+    dlcs = datadlcs.dlcs;
+
+// ----------------------------------------------------------------
+    for (let i = 0; i < Arrayimages.length; i++) {
+      let gameimage = Arrayimages[i];
+      if (gameimage.ImageName.includes("_1")) { //jogo
+        gameimages.push(gameimage);
+      } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1")) { //dlc
+        dlcimages.push(gameimage);
+      }
+    }
+
+    for (let i = 0; i < gameimages.length; i++) {
+      const image = gameimages[i];
+      const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+      gameimagesPath.push(imagePath);
+    }
+
+    for(let i = 0; i < dlcimages.length; i++) {
+      const image = dlcimages[i];
+      const imagePath = `../${image.ImageSource}  /${image.ImageName}.${image.ImageExtention}`;
+      dlcimagesPath.push(imagePath);
+    }
+
+    for(let i = 0; i < games.length; i++) {
+      const game = games[i];
+      game.GameReleaseDate = game.GameReleaseDate.substring(0, 10);
+      games[i] = game;
+    }
+
+    for(let i = 0; i < dlcs.length; i++) {
+      const dlc = dlcs[i];
+      dlc.DLCReleaseDate = dlc.DLCReleaseDate.substring(0, 10);
+      dlcs[i] = dlc;
+    }
+// ----------------------------------------------------------------
+    console.log("DLCS:");
+    console.log(dlcimagesPath);
+
+    res.render("staffpage", {
+      title: "Staff",
+      games: games,
+      dlcs: dlcs,
+      auctions: auctions,
+      gameimagesPath: gameimagesPath,
+      dlcimagesPath: dlcimagesPath,
+    });
+
+  } catch (error) {
+    console.error("Error fetching staff data:", error);
+    res.render("staffpage", {
+      title: "Staff",
+      games: [],
+      dlcs: [],
+      auctions: [],
+      gameImagesPath: [],
+      dlcimagesPath: [],
+    });
+  }
 });
 
 app.get("/update_auction", (req, res) => {
