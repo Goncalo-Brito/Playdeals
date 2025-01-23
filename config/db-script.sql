@@ -140,7 +140,7 @@ INSERT INTO Auctions (AuctionTittle, AuctionInitialValue, Status, StartDate, End
     VALUES ('VR and accessories', 80, 'Active', '2025-01-12', '2025-01-22', 'PlayStation VR headset and accessories');
 
 INSERT INTO Auctions (AuctionTittle, AuctionInitialValue, Status, StartDate, EndDate, Description) 
-    VALUES ('New Limited PS5',200, 'Pending', '2025-01-18', '2025-01-28', 'Brand new limited edition PlayStation 5 with two controllers');
+    VALUES ('New Limited PS5',200, 'Completed', '2025-01-18', '2025-01-28', 'Brand new limited edition PlayStation 5 with two controllers');
 
 -- Games: -----------------------------------------------------------
 INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 

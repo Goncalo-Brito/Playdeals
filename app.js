@@ -442,6 +442,12 @@ app.get("/deals", async (req, res) => {
     const dataAuctions = await response.json();
     const auctions = dataAuctions.auctions;
 
+    for(let i = 0; i < auctions.length; i++) {
+      const auction = auctions[i];
+      auction.EndDate = auction.EndDate.substring(0, 10);
+      auctions[i] = auction;
+    }
+
     res.render("discoveryauctions", {
       auctions: auctions
     });
