@@ -12,75 +12,19 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
     try {
-        const [[dlc, _]] = await DLC.getById(req.params.id);
-        res.render("dlcpage", { dlc });
+        const [result] = await DLC.getById(req.params.id);
+        const dlc = result[0];
+
+        if (!dlc) {
+            return res.status(404).json({ message: "Dlc not found" });
+        }
+
+        res.status(200).json({ dlc });
     } catch (error) {
-        console.log(error);
-        next(error);
+        console.error("Error in getById:", error.message);
+        res.status(500).json({ message: "Internal server error", error: error.message });
     }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[dlc, _]] = await DLC.getById(req.params.id);
-        res.render("staffpage", { dlc });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[dlc, _]] = await DLC.getById(req.params.id);
-        res.render("gamepage", { dlc });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[dlc, _]] = await DLC.getById(req.params.id);
-        res.render("homepage", { dlc });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[dlc, _]] = await DLC.getById(req.params.id);
-        res.render("profilepage", { dlc });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[dlc, _]] = await DLC.getById(req.params.id);
-        res.render("payment", { dlc });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[dlc, _]] = await DLC.getById(req.params.id);
-        res.render("cartpage", { dlc });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-
+};
 
 exports.create = async (req, res, next) => {
     let { commenttext, userID, biddingID } = req.body;

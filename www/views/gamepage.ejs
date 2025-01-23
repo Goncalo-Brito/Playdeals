@@ -38,33 +38,36 @@
 						</div>
 					</div>
 				</div>
-        <div class="grid-object-l">
-          <h2>DLC's for this game</h2>
-          <div class="horizontal-grid">
-              <% if (imagesDlc.length === 0) { %>
-                  <p>No DLCs available for this game.</p>
-              <% } else { %>
-                  <% let rowOpen = false; %>
-                  <% imagesDlc.forEach((image, index) => { %>
-                      <% if (index % 4 === 0) { %>
-                          <% if (rowOpen) { %>
-                          </div>
-                          <% } %>
-                          <div class="games-row">
-                          <% rowOpen = true; %>
-                      <% } %>
-                      <a href="/dlc_page/<%= image.id %>">
-                          <img class="game-image-l" src="<%= image.path %>" >
-                      </a>
-                  <% }); %>
-                  <% if (rowOpen) { %>
-                  </div>
-                  <% } %>
-              <% } %>
-          </div>
-      </div>
-      
+				<div class="grid-object-l">
+					<h2>About</h2>
+					<div class="horizontal-grid">
+						<p><%= game.GameDescription %></p>
+					</div>
+					<h2>DLC's for this game</h2>
+					<div class="horizontal-grid">
+						<% if (imagesDlc.length === 0) { %>
+							<p>No DLCs available for this game.</p>
+						<% } else { %>
+							<% let rowOpen = false; %>
+							<% imagesDlc.forEach((image, index) => { %>
+								<% if (index % 4 === 0) { %>
+									<% if (rowOpen) { %>
+									</div>
+								<% } %>
+								<div class="games-row">
+									<% rowOpen = true; %>
+								<% } %>
+								<a href="/dlc_page/<%= image.id %>">
+									<img class="game-image-l" src="<%= image.path %>">
+								</a>
+							<% }); %>
+							<% if (rowOpen) { %>
+							</div>
+						<% } %>
+					<% } %>
+				</div>
 			</div>
+
 		</div>
 	</body>
-</html></section><footer></footer></body></html>
+</html></div></body></html></section><footer></footer></body></html>
