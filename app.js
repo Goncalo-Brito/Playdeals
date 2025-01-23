@@ -30,11 +30,9 @@ app.use("/gameimages", require("./routes/gameimageRouter"));
 
 app.use("/dlcs", require("./routes/dlcRoutes"));
 
-app.use("/giftcard", require("./routes/giftcardRoutes"));
+app.use("/giftcards", require("./routes/giftcardRoutes"));
 
-app.get("/new_auction", (req, res) => {
-    res.render("addauctionspage", { title: "New Auction" }); 
-});
+app.use("/auctions", require("./routes/auctionRoutes"));
 
 app.get("/login", (req, res) => {
   res.render("login", { title: "Login Page" }); 
@@ -160,7 +158,7 @@ app.get("/store", async (req, res) => {
         },
       });
 
-      const responseGiftCard = await fetch("http://localhost:3000/giftcard/", {
+      const responseGiftCard = await fetch("http://localhost:3000/giftcards/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -384,7 +382,7 @@ app.get("/gift_card_page/:id", async (req, res) => {
   const giftcard = [];
 
     try {
-      const response = await fetch("http://localhost:3000/giftcard/", {
+      const response = await fetch("http://localhost:3000/giftcards/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -424,45 +422,63 @@ app.get("/gift_card_page/:id", async (req, res) => {
     }
 });
 
-app.get("/new_dlc", (req, res) => {
-    res.render("adddlcpage", { title: "New DLC" }); 
+//__________________________________________________________________________________________________________
+
+app.get("/deals", async (req, res) => {
+
+
+  try {
+    const response = await fetch("http://localhost:3000/auctions/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error trying to GET auctions: ${response.statusText}`);
+    }
+
+    const dataAuctions = await response.json();
+    const auctions = dataAuctions.auctions;
+
+    res.render("discoveryauctions", {
+      auctions: auctions
+    });
+
+  } catch (error) {
+    console.error("Error trying to GET games:", error);
+  }
 });
 
-app.get("/new_game", (req, res) => {
-    res.render("addgamepage", { title: "New Game" }); 
+
+//__________________________________________________________________________________________________________
+
+app.get("/auction_page/:id", (req, res) => {
+  res.render("auctionpage", { title: "Auction" }); 
 });
 
-app.get("/auction_page", (req, res) => {
-    res.render("auctionpage", { title: "Auction" }); 
-});
 
-app.get("/gift_card_page", (req, res) => {
-    res.render("cardpage", { title: "Gift Card" }); 
-});
 
 app.get("/cart_page", (req, res) => {
-    res.render("cartpage", { title: "Your Cart" }); 
-});
-
-app.get("/contact_page", (req, res) => {
-    res.render("contactpage", { title: "Contact us" }); 
-});
-
-app.get("/auctions", (req, res) => {
-    res.render("discoveryauctions", { title: "Auctions" }); 
+  res.render("cartpage", { title: "Your Cart" }); 
 });
 
 app.get("/payment", (req, res) => {
-    res.render("payment", { title: "Payment" }); 
+  res.render("payment", { title: "Payment" }); 
 });
 
 app.get("/profile", (req, res) => {
-    res.render("profilepage", { title: "Profile" }); 
+  res.render("profilepage", { title: "Profile" }); 
 });
 
 app.get("/redeem", (req, res) => {
-    res.render("redeempage", { title: "Redeem" }); 
+  res.render("redeempage", { title: "Redeem" }); 
 });
+
+
+//__________________________________________________________________________________________________________
+
 
 app.get("/staff_page", (req, res) => {
     res.render("staffpage", { title: "Staff" }); 
@@ -479,6 +495,19 @@ app.get("/update_dlc", (req, res) => {
 app.get("/update_game", (req, res) => {
     res.render("updategamepage", { title: "Update" }); 
 });
+
+app.get("/new_dlc", (req, res) => {
+  res.render("adddlcpage", { title: "New DLC" }); 
+});
+
+app.get("/new_game", (req, res) => {
+  res.render("addgamepage", { title: "New Game" }); 
+});
+
+app.get("/new_auction", (req, res) => {
+  res.render("addauctionspage", { title: "New Auction" }); 
+});
+
 
 const PORT = process.env.PORT || 3000;
 

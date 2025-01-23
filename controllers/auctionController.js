@@ -3,10 +3,10 @@ const Auction = require("../models/Auction");
 exports.getAll = async (req, res, next) => {
     try {
         const [auctions, _] = await Auction.getAll();
-        res.render("discoveryauctions", { auctions });
+        res.status(200).json({ auctions: auctions });
     } catch (error) {
         console.log(error);
-        next(error);
+        res.status(500).json({ message: "An error occurred", error: error.message });
     }
 }
 

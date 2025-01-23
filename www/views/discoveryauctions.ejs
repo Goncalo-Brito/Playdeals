@@ -13,100 +13,23 @@
         <div class="navbar-space"></div>
         <div class="container" style="width:50%; margin-top: 1rem; gap: 1rem;">
             <h1 id="games">Current Auctions</h1>
-
-            <a href="/auction_page">
-                <div class="container horizontal-grid grid-object-l" style="gap: 1rem">   
-                    <div class="grid-object-s">
-                        <img class="game-image" src="../images/auctions/auction1.png" alt="game" style="height: 10rem;">
-                        <div class="horizontal-grid" style="gap:.5rem">
-                            <img class="game-image-s" src="../images/auctions/auction_1.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_2.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_3.png" alt="game">
+            <% auctions.forEach((auction, index) => { %>
+                <a href="/auction_page/<%= auction.AuctionID %>" style="width: 100%;">
+                    <div class="container horizontal-grid grid-object-l" style="gap: 1rem;">   
+                        <div class="vertical-grid grid-object-m">
+                            <h3><%= auction.AuctionTittle %></h3>
+                            <div class="horizontal-grid center">
+                                <p style="color: #f0bb28;">Latest bidding value:</p>
+                                <h1>&nbsp;&nbsp;</h1>
+                                <p style="color: #339941;"><%= auction.AuctionInitialValue %></p>
+                            </div>
                         </div>
-                    </div>   
-                    <div class="grid-object-l" style="margin-left: 2rem">
-                        <div class="horizontal-grid left">
-                            <h3>Tomb Raider - Every Game for PlayStation 1</h3>
-                        </div>
-                        <p>Tomb Raider explores the intense origin story of Lara Croft and her ascent from a young woman to a hardened survivor.</p>
-                        <div class="horizontal-grid left">
-                            <p style="color: #f0bb28;">Latest bidding value:</p>
-                            <h1>&nbsp;&nbsp;</h1>
-                            <p style="color: #339941;">345.95€</p>
+                        <div class="vertical-grid left grid-object-m">
+                            <p><%= auction.Description %></p>
                         </div>
                     </div>
-                </div>
-            </a>
-            <a href="/auction_page">
-                <div class="container horizontal-grid grid-object-l" style="gap: 1rem">   
-                    <div class="grid-object-s">
-                        <img class="game-image" src="../images/auctions/auction1.png" alt="game" style="height: 10rem;">
-                        <div class="horizontal-grid" style="gap:.5rem">
-                            <img class="game-image-s" src="../images/auctions/auction_1.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_2.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_3.png" alt="game">
-                        </div>
-                    </div>   
-                    <div class="grid-object-l" style="margin-left: 2rem">
-                        <div class="horizontal-grid left">
-                            <h3>Tomb Raider - Every Game for PlayStation 1</h3>
-                        </div>
-                        <p>Tomb Raider explores the intense origin story of Lara Croft and her ascent from a young woman to a hardened survivor.</p>
-                        <div class="horizontal-grid left">
-                            <p style="color: #f0bb28;">Latest bidding value:</p>
-                            <h1>&nbsp;&nbsp;</h1>
-                            <p style="color: #339941;">345.95€</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="/auction_page">
-                <div class="container horizontal-grid grid-object-l" style="gap: 1rem">   
-                    <div class="grid-object-s">
-                        <img class="game-image" src="../images/auctions/auction1.png" alt="game" style="height: 10rem;">
-                        <div class="horizontal-grid" style="gap:.5rem">
-                            <img class="game-image-s" src="../images/auctions/auction_1.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_2.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_3.png" alt="game">
-                        </div>
-                    </div>   
-                    <div class="grid-object-l" style="margin-left: 2rem">
-                        <div class="horizontal-grid left">
-                            <h3>Tomb Raider - Every Game for PlayStation 1</h3>
-                        </div>
-                        <p>Tomb Raider explores the intense origin story of Lara Croft and her ascent from a young woman to a hardened survivor.</p>
-                        <div class="horizontal-grid left">
-                            <p style="color: #f0bb28;">Latest bidding value:</p>
-                            <h1>&nbsp;&nbsp;</h1>
-                            <p style="color: #339941;">345.95€</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="/auction_page">
-                <div class="container horizontal-grid grid-object-l" style="gap: 1rem">   
-                    <div class="grid-object-s">
-                        <img class="game-image" src="../images/auctions/auction1.png" alt="game" style="height: 10rem;">
-                        <div class="horizontal-grid" style="gap:.5rem">
-                            <img class="game-image-s" src="../images/auctions/auction_1.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_2.png" alt="game">
-                            <img class="game-image-s" src="../images/auctions/auction_3.png" alt="game">
-                        </div>
-                    </div>   
-                    <div class="grid-object-l" style="margin-left: 2rem">
-                        <div class="horizontal-grid left">
-                            <h3>Tomb Raider - Every Game for PlayStation 1</h3>
-                        </div>
-                        <p>Tomb Raider explores the intense origin story of Lara Croft and her ascent from a young woman to a hardened survivor.</p>
-                        <div class="horizontal-grid left">
-                            <p style="color: #f0bb28;">Latest bidding value:</p>
-                            <h1>&nbsp;&nbsp;</h1>
-                            <p style="color: #339941;">345.95€</p>
-                        </div>
-                    </div>
-                </div>
-            </a>            
-
+                </a>
+            <% }); %>
         </div>
     </section>
     <footer>
