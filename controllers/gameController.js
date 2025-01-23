@@ -12,83 +12,19 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
     try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("staffpage", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
+        const [result] = await Game.getById(req.params.id);
+        const game = result[0];
 
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("adddlcpage", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
+        if (!game) {
+            return res.status(404).json({ message: "Game not found" });
+        }
 
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("updatedlcpage", { game });
+        res.status(200).json({ game });
     } catch (error) {
-        console.log(error);
-        next(error);
+        console.error("Error in getById:", error.message);
+        res.status(500).json({ message: "Internal server error", error: error.message });
     }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("gamepage", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("cartpage", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("profile", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("dlcpage", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await Game.getById(req.params.id);
-        res.render("payment", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
+};
 
 exports.create = async (req, res, next) => {
     let { gamename, gamecompany, gameprice, gamereleasedate, gamePEGI, gameplatform, gamediscount, featuredgame, gamestatus, gamedescription } = req.body;
