@@ -560,6 +560,7 @@ app.get("/staff_page", async (req, res) => {
 // ----------------------------------------------------------------
     console.log("DLCS:");
     console.log(dlcimagesPath);
+    console.log(dlcimagesPath);
 
     res.render("staffpage", {
       title: "Staff",
