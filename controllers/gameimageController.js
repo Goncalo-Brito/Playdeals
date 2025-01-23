@@ -13,6 +13,16 @@ exports.getAll = async (req, res, next) => {
 exports.getById = async (req, res, next) => {
     try {
         const [[game, _]] = await GameImage.getById(req.params.id);
+        res.render("gamepage", { game });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+exports.getById = async (req, res, next) => {
+    try {
+        const [[game, _]] = await GameImage.getById(req.params.id);
         res.render("staffpage", { game });
     } catch (error) {
         console.log(error);
@@ -44,16 +54,6 @@ exports.getById = async (req, res, next) => {
     try {
         const [[game, _]] = await GameImage.getById(req.params.id);
         res.render("homepage", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await GameImage.getById(req.params.id);
-        res.render("gamepage", { game });
     } catch (error) {
         console.log(error);
         next(error);

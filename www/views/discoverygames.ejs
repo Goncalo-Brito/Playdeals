@@ -33,8 +33,8 @@
                     <div class="games-row">
                     <% rowOpen = true; %>
                 <% } %>
-                    <a href="/game_page">
-                        <img class="pad-1-2 game-image" src="<%= gameimage %>">
+                    <a href="/game_page/<%= gameimage.id %>">
+                        <img class="pad-1-2 game-image" src="<%= gameimage.path %>">
                     </a>
                 <% }); %>
             <% if (rowOpen) { %></div><% } %>
@@ -48,8 +48,8 @@
                     <div class="games-row">
                     <% rowOpenDlc = true; %>
                 <% } %>
-                    <a href="/game_page">
-                        <img class="pad-1-2 game-image" src="<%= dlcimage %>">
+                    <a href="/dlc_page/<%= dlcimage.id %>">
+                        <img class="pad-1-2 game-image" src="<%= dlcimage.path %>">
                     </a>
                 <% }); %>
             <% if (rowOpenDlc) { %></div><% } %>
@@ -63,8 +63,8 @@
                     <div class="games-row">
                     <% rowOpenAuctions = true; %>
                 <% } %>
-                    <a href="/game_page">
-                        <img class="pad-1-2 game-image" src="<%= giftcard %>">
+                    <a href="/gift_card_page/<%= giftcard.id %>">
+                        <img class="pad-1-2 game-image" src="<%= giftcard.path %>">
                     </a>
                 <% }); %>
             <% if (rowOpenDlc) { %></div><% } %>

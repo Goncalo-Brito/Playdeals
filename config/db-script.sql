@@ -4,7 +4,7 @@ use playdeals;
 
 Create table if not exists Auctions (
 	AuctionID int auto_increment,
-    AuctionInitialValue int not null,
+    AuctionInitialValue decimal(10, 2) not null,
     Status varchar(16) not null,
     StartDate date not null,
     EndDate date not null,
@@ -16,7 +16,7 @@ Create table if not exists Games (
 	GameID int auto_increment,
     GameName varchar(64) not null,
     GameCompany varchar(32) not null,
-    GamePrice int not null,
+    GamePrice decimal(10, 2) not null,
     GameReleaseDate date,
     GamePEGI int,
     GamePlatform varchar(4) not null,
@@ -30,7 +30,7 @@ Create table if not exists Games (
 Create table if not exists DLCs (
 	DLCID int auto_increment,
     DLCName varchar(32) not null,
-    DLCPrice int not null,
+    DLCPrice decimal(10, 2) not null,
     DLCReleaseDate date,
     DLCStatus varchar(16) not null,
     DLCDiscount int,
@@ -38,14 +38,6 @@ Create table if not exists DLCs (
     GameID int not null,
     primary key(DLCID),
     foreign key(GameID) references Games(GameID)
-);
-
-Create table if not exists Address (
-	AddressID int auto_increment,
-    Country varchar(64) not null,
-    Street varchar(64) not null,
-    PostalCode varchar(8) not null,
-    primary key(addressID)
 );
 
 Create table if not exists Users (
@@ -57,9 +49,7 @@ Create table if not exists Users (
     Pass varchar(255) not null,
     CreationDate date not null,
     UserType char not null,
-    AddressID int, -- Needs to be optional
-	primary key(UserID),
-    foreign key(AddressID) references Address(AddressID)
+	primary key(UserID)
 );
 
 Create table if not exists CardsInfo (
@@ -94,14 +84,14 @@ Create table if not exists GameImage (
 
 Create table if not exists GiftCards (
 	GiftCardID int auto_increment,
-    GFCValue int not null,
+    GFCValue decimal(10, 2) not null,
     GFCStatus varchar(16) not null,
     Primary key(GiftCardID)
 );
 
 Create table if not exists Biddings (
 	BiddingID int auto_increment,
-    BiddingValue int not null,
+    BiddingValue decimal(10, 2) not null,
     UserID int not null,
     AuctionID int not null, 
     primary key(BiddingID),
@@ -122,7 +112,7 @@ Create table if not exists CommentsLog (
 Create table if not exists PurcharseLog (
 	PurcharseLogID int auto_increment,
     PurchaseDate datetime not null,
-    PurchasePrice int not null,
+    PurchasePrice decimal(10, 2) not null,
     ItemKey varchar(16) not null,
     UserID int not null,
     GameID int, -- Needs to be optional
@@ -153,19 +143,19 @@ INSERT INTO Auctions (AuctionInitialValue, Status, StartDate, EndDate, Descripti
 
 -- Games: -----------------------------------------------------------
 INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('The Last of Us Part II', 'Naughty Dog', 60, '2020-06-19', 18, 'PS4', 10, TRUE, 'Available', 'A post-apocalyptic action-adventure game');
+    VALUES ('The Last of Us Part II', 'Naughty Dog', 59.99, '2020-06-19', 18, 'PS4', 10, TRUE, 'Available', 'A post-apocalyptic action-adventure game');
 
 INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('God of War Ragnarok', 'Santa Monica Studio', 70, '2022-11-09', 18, 'PS5', 15, TRUE, 'Available', 'Epic action-adventure game based on Norse mythology');
+    VALUES ('God of War Ragnarok', 'Santa Monica Studio', 69.99, '2022-11-09', 18, 'PS5', 15, TRUE, 'Available', 'Epic action-adventure game based on Norse mythology');
 
 INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Horizon Forbidden West', 'Guerrilla Games', 60, '2022-02-18', 16, 'PS5', 0, FALSE, 'Available', 'Open-world action RPG set in a post-apocalyptic world');
+    VALUES ('Horizon Forbidden West', 'Guerrilla Games', 59.99, '2022-02-18', 16, 'PS5', 0, FALSE, 'Available', 'Open-world action RPG set in a post-apocalyptic world');
 
 INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Spider-Man: Miles Morales', 'Insomniac Games', 50, '2020-11-12', 12, 'PS5', 5, TRUE, 'Available', 'Action-adventure game featuring Miles Morales as Spider-Man');
+    VALUES ('Spider-Man: Miles Morales', 'Insomniac Games', 49.99, '2020-11-12', 12, 'PS5', 5, TRUE, 'Available', 'Action-adventure game featuring Miles Morales as Spider-Man');
 
 INSERT INTO Games (GameName, GameCompany, GamePrice, GameReleaseDate, GamePEGI, GamePlatform, GameDiscount, FeaturedGame, GameStatus, GameDescription) 
-    VALUES ('Uncharted 4: A Thief’s End', 'Naughty Dog', 40, '2016-05-10', 16, 'PS4', 20, TRUE, 'Available', 'Action-adventure game with treasure hunting and exploration');
+    VALUES ('Uncharted 4: A Thief’s End', 'Naughty Dog', 39.99, '2016-05-10', 16, 'PS4', 20, TRUE, 'Available', 'Action-adventure game with treasure hunting and exploration');
 
 -- DLC's: -----------------------------------------------------------
 
@@ -175,34 +165,18 @@ INSERT INTO DLCs (DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLC
 INSERT INTO DLCs (DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) 
     VALUES ('The City That Never Sleeps', 15, '2018-09-28', 'Available', 10, 'Story DLC for Spider-Man with new missions and villains', 4);
 
--- Adress: ----------------------------------------------------------
-INSERT INTO Address (Country, Street, PostalCode) 
-    VALUES ('United States', '123 Main St', '90210');
-
-INSERT INTO Address (Country, Street, PostalCode) 
-    VALUES ('United Kingdom', '45 Baker Street', 'W1U 8EW');
-
-INSERT INTO Address (Country, Street, PostalCode) 
-    VALUES ('Canada', '789 Maple Ave', 'K1A 0B1');
-
-INSERT INTO Address (Country, Street, PostalCode) 
-    VALUES ('Australia', '12 Kangaroo Rd', '3000');
-
-INSERT INTO Address (Country, Street, PostalCode) 
-    VALUES ('Germany', '56 Berliner Str', '10115');
-
 -- Users: -----------------------------------------------------------
-INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType, AddressID) 
-    VALUES ('gamer123', 'John', 'Doe', 'johndoe@example.com', 'password123', '2024-12-01', 'A', 1);
+INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType) 
+    VALUES ('gamer123', 'John', 'Doe', 'johndoe@example.com', 'password123', '2024-12-01', 'A');
 
-INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType, AddressID) 
-    VALUES ('playstationfan', 'Emily', 'Smith', 'emilysmith@example.com', 'pass456', '2024-12-10', 'U', 2);
+INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType) 
+    VALUES ('playstationfan', 'Emily', 'Smith', 'emilysmith@example.com', 'pass456', '2024-12-10', 'U');
 
-INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType, AddressID) 
-    VALUES ('pslover', 'Michael', 'Brown', 'michaelbrown@example.com', 'mypassword', '2025-01-05', 'S', 3);
+INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType) 
+    VALUES ('pslover', 'Michael', 'Brown', 'michaelbrown@example.com', 'mypassword', '2025-01-05', 'S');
 
-INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType, AddressID) 
-    VALUES ('sonyfanatic', 'Alice', 'Johnson', 'alicejohnson@example.com', 'alicepass', '2025-01-10', 'S', 4);
+INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType) 
+    VALUES ('sonyfanatic', 'Alice', 'Johnson', 'alicejohnson@example.com', 'alicepass', '2025-01-10', 'S');
 
 INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType) 
     VALUES ('gamelord', 'David', 'Lee', 'davidlee@example.com', 'davidpass', '2024-11-30', 'U');

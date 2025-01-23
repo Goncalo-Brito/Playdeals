@@ -3,10 +3,10 @@ const DLC = require("../models/DLC");
 exports.getAll = async (req, res, next) => {
     try {
         const [DLCs, _] = await DLC.getAll();
-        res.render("discoverygames", { DLCs });
+        res.status(200).json({ dlcs: DLCs });
     } catch (error) {
         console.log(error);
-        next(error);
+        res.status(500).json({ message: "An error occurred", error: error.message });
     }
 }
 

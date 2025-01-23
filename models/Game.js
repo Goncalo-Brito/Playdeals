@@ -47,10 +47,10 @@ class Game {
     }
 
     static getById(id) {
-        let sql = `select * from games where GameID = ${id}`;
-
-        return database.execute(sql);
+        let sql = `SELECT * FROM games WHERE GameID = ?`;
+        return database.execute(sql, [id]);
     }
+    
 
     async updateById(id) {
         let sql = `update games set GameName = ?, GameCompany = ?, GamePrice = ?, GameReleaseDate = ?, GamePEGI = ?, GamePlatform = ?, GameDiscount = ?, FeaturedGame = ?, 

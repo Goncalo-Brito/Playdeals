@@ -37,8 +37,8 @@
                     <div class="games-row">
                     <% rowOpen = true; %>
                 <% } %>
-                    <a href="/game_page">
-                        <img class="pad-1-2 game-image" src="<%= gameimage %>">
+                    <a href="/game_page/<%= gameimage.id %>">
+                        <img class="pad-1-2 game-image" src="<%= gameimage.path %>">
                     </a>
                 <% }); %>
             <% if (rowOpen) { %></div><% } %>
