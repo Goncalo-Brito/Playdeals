@@ -25,7 +25,7 @@ class DLC {
     }
 
     static getById(id) {
-        let sql = `select * from dlcs where id = ${id}`;
+        let sql = `select * from dlcs where DLCID = ${id}`;
 
         return database.execute(sql);
     }

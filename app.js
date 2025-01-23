@@ -141,8 +141,6 @@ app.get("/store", async (req, res) => {
   const dlcimages = []
   const gameimagesPath = [];
   const dlcimagesPath = [];
-
-  const dlcs = [];
   
   let giftcards = [];
   const giftcardsPath = [];
@@ -174,11 +172,11 @@ app.get("/store", async (req, res) => {
       }
 
       if (!responseDlcs.ok) {
-        throw new Error(`Error trying to GET game images: ${responseImages.statusText}`);
+        throw new Error(`Error trying to GET game images: ${responseDlcs.statusText}`);
       }
 
       if (!responseGiftCard.ok) {
-        throw new Error(`Error trying to GET game images: ${responseImages.statusText}`);
+        throw new Error(`Error trying to GET game images: ${responseGiftCard.statusText}`);
       }
 
       const dataimages = await responseImages.json();
@@ -195,7 +193,7 @@ app.get("/store", async (req, res) => {
           let gameimage = Arrayimages[i];
           if (gameimage.ImageName.includes("_1")) { //jogo
             gameimages.push(gameimage);
-          } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1")) { //dlc
+          } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1") && !gameimage.ImageName.includes("_0")) { //dlc
             dlcimages.push(gameimage);
           }
         }
@@ -296,7 +294,7 @@ app.get('/game_page/:id', async (req, res) => {
 
         if (image.GameID === gameData.game.GameID && !image.ImageName.includes("_")) {
           gameImage = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
-        } else if(image.GameID == gameData.game.GameID && image.ImageName.includes("_") && !image.ImageName.includes("_1")) {
+        } else if(image.GameID == gameData.game.GameID && image.ImageName.includes("_") && !image.ImageName.includes("_1") && !image.ImageName.includes("_0")) {
           for(let j = 0; j < dlcs.length; j++) {
             const dlc = dlcs[j];
             if(image.GameID === dlc.GameID) {
@@ -318,6 +316,112 @@ app.get('/game_page/:id', async (req, res) => {
       console.error("Error fetching game data:", error.message);
       res.status(500).send('Error loading game page');
   }
+});
+
+app.get('/dlc_page/:id', async (req, res) => {
+  const dlcId = req.params.id;
+
+  try {
+      const response = await fetch(`http://localhost:3000/dlcs/${dlcId}`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! Status: ${response.status}, Response: ${errorText}`);
+      }
+      
+
+      const responseImages = await fetch("http://localhost:3000/gameimages/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!responseImages.ok) {
+        const errorText = await responseImages.text();
+        throw new Error(`HTTP error! Status: ${responseImages.status}, Response: ${errorText}`);
+      }
+
+      const dlcData = await response.json();
+      const dlc = dlcData.dlc;
+
+      const gameImageData = await responseImages.json();
+      const gameImages = gameImageData.gameimages;
+
+      const arrayImage = [];
+      let dlcImage = "";
+      let gameImage = "";
+
+      for(let i = 0; i < gameImages.length; i++) {
+        const image = gameImages[i];
+        if(image.GameID === dlc.GameID && image.ImageName.includes("_0")) {
+          dlcImage = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+        } else if(image.GameID === dlc.GameID && image.ImageName.includes("_1")) {
+          gameImage = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+        }
+      }
+
+      res.render('dlcpage', {
+        dlc: dlc,
+        gameImage : gameImage,
+        dlcImage : dlcImage
+      });
+  } catch (error) {
+      console.error("Error fetching game data:", error.message);
+      res.status(500).send('Error loading game page');
+  }
+});
+
+app.get("/gift_card_page/:id", async (req, res) => {
+  const giftcardID = req.params.id;
+  let giftcards = [];
+  const giftcardsPath = [];
+  const giftcard = [];
+
+    try {
+      const response = await fetch("http://localhost:3000/giftcard/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error trying to GET game images: ${response.statusText}`);
+      }
+
+      const dataGiftcards = await response.json();
+      giftcards = dataGiftcards.giftcards;
+
+      for (let i = 0; i < giftcards.length; i++) {
+        const giftC = giftcards[i];
+        const imagePath = `../images/giftcards/${giftC.GiftCardID}.png`;
+
+        if(giftC.GiftCardID == giftcardID) {
+          giftcard.push({
+            path: imagePath,
+            value: giftC.GFCValue,
+          });
+        } else {
+          giftcardsPath.push({
+            path: imagePath,
+            id: giftC.GiftCardID,
+          });
+        }
+      }
+      
+      res.render("cardpage", {
+        giftcard: giftcard,
+        giftcardsPath: giftcardsPath
+      });
+    } catch (error) {
+      console.error("Error trying to GET gift images:", error);
+    }
 });
 
 app.get("/new_dlc", (req, res) => {
@@ -346,10 +450,6 @@ app.get("/contact_page", (req, res) => {
 
 app.get("/auctions", (req, res) => {
     res.render("discoveryauctions", { title: "Auctions" }); 
-});
-
-app.get("/dlc_page", (req, res) => {
-    res.render("dlcpage", { title: "DLC" }); 
 });
 
 app.get("/payment", (req, res) => {
