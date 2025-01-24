@@ -33,7 +33,7 @@ exports.getLogin = async (req, res, next) => {
                     return res.status(500).json({ message: "Error comparing passwords." });
                 }
                 if (isMatch) {
-                    req.session.user = { id: user.id, username: user.username };
+                    req.session.user = { id: user.UserID, username: user.UserName };
                     res.status(200).json({ user });
                 } else {
                     res.status(404).json({ message: "Invalid username or password." });
