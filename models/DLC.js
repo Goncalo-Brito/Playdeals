@@ -1,21 +1,32 @@
 const database = require("../config/database");
 
 class DLC {
-    constructor(DLCname, DLCprice, DLCreleasedate, DLCstatus, DLCdiscount, DLCdescription, gameID) {
-        this.DLCname = DLCname;
-        this.DLCprice = DLCprice;
-        this.DLCreleasedate = DLCreleasedate;
-        this.DLCstatus = DLCstatus;
-        this.DLCdiscount = DLCdiscount;
-        this.DLCdescription = DLCdescription;
-        this.gameID = gameID;
+    constructor(DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) {
+        this.DLCName = DLCName;
+        this.DLCPrice = DLCPrice;
+        this.DLCReleaseDate = DLCReleaseDate;
+        this.DLCStatus = DLCStatus;
+        this.DLCDiscount = DLCDiscount;
+        this.DLCDescription = DLCDescription;
+        this.GameID = GameID;
     }
 
     async create() {
-        let sql = `insert into dlcs(DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) 
-                   values (${this.DLCname}, ${this.DLCprice}, ${this.DLCreleasedate}, ${this.DLCstatus}, ${this.DLCdiscount}, ${this.DLCdescription}, ${this.gameID})`;
 
-        return await database.execute(sql);
+        let sql = `insert into dlcs(DLCName, DLCPrice, DLCReleaseDate, DLCStatus, DLCDiscount, DLCDescription, GameID) 
+        values (?, ?, ?, ?, ?, ?, ?)`;
+
+        const params = [
+                    this.DLCName, 
+                    this.DLCPrice, 
+                    this.DLCReleaseDate, 
+                    this.DLCStatus, 
+                    this.DLCDiscount, 
+                    this.DLCDescription, 
+                    this.GameID
+                ];
+
+        return await database.execute(sql, params);
     }
 
     static getAll() {

@@ -27,9 +27,9 @@ exports.getById = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    let { dlcname, dlcprice, dlcreleasedate, dlcstatus,dlcdiscount, dlcdescription, GameID } = req.body;
+    let { DLCName, DLCPrice, DLCReleaseDate, DLCStatus,DLCDiscount, DLCDescription, GameID } = req.body;
 
-    let dlc = new DLC(dlcname, dlcprice, dlcreleasedate, dlcstatus, dlcdiscount, dlcdescription, GameID);
+    let dlc = new DLC(DLCName, DLCPrice, DLCReleaseDate, DLCStatus,DLCDiscount, DLCDescription, GameID);
 
     try {
         await dlc.create();

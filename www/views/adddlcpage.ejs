@@ -12,58 +12,62 @@
 		<section>
 			<div class="navbar-space"></div>
 			<div class="container-top">
-				<div class="horizontal-grid">
-					<div class="game-image-s" style="width: 20%;">
-						<div class="image-select-container">
-							<img id="previewImage1" class="game-image" src="../images/games/no_image_small.jpg">
-							<input style="margin-top: 1rem;" type="file" id="image1" name="image1" accept="image/*">
-						</div>    
-						<div class="horizontal-grid" style="gap: .5rem;margin-top: 3rem;">
-							<div class="vertical-grid">
-								<div class="horizontal-grid" style="justify-content: right;">
-									<p>Price:</p>
-									<input id="price" class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
-								</div>
-								<div class="horizontal-grid" style="justify-content: right;">
-									<p>Date:</p>
-									<input id="date" class="textbox-date" type="date" style="margin-left: 1rem;">
+				<form id="createDLCForm">
+					<div class="horizontal-grid">
+						<div class="image-select-container grid-object-s">
+						<img id="previewImage1" class="game-image" src="../images/games/no_image_small.jpg">
+						<input style="margin-top: 1rem;" type="file" id="image1" name="image1" accept="image/*">
+						</div> 
+						<div class="image-select-container grid-object-l">
+						<img id="previewImage2" class="game-image" src="../images/games/no_image_big.jpg">
+						<input style="margin-top: 1rem;" type="file" id="image2" name="image2" accept="image/*">
+						</div>
+					</div>
+					<div class="horizontal-grid">
+						<div class="game-image-s" style="width: 20%;">
+							<div class="horizontal-grid" style="gap: .5rem;margin-top: 3rem;">
+								<div class="vertical-grid">
+									<div class="horizontal-grid" style="justify-content: right;">
+										<p>Price:</p>
+										<input id="price" class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
+									</div>
+									<div class="horizontal-grid" style="justify-content: right;">
+										<p>Date:</p>
+										<input id="date" class="textbox-date" type="date" style="margin-left: 1rem;">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="grid-object-l">
-						<div class="">
-							<div class="vertical-grid">
-								<h1>Title:</h1>
-								<input id="title" class="textbox" type="text" style="width: 20rem;">
+						<div class="grid-object-l">
+							<div class="">
+								<div class="vertical-grid">
+									<h1>Title:</h1>
+									<input id="title" class="textbox" type="text" style="width: 20rem;">
+								</div>
+								<div class="vertical-grid">
+									<p>Description:</p>
+									<textarea id="description" class="textarea" style="width: 40rem;"></textarea>
+								</div>
+								<div class="horizontal-grid" style="justify-content: left;">
+									<h1>Game:</h1>
+								</div>
+								<select name="gameid" id="gameid">
+									<% for(let i = 0; i < games.length; i++) { %>
+										<% const game = games[i]; %>
+										<option id="game" value="<%= game.GameID %>"><%= game.GameName %></option>
+									<% } %>
+								</select>
 							</div>
-							<div class="vertical-grid">
-								<p>Description:</p>
-								<textarea id="description" class="textarea" style="width: 40rem;"></textarea>
-							</div>
-							<div class="horizontal-grid" style="justify-content: left;">
-								<h1>Game:</h1>
-							</div>
-							<select name="platform" id="platform">
-								<% for(let i = 0; i < games.length; i++) { %>
-									<% const game = games[i]; %>
-									<option id="game" value="<%= game.gameid %>"><%= game.GameName %></option>
-								<% } %>
-							</select>
-							<div class="image-select-container" style="margin-top: 2rem;">
-								<img id="previewImage2" class="game-image" src="../images/games/no_image_big.jpg">
-								<input style="margin-top: 1rem;" type="file" id="image2" name="image2" accept="image/*">
-							  </div>
 						</div>
 					</div>
-				</div>
-				<div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 4rem;">
-					<button type="submit" class="button" style="width: auto;">Save</button>
-					<a href="/staff_page" class="button cancel">Cancel</a>
-				</div>
-				<div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 1rem;">
-					<span id="message"></span>
-				</div>
+					<div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 4rem;">
+						<button type="submit" class="button" style="width: auto;">Save</button>
+						<a href="/staff_page" class="button cancel">Cancel</a>
+					</div>
+					<div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 1rem;">
+						<span id="message"></span>
+					</div>
+				</form>
 			</div>
 		</section>
 		<footer>
