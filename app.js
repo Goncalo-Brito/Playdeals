@@ -45,7 +45,7 @@ app.get("/register", (req, res) => {
 });
 
 //ATIVA A AUTH
-//app.use(authMiddleware); 
+app.use(authMiddleware); 
 
 app.get("/", async (req, res) => {
   const FeaturedGames = [];
@@ -188,7 +188,6 @@ app.get("/store", async (req, res) => {
       const dataGiftcards = await responseGiftCard.json();
       giftcards = dataGiftcards.giftcards;
 
-      if (Array.isArray(Arrayimages)) {
         for (let i = 0; i < Arrayimages.length; i++) {
           let gameimage = Arrayimages[i];
           if (gameimage.ImageName.includes("_1") || gameimage.ImageName.includes("no_image_small")) { //jogo
@@ -197,7 +196,6 @@ app.get("/store", async (req, res) => {
             dlcimages.push(gameimage);
           }
         }
-      }
 
       for (let i = 0; i < gameimages.length; i++) {
         const image = gameimages[i];

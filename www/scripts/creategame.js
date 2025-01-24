@@ -14,13 +14,17 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
     let featuredgame = false;
     let today = new Date();
     let todayFormatted = today.toISOString().split('T')[0]; 
-    let imagesource = '../images/games/';
+    let imagesource = 'images/games';
 
     let gamestatus = '';
 
     try {
-        if((gamename == '' || gamecompany == '' || gamePEGI == '' || gameplatform == '' || gamedescription == '' || gameprice == '') && gameprice > 0) {
-            message.textContent = "Please fill every field correctly."; 
+        if(gamename == '' || gamecompany == '' || gamePEGI == '' || gameplatform == '' || gamedescription == '' || gameprice == '' || image1.files.length == 0 || image2.files.length == 0) {
+            message.textContent = "Please fill every field correctly. (Don't forget the images)"; 
+            message.style.color = "red";
+        }
+        else if (parseFloat(gameprice) <= 0 || isNaN(gameprice)) {
+            message.textContent = "Game price must be VALID.";
             message.style.color = "red";
         }
         else {
@@ -56,6 +60,91 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
                     }
                 )
             });
+
+            try {
+                let imagename1 = '';
+                let imagename2 = '';
+                let imageExtension1 = '';
+                let imageExtension2 = '';
+                let gameID = '';
+        
+                const data = await fetch("/games/", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },            
+                });
+        
+                let gaming = await data.json();
+                let games = gaming.games;
+        
+                games.forEach(game => {
+                    gameID = game.GameID;
+                });
+        
+        
+                if(image1.files.length > 0 && image2.files.length > 0){
+                    imageExtension1 = image1.files[0].name.split('.').pop();
+                    imageExtension2 = image2.files[0].name.split('.').pop();
+        
+                    imagename1 = gameID + '_1'; 
+                    imagename2 = gameID; 
+                }
+        
+        
+                const response2 = await fetch("/gameimages/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(
+                        {
+                            imageextention: imageExtension1,
+                            imagesource,
+                            imagename: imagename1,
+                            gameID,
+                        }
+                    )
+                });
+        
+                const response3 = await fetch("/gameimages/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(
+                        {
+                            imageextention: imageExtension2,
+                            imagesource,
+                            imagename: imagename2,
+                            gameID,
+                        }
+                    )
+                });
+            
+            if (!response2.ok && !response3.ok) {
+                if (response2.status === 400 || response3.status === 400) {
+                    message.textContent = "Please fill out all the fields correctly.";
+                    message.style.color = "red";
+                }else if (response2.status === 500 || response3.status === 500) {
+                    message.textContent = "Server error occurred. Please try again later.";
+                    message.style.color = "red";
+                } else {
+                    message.textContent = `Unexpected error: ${
+                        response2.statusText
+                    }`;
+                    message.style.color = "red"; 
+                }
+            } else {
+                window.location.href = "/staff_page";
+            }
+        
+            } catch (error) {
+                console.error(error);
+                message.textContent = "Error fetching game data.";
+                message.style.color = "red";
+            }
+            
         }
 
     } catch (error) {
@@ -63,103 +152,6 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
         message.textContent = "Error invalid game data.";
         message.style.color = "red";
     }
-
-
-    try {
-        let imagename1 = '';
-        let imagename2 = '';
-        let imageExtension1 = '';
-        let imageExtension2 = '';
-        let gameID = '';
-
-        const data = await fetch("/games/", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },            
-        });
-
-        let gaming = await data.json();
-        let games = gaming.games;
-
-        games.forEach(game => {
-            gameID = game.GameID;
-        });
-
-
-        if(image1.files.length > 0 && image2.files.length > 0){
-            imageExtension1 = image1.files[0].name.split('.').pop();
-            imageExtension2 = image2.files[0].name.split('.').pop();
-
-            imagename1 = gameID + "_1"; 
-            imagename2 = gameID; 
-        }
-        else{
-            if (image1.files.length === 0) {
-                imagename1 = "no_image_small";
-                imageExtension1 = "jpg"; 
-            }
-        
-            if (image2.files.length === 0) {
-                imagename2 = "no_image_big"; 
-                imageExtension2 = "jpg";   
-            }
-        }
-
-
-        const response2 = await fetch("/gameimages/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(
-                {
-                    imageextention: imageExtension1,
-                    imagesource,
-                    imagename: imagename1,
-                    gameID,
-                }
-            )
-        });
-
-        const response3 = await fetch("/gameimages/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(
-                {
-                    imageextention: imageExtension2,
-                    imagesource,
-                    imagename: imagename2,
-                    gameID,
-                }
-            )
-        });
-    
-    if (response2.ok && response3.ok) {
-        if (response2.status === 400 || response3.status === 400) {
-            message.textContent = "Please fill out all the fields correctly.";
-            message.style.color = "red";
-        }else if (response2.status === 500 || response3.status === 500) {
-            message.textContent = "Server error occurred. Please try again later.";
-            message.style.color = "red";
-        } else {
-            message.textContent = `Unexpected error: ${
-                response.statusText
-            }`;
-            message.style.color = "red"; 
-        }
-    } else {
-        window.location.href = "/staff_page";
-    }
-
-    } catch (error) {
-        console.error(error);
-        message.textContent = "Error fetching game data.";
-        message.style.color = "red";
-    }
-    
 });
 
 

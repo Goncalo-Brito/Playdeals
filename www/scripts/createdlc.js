@@ -1,38 +1,43 @@
-document.getElementById("createGameForm").addEventListener("submit", async function (e) {
+document.getElementById("createDLCForm").addEventListener("submit", async function (e) {
     e.preventDefault();
-    let dlcname = document.getElementById("title").value;
-    let dlcdescription = document.getElementById("description").value;
-    let dlcprice = document.getElementById("price").value;
-    let dlcreleasedate = document.getElementById("date").value;
-    let selectedgame = document.getElementById("game").value;
-    let image1 = document.getElementById("image1");
-    let image2= document.getElementById("image2");
 
-    let dlcdiscount = 0;
+    const dlcname = document.getElementById("title").value;
+    const dlcdescription = document.getElementById("description").value;
+    const dlcprice = document.getElementById("price").value;
+    let dlcreleaseDate = document.getElementById("date").value;
+    const gameID = document.getElementById("gameid").value;
+    let image1 = document.getElementById("image1");
+    let image2 = document.getElementById("image2");
+
+    const dlcdiscount = 0;
     let today = new Date();
     let todayFormatted = today.toISOString().split('T')[0]; 
-    let imagesource = '../images/games/';
+    const imagesource = 'images/games';
 
     let dlcstatus = '';
 
     try {
-        if((dlcname == '' || dlcdescription == '' || dlcprice == '' || selectedgame == '') && dlcprice > 0) {
-            message.textContent = "Please fill every field correctly."; 
+        if(dlcname == '' || dlcdescription == '' || dlcprice == '' || gameID == '' || image1.files.length == 0 || image2.files.length == 0) {
+            message.textContent = "Please fill every field correctly. (Don't forget the images)";
+            message.style.color = "red";
+        }
+        else if (parseFloat(dlcprice) <= 0 || isNaN(dlcprice)) {
+            message.textContent = "DLC price must be VALID.";
             message.style.color = "red";
         }
         else {
 
-            if (dlcreleasedate == '')
+            if (dlcreleaseDate == '')
             {
-                dlcreleasedate = todayFormatted;
+                dlcreleaseDate = todayFormatted;
             }
 
-            if (todayFormatted >= dlcreleasedate) {
+            if (todayFormatted >= dlcreleaseDate) {
                 dlcstatus = "Available";
             } else {
                 dlcstatus = "TBA";
             }
-
+            
             const response1 = await fetch("/dlcs/", {
                 method: "POST",
                 headers: {
@@ -40,16 +45,109 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
                 },
                 body: JSON.stringify(
                     {
-                        dlcname,
-                        dlcprice,
-                        dlcreleasedate,
-                        dlcdiscount,
-                        dlcstatus,
-                        dlcdescription,
-                        GameID: selectedgame,
+                        DLCName: dlcname,
+                        DLCPrice: dlcprice,
+                        DLCReleaseDate: dlcreleaseDate,
+                        DLCStatus: dlcstatus,
+                        DLCDiscount: dlcdiscount,
+                        DLCDescription: dlcdescription,
+                        GameID: gameID,
                     }
                 )
             });
+
+            try {
+                let imagename1 = '';
+                let imagename2 = '';
+                let imageExtension1 = '';
+                let imageExtension2 = '';
+                let latestDLC = '';
+                let latestDLCGameID = '';
+                let numberOfDlcs = '';
+        
+                const data = await fetch("/dlcs/", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },            
+                });
+        
+                let dlcling = await data.json();
+                let dlcs = dlcling.dlcs;
+        
+                dlcs.forEach(dlcLatest => {
+                    latestDLC = dlcLatest.DLCID;  
+                    latestDLCGameID = dlcLatest.GameID;
+                });
+                
+                dlcs.forEach(dlc => {
+                    if( dlc.DLCID == latestDLC && dlc.GameID == latestDLCGameID)
+                    {
+                        numberOfDlcs = numberOfDlcs + 1;
+                    }
+                });
+        
+                if(image1.files.length > 0 && image2.files.length > 0){
+                    imageExtension1 = image1.files[0].name.split('.').pop();
+                    imageExtension2 = image2.files[0].name.split('.').pop();
+
+                    imagename1 = latestDLC + '_' + numberOfDlcs ; 
+                    imagename2 = latestDLC + '_' + numberOfDlcs + '_0'; 
+                }
+        
+                const response2 = await fetch("/gameimages/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(
+                        {
+                            imageextention: imageExtension1,
+                            imagesource,
+                            imagename: imagename1,
+                            gameID,
+                        }
+                    )
+                });
+        
+                const response3 = await fetch("/gameimages/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(
+                        {
+                            imageextention: imageExtension2,
+                            imagesource,
+                            imagename: imagename2,
+                            gameID,
+                        }
+                    )
+                });
+            
+            if (!response2.ok && !response3.ok) {
+                if (response2.status === 400 || response3.status === 400) {
+                    message.textContent = "Please fill out all the fields correctly.";
+                    message.style.color = "red";
+                }else if (response2.status === 500 || response3.status === 500) {
+                    message.textContent = "Server error occurred. Please try again later.";
+                    message.style.color = "red";
+                } else {
+                    message.textContent = `Unexpected error: ${
+                        response2.statusText
+                    }`;
+                    message.style.color = "red"; 
+                }
+            } else {
+                window.location.href = "/staff_page";
+            }
+        
+            } catch (error) {
+                console.error(error);
+                message.textContent = "Error fetching game data.";
+                message.style.color = "red";
+            }
+            
         }
 
     } catch (error) {
@@ -57,98 +155,8 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
         message.textContent = "Error invalid game data.";
         message.style.color = "red";
     }
-
-
-    try {
-        let imagename1 = '';
-        let imagename2 = '';
-        let imageExtension1 = '';
-        let imageExtension2 = '';
-
-        const data = await fetch("/games/", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },            
-        });
-
-        let gaming = await data.json();
-        let games = gaming.games;
-
-        if(image1.files.length > 0 && image2.files.length > 0){
-            imageExtension1 = image1.files[0].name.split('.').pop();
-            imageExtension2 = image2.files[0].name.split('.').pop();
-
-            imagename1 = selectedgame + "_1"; 
-            imagename2 = selectedgame; 
-        }
-        else{
-            if (image1.files.length === 0) {
-                imagename1 = "no_image_small";
-                imageExtension1 = "jpg"; 
-            }
-        
-            if (image2.files.length === 0) {
-                imagename2 = "no_image_big"; 
-                imageExtension2 = "jpg";   
-            }
-        }
-
-
-        const response2 = await fetch("/gameimages/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(
-                {
-                    imageextention: imageExtension1,
-                    imagesource,
-                    imagename: imagename1,
-                    gameID,
-                }
-            )
-        });
-
-        const response3 = await fetch("/gameimages/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(
-                {
-                    imageextention: imageExtension2,
-                    imagesource,
-                    imagename: imagename2,
-                    gameID,
-                }
-            )
-        });
-    
-    if (response2.ok && response3.ok) {
-        if (response2.status === 400 || response3.status === 400) {
-            message.textContent = "Please fill out all the fields correctly.";
-            message.style.color = "red";
-        }else if (response2.status === 500 || response3.status === 500) {
-            message.textContent = "Server error occurred. Please try again later.";
-            message.style.color = "red";
-        } else {
-            message.textContent = `Unexpected error: ${
-                response.statusText
-            }`;
-            message.style.color = "red"; 
-        }
-    } else {
-        window.location.href = "/staff_page";
-    }
-
-    } catch (error) {
-        console.error(error);
-        message.textContent = "Error fetching game data.";
-        message.style.color = "red";
-    }
-    
 });
+
 
 
 
@@ -178,8 +186,6 @@ document.getElementById('image1').addEventListener('change', function(event) {
 });
 
 
-
-
 document.getElementById('image2').addEventListener('change', function(event) {
     const file = event.target.files[0];
 
@@ -204,5 +210,7 @@ document.getElementById('image2').addEventListener('change', function(event) {
         reader.readAsDataURL(file);
     }
 });
+
+
 
 

@@ -80,21 +80,9 @@ exports.getById = async (req, res, next) => {
     }
 }
 
-exports.getById = async (req, res, next) => {
-    try {
-        const [[game, _]] = await GameImage.getById(req.params.id);
-        res.render("dlcpage", { game });
-    } catch (error) {
-        console.log(error);
-        next(error);
-    }
-}
-
 exports.create = async (req, res, next) => {
     let { imageextention, imagesource, imagename, gameID } = req.body;
-
-    console.log({ imageextention, imagesource, imagename, gameID });
-
+    
     let gameimage = new GameImage(imageextention, imagesource, imagename, gameID);
 
     try {

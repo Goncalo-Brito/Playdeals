@@ -9,11 +9,12 @@ class GameImage {
     }
 
     async create() {
-        let sql = `insert into gameimage(ImageExtention, ImageSource, ImageName, GameID) 
-                   values (${this.imageextention}, ${this.imagesource}, ${this.imagename}, ${this.gameID})`;
-
+        let sql = `INSERT INTO gameimage (ImageExtention, ImageSource, ImageName, GameID) 
+                   VALUES ('${this.imageextention}', '${this.imagesource}', '${this.imagename}', ${this.gameID})`;
+    
         return await database.execute(sql);
     }
+    
 
     static getAll() {
         let sql = "select * from gameimage";

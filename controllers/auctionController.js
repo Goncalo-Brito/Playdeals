@@ -27,13 +27,18 @@ exports.getById = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    let { initialvalue, status, startdate, enddate, description } = req.body;
+    let { AuctionTitle, initialvalue, status, startdate, enddate, description } = req.body;
 
-    let auction = new auction(initialvalue, status, startdate, enddate, description);
+    let auction = new Auction(AuctionTitle, initialvalue, status, startdate, enddate, description);
 
-    auction = await Auction.create();
-
-    res.send("Auction created: " + auction);
+    try {
+        await auction.create();
+        res.status(201).json({ message: "Auction created successfully." });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error creating Auction.");
+        next(error);
+    }
 }
 
 exports.updateById = async (req, res, next) => {
