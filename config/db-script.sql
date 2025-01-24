@@ -219,6 +219,12 @@ INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID)
     VALUES ('jpg', 'images/games', '4_1', 4);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
+    VALUES ('jpg', 'images/games', '4_2', 4);
+
+INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
+    VALUES ('jpg', 'images/games', '4_2_0', 4);
+
+INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
     VALUES ('jpg', 'images/games', '5', 5);
 
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
