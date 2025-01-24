@@ -11,6 +11,29 @@
   <%- include("../components/navbar.ejs") %>
   <section>
     <div class="navbar-space"></div>
+    <div class="container-top" style="width: 60%; display: block; height: 60rem;">
+
+    <form id="createGameForm">
+      <div class="horizontal-grid">
+        <div class="game-image-s" style="width: 40%;">
+          <div class="image-select-container">
+            <img id="previewImage1" class="game-image" src="../images/games/no_image_small.jpg">
+            <input style="margin-top: 1rem;" type="file" id="image1" name="image1" accept="image/*">
+          </div>        
+          <div class="horizontal-grid" style="gap: .5rem;margin-top: 3rem;">
+            <div class="vertical-grid">
+              <div class="horizontal-grid" style="justify-content: left;">
+                <p>Price:</p>
+                <input id="price" class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
+              </div>
+              <div class="horizontal-grid" style="justify-content: left;">
+                <p>Date:</p>
+                <input id="date" class="textbox-date" type="date" style="margin-left: 1rem;">
+              </div>
+              <div class="image-select-container">
+                <img id="previewImage2" class="game-image" src="../images/games/no_image_big.jpg">
+                <input style="margin-top: 1rem;" type="file" id="image2" name="image2" accept="image/*">
+              </div>
     <div class="container-top">
       <form id="createGameForm">
         <div class="vertical-grid">
