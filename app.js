@@ -484,7 +484,7 @@ app.get("/staff_page", async (req, res) => {
 
   let games = []; 
   let dlcs = [];
-  const auctions = [];
+  let auctions = [];
   const gameimages = [];
   const gameimagesPath = [];
   const dlcimages = []; 
@@ -524,12 +524,15 @@ app.get("/staff_page", async (req, res) => {
     const datadlcs = await dlcsResponse.json();
     dlcs = datadlcs.dlcs;
 
+    const dataauctions = await auctionsResponse.json();
+    auctions = dataauctions.auctions;
+
 // ----------------------------------------------------------------
     for (let i = 0; i < Arrayimages.length; i++) {
       let gameimage = Arrayimages[i];
       if (gameimage.ImageName.includes("_1")) { //jogo
         gameimages.push(gameimage);
-      } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1")) { //dlc
+      } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1") && !gameimage.ImageName.includes("_0")) { //dlc
         dlcimages.push(gameimage);
       }
     }
@@ -542,7 +545,7 @@ app.get("/staff_page", async (req, res) => {
 
     for(let i = 0; i < dlcimages.length; i++) {
       const image = dlcimages[i];
-      const imagePath = `../${image.ImageSource}  /${image.ImageName}.${image.ImageExtention}`;
+      const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
       dlcimagesPath.push(imagePath);
     }
 
@@ -557,10 +560,14 @@ app.get("/staff_page", async (req, res) => {
       dlc.DLCReleaseDate = dlc.DLCReleaseDate.substring(0, 10);
       dlcs[i] = dlc;
     }
+
+    for(let i = 0; i < auctions.length; i++) {
+      const auction = auctions[i];
+      auction.EndDate = auction.EndDate.substring(0, 10);
+      auction.StartDate = auction.StartDate.substring(0, 10);
+      auctions[i] = auction;
+    }
 // ----------------------------------------------------------------
-    console.log("DLCS:");
-    console.log(dlcimagesPath);
-    console.log(dlcimagesPath);
 
     res.render("staffpage", {
       title: "Staff",

@@ -11,85 +11,85 @@
   <%- include("../components/navbar.ejs") %>
   <section>
     <div class="navbar-space"></div>
-    <div class="container-top">
+    <div class="container-top" style="width: 60%; display: block; height: 60rem;">
+
+    <form <form id="createGameForm">
       <div class="horizontal-grid">
-        <div class="game-image-s" style="width: 20%;">
-          <img class="game-image" src="../images/games/game9.png">
-          <input style="margin-top: 1rem;" type="file" id="image" name="image" accept="image/*" required>
+        <div class="game-image-s" style="width: 40%;">
+          <div class="image-select-container">
+            <img id="previewImage1" class="game-image" src="../images/games/no_image_small.jpg">
+            <input style="margin-top: 1rem;" type="file" id="image1" name="image1" accept="image/*">
+          </div>        
           <div class="horizontal-grid" style="gap: .5rem;margin-top: 3rem;">
             <div class="vertical-grid">
-              <div class="horizontal-grid" style="justify-content: right;">
+              <div class="horizontal-grid" style="justify-content: left;">
                 <p>Price:</p>
-                <input class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
+                <input id="price" class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
               </div>
-              <div class="horizontal-grid" style="justify-content: right;">
+              <div class="horizontal-grid" style="justify-content: left;">
                 <p>Date:</p>
-                <input class="textbox-date" type="date" style="margin-left: 1rem;">
+                <input id="date" class="textbox-date" type="date" style="margin-left: 1rem;">
               </div>
-              <div class="horizontal-grid" style="justify-content: right;">
-                <p>Stock:</p>
-                <input class="textbox" type="text" placeholder="0" style="width: 8rem; margin-left: 1rem;">
+              <div class="image-select-container">
+                <img id="previewImage2" class="game-image" src="../images/games/no_image_big.jpg">
+                <input style="margin-top: 1rem;" type="file" id="image2" name="image2" accept="image/*">
               </div>
             </div>
           </div>
         </div>
-        <div class="grid-object-l">
+        <div class="grid-object-l" style="margin-left: 5rem;">
           <div class="vertical-grid">
             <div class="vertical-grid">
               <h1>Title:</h1>
-              <input class="textbox" type="text" style="width: 20rem;">
+              <input id="title" class="textbox" type="text" style="width: 20rem;">
               <p>Company Name:</p>
-              <input class="textbox" type="text" style="width: 20rem;">
+              <input id="company" class="textbox" type="text" style="width: 20rem;">
             </div>
             <div class="horizontal-grid">
-              <div class="vertical-grid">
+              <div class="vertical-grid" >
                 <p>PEGI Rating:</p>
-                <input class="textbox" type="text" style="width: 2rem;align-items: left; text-align: center;">
+                <div class="horizontal-grid">
+                  <select name="pegi" id="pegi">
+                    <option value="3">3</option>
+                    <option value="7">7</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                  </select>
+                </div>
               </div>
               <div class="vertical-grid">
                 <p>Platform:</p>
                 <div class="horizontal-grid">
-
-                  <div class="vertical-grid">
-                    <input type="radio" id="PS1" name="platform" value="PS1">
-                    <input type="radio" id="PS2" name="platform" value="PS2">
-                  </div>
-                  <div class="vertical-grid">
-                    <label for="PS1">PS1</label>
-                    <label for="PS2">PS2</label>
-                  </div>
-                  <div class="vertical-grid">
-                    <input type="radio" id="PS3" name="platform" value="PS3">
-                    <input type="radio" id="PS4" name="platform" value="PS4">
-                  </div>
-                  <div class="vertical-grid">
-                    <label for="PS3">PS3</label>
-                    <label for="PS4">PS4</label>
-                  </div>
-                  <div class="vertical-grid">
-                    <input type="radio" id="PS5" name="platform" value="PS5">
-                  </div>
-                  <div class="vertical-grid">
-                    <label for="PS5">PS5</label>
-                  </div>
+                  <select name="platform" id="platform">
+                    <option value="PS1">PS1</option>
+                    <option value="PS2">PS2</option>
+                    <option value="PS3">PS3</option>
+                    <option value="PS4">PS4</option>
+                    <option value="PS5">PS5</option>
+                  </select>
                 </div>
               </div>
             </div>
             <div class="vertical-grid">
               <p>Description:</p>
-              <textarea class="textarea" style="width: 40rem;"></textarea>
+              <textarea id="description" class="textarea" style="width: 40rem;"></textarea>
             </div>
           </div>
         </div>
       </div>
       <div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 4rem;">
-        <a href="/staff_page" class="button">Save</a>
+        <button type="submit" class="button" style="width: auto;">Save</button>
         <a href="/staff_page" class="button cancel">Cancel</a>
       </div>
+      <div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 1rem;">
+        <span id="message"></span>
+      </div>
     </div>
+  </form>
   </section>
   <footer>
-
+  	<script src="../scripts/creategame.js"></script>
   </footer>
 </body>
 </html>

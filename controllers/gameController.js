@@ -33,12 +33,13 @@ exports.create = async (req, res, next) => {
 
     try {
         await game.create();
-        res.send("Game created: " + gamename);
+        res.status(201).json({ message: "Game created successfully." });
     } catch (error) {
         console.log(error);
+        res.status(500).send("Error creating Game.");
         next(error);
     }
-}
+};
 
 exports.updateById = async (req, res, next) => {
     try {
