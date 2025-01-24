@@ -17,8 +17,8 @@ document.getElementById("createDLCForm").addEventListener("submit", async functi
     let dlcstatus = '';
 
     try {
-        if(dlcname == '' || dlcdescription == '' || dlcprice == '' || gameID == '') {
-            message.textContent = "Please fill every field correctly."; 
+        if(dlcname == '' || dlcdescription == '' || dlcprice == '' || gameID == '' || image1.files.length == 0 || image2.files.length == 0) {
+            message.textContent = "Please fill every field correctly. (Don't forget the images)";
             message.style.color = "red";
         }
         else if (parseFloat(dlcprice) <= 0 || isNaN(dlcprice)) {
@@ -93,17 +93,6 @@ document.getElementById("createDLCForm").addEventListener("submit", async functi
 
                     imagename1 = latestDLC + '_' + numberOfDlcs ; 
                     imagename2 = latestDLC + '_' + numberOfDlcs + '_0'; 
-                }
-                else{
-                    if (image1.files.length === 0) {
-                        imagename1 = 'no_image_small';
-                        imageExtension1 = 'jpg'; 
-                    }
-                
-                    if (image2.files.length === 0) {
-                        imagename2 = 'no_image_big'; 
-                        imageExtension2 = 'jpg';   
-                    }
                 }
         
                 const response2 = await fetch("/gameimages/", {

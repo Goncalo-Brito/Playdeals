@@ -1,7 +1,8 @@
 const database = require("../config/database");
 
 class Auction {
-    constructor(initialvalue, status, startdate, enddate, description) {
+    constructor(AuctionTitle, initialvalue, status, startdate, enddate, description) {
+        this.AuctionTitle = AuctionTitle;
         this.initialvalue = initialvalue;
         this.status = status;
         this.startdate = startdate;
@@ -10,11 +11,23 @@ class Auction {
     }
 
     async create() {
-        let sql = `insert into auctions(AuctionInitialValue, Status, StartDate, EndDate, Description) 
-                   values (${this.initialvalue}, ${this.status}, ${this.startdate}, ${this.enddate}, ${this.description})`;
 
-        return await database.execute(sql);
+        let sql = `insert into auctions(AuctionTittle, AuctionInitialValue, Status, StartDate, EndDate, Description) 
+                values (?, ?, ?, ?, ?, ?)`;
+        
+                const params = [
+                            this.AuctionTitle, 
+                            this.initialvalue, 
+                            this.status, 
+                            this.startdate, 
+                            this.enddate, 
+                            this.description
+                        ];
+        
+        return await database.execute(sql, params);
     }
+
+
 
     static getAll() {
         let sql = "select * from auctions";

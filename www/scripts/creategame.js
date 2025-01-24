@@ -19,8 +19,8 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
     let gamestatus = '';
 
     try {
-        if(gamename == '' || gamecompany == '' || gamePEGI == '' || gameplatform == '' || gamedescription == '' || gameprice == '') {
-            message.textContent = "Please fill every field correctly."; 
+        if(gamename == '' || gamecompany == '' || gamePEGI == '' || gameplatform == '' || gamedescription == '' || gameprice == '' || image1.files.length == 0 || image2.files.length == 0) {
+            message.textContent = "Please fill every field correctly. (Don't forget the images)"; 
             message.style.color = "red";
         }
         else if (parseFloat(gameprice) <= 0 || isNaN(gameprice)) {
@@ -89,17 +89,6 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
         
                     imagename1 = gameID + '_1'; 
                     imagename2 = gameID; 
-                }
-                else{
-                    if (image1.files.length === 0) {
-                        imagename1 = 'no_image_small';
-                        imageExtension1 = 'jpg'; 
-                    }
-                
-                    if (image2.files.length === 0) {
-                        imagename2 = 'no_image_big'; 
-                        imageExtension2 = 'jpg';   
-                    }
                 }
         
         
