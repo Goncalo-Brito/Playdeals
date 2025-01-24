@@ -774,6 +774,7 @@ app.get("/cart_page", async (req, res) => {
       const dlcimages = [];
 
       const userid = req.session.user.id;
+      let totalprice = 0;
 
       const cartGames = [];
       const cartDLCs  = [];
@@ -783,24 +784,27 @@ app.get("/cart_page", async (req, res) => {
       const dlcimagesPath = [];
       const giftcardsPath = [];
 
-      for(let i = 0; i < dataCart.length; i++) {
-        if(dataCart[i].UserID == userid) {
-          if(dataCart[i].GameID != null) {
+      for(let i = 0; i < cart.length; i++) {
+        if(cart[i].UserID == userid) {
+          if(cart[i].GameID != null) {
             for(let j = 0; j < games.length; j++) {
-              if(dataCart[i].GameID == games[j].GameID) {
+              if(cart[i].GameID == games[j].GameID) {
                 cartGames.push(games[j]);
+                totalprice += parseFloat(games[j].GamePrice);
               }
             }
-          } else if(dataCart[i].DLCID != null) {
+          } else if(cart[i].DLCID != null) {
             for(let j = 0; j < DLCs.length; j++) {
-              if (dataCart[i].DLCID == DLCs[j].DLCID) {
+              if (cart[i].DLCID == DLCs[j].DLCID) {
                 cartDLCs.push(DLCs[j]);
+                totalprice += parseFloat(DLCs[j].DLCPrice);
               }
             }
-          } else if(dataCart[i].GiftCardID != null) {
+          } else if(cart[i].GiftCardID != null) {
             for(let j = 0; j < GiftCards.length; j++) {
-              if (dataCart[i].GiftCardID == GiftCards[j].GiftCardID) {
-                cartDLCs.push(DLCs[j]);
+              if (cart[i].GiftCardID == GiftCards[j].GiftCardID) {
+                cartGiftCards.push(GiftCards[j]);
+                totalprice += parseFloat(GiftCards[j].GFCValue);
               }
             }
           }
@@ -836,6 +840,7 @@ app.get("/cart_page", async (req, res) => {
 
       res.render("cartpage", {
         userid : userid,
+        totalprice: totalprice, 
         cartGames: cartGames,
         cartDLCs: cartDLCs,
         cartGiftCards: cartGiftCards,
