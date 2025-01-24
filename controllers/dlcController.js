@@ -27,13 +27,18 @@ exports.getById = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    let { commenttext, userID, biddingID } = req.body;
+    let { dlcname, dlcprice, dlcreleasedate, dlcstatus,dlcdiscount, dlcdescription, GameID } = req.body;
 
-    let dlc = new dlc(commenttext, userID, biddingID);
+    let dlc = new DLC(dlcname, dlcprice, dlcreleasedate, dlcstatus, dlcdiscount, dlcdescription, GameID);
 
-    dlc = await DLC.create();
-
-    res.send("DLC created: " + dlc);
+    try {
+        await dlc.create();
+        res.status(201).json({ message: "DLC created successfully." });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error creating DLC.");
+        next(error);
+    }
 }
 
 exports.updateById = async (req, res, next) => {
