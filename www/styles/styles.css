@@ -3,7 +3,8 @@
     --black: #222;
     --lgray: #bbb;
     --dgray: #444;
-    --blue: #1532b3;
+    --dblue: #1532b3;
+    --lblue: #1e90ff:
     --orange: #ff9640;
     --red: #e93838;
     --purple: #381e66;
@@ -131,7 +132,7 @@ form {
     margin: 1rem 0; 
     border: none;
     border-radius: .7rem; 
-    background-color: var(--blue); 
+    background-color: var(--dblue); 
     color: var(--white); 
     font-size: 1rem;
     cursor: pointer; 
@@ -493,3 +494,51 @@ th, td {
     align-items: center; /* Centraliza horizontalmente */
 }
 
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    max-height: 300px; 
+    overflow-y: auto; 
+    border: 1px solid var(--dgray); 
+    border-radius: 8px; 
+    padding: 15px; 
+    background-color: var(--black); 
+    color: var(--white); 
+}
+  
+.chat-message {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--dgray);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+  
+.chat-message:nth-child(odd) {
+    background-color: var(--dgray); 
+}
+  
+.user {
+    font-weight: bold;
+    color: #1e90ff; 
+}
+
+.bid-value {
+    color: #00c853;  
+}
+  
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+  
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: var(--dgray); 
+    border-radius: 4px;
+}
+  
+.chat-box::-webkit-scrollbar-thumb:hover {
+    background-color: var(--lgray);  
+}

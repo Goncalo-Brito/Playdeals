@@ -8,10 +8,18 @@ class Bidding {
     }
 
     async create() {
-        let sql = `insert into biddings(BiddingValue, UserID, AuctionID) 
-                   values (${this.biddingvalue}, ${this.userID}, ${this.auctionID})`;
+        const sql = `insert into biddings(BiddingValue, UserID, AuctionID)
+                        VALUES (?, ?, ?)`;
+        
+        const params = [this.biddingvalue, this.userID, this.auctionID];
 
-        return await database.execute(sql);
+        return await database.execute(sql, params);
+    }
+
+    static getAll() {
+        let sql = "select * from biddings";
+
+        return database.execute(sql);
     }
 
     static getById(id) {
