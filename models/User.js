@@ -14,8 +14,6 @@ class User {
     }
 
     async create() {
-            console.log('Password:', this.pass); 
-
         if (!this.pass) {
             throw new Error('Password is required');
         }

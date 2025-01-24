@@ -13,7 +13,9 @@
         <div class="navbar-space"></div>
         <div class="container" style="width:50%; margin-top: 1rem; gap: 1rem;">
             <h1 id="games">Current Auctions</h1>
-            <% auctions.forEach((auction, index) => { %>
+            <% for(let i = 0; i < auctions.length; i++) { %>
+                <% const auction = auctions[i] %>
+                <% const highestBid = highbid[i] %>
                 <a href="/auction_page/<%= auction.AuctionID %>" style="width: 100%;">
                     <div class="container horizontal-grid grid-object-l" style="gap: 1rem;">
                         <div class="vertical-grid grid-object-m">
@@ -29,9 +31,10 @@
                                 </div>
                             </div>
                             <div class="horizontal-grid center">
-                                <p style="color: #f0bb28;">Latest bidding value:</p>
-                                <h1>&nbsp;&nbsp;</h1>
-                                <p style="color: #339941;"><%= auction.AuctionInitialValue %></p>
+                                    <p style="color: #f0bb28;">Latest bidding value:</p>
+                                    <h1>&nbsp;&nbsp;</h1>
+                                    <p style="color: #339941;"><%= highestBid %></p>
+                                
                             </div>
                         </div>
                         <div class="vertical-grid left grid-object-m">
@@ -39,7 +42,7 @@
                         </div>
                     </div>
                 </a>
-            <% }); %>
+            <% } %>
         </div>
     </section>
     <footer>

@@ -12,13 +12,19 @@ exports.getAll = async (req, res, next) => {
 
 exports.getById = async (req, res, next) => {
     try {
-        const [[auction, _]] = await Auction.getById(req.params.id);
-        res.render("auctionpage", { auction });
+        const [result] = await Auction.getById(req.params.id);
+        const auction = result[0];
+
+        if (!auction) {
+            return res.status(404).json({ message: "Auction not found" });
+        }
+
+        res.status(200).json({ auction });
     } catch (error) {
-        console.log(error);
-        next(error);
+        console.error("Error in getById:", error.message);
+        res.status(500).json({ message: "Internal server error", error: error.message });
     }
-}
+};
 
 exports.create = async (req, res, next) => {
     let { initialvalue, status, startdate, enddate, description } = req.body;

@@ -53,15 +53,7 @@ Create table if not exists Users (
 	primary key(UserID)
 );
 
-Create table if not exists CardsInfo (
-	CardID int auto_increment,
-    CardNumber varchar(16) not null,
-    CardCVC varchar(3) not null,
-    CardVal date not null,
-    UserID int not null,
-    primary key(CardID),
-    foreign key(UserID) references Users(UserID)
-);
+
 
 Create table if not exists ProfilePictures (
 	PFPID int auto_increment,
@@ -182,22 +174,6 @@ INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType)
 INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType) 
     VALUES ('gamelord', 'David', 'Lee', 'davidlee@example.com', 'davidpass', '2024-11-30', 'U');
 
--- Cards: -----------------------------------------------------------
-INSERT INTO CardsInfo (CardNumber, CardCVC, CardVal, UserID) 
-    VALUES (1234567812345678, 123, '2026-12-31', 1);
-
-INSERT INTO CardsInfo (CardNumber, CardCVC, CardVal, UserID) 
-    VALUES (8765432187654321, 456, '2025-11-30', 2);
-
-INSERT INTO CardsInfo (CardNumber, CardCVC, CardVal, UserID) 
-    VALUES (1111222233334444, 789, '2027-10-31', 3);
-
-INSERT INTO CardsInfo (CardNumber, CardCVC, CardVal, UserID) 
-    VALUES (5555666677778888, 101, '2024-09-30', 4);
-
-INSERT INTO CardsInfo (CardNumber, CardCVC, CardVal, UserID) 
-    VALUES (9999000011112222, 202, '2025-08-31', 5);
-
 -- Profile Images: --------------------------------------------------
 INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
     VALUES ('jpg', 'images/users', '1', 1);
@@ -291,67 +267,6 @@ INSERT INTO Biddings (BiddingValue, UserID, AuctionID)
 
 INSERT INTO Biddings (BiddingValue, UserID, AuctionID) 
     VALUES (1050, 5, 5);
-
--- Comments Auctions: -----------------------------------------------
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Great auction! Hoping to win this.', 1, 1);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('This item looks amazing!', 2, 2);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('I really want this collectible.', 3, 3);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('This will be a nice addition to my collection.', 4, 4);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Good luck to all bidders!', 5, 5);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('I hope I win this rare item.', 1, 1);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Nice bid! I might increase mine.', 2, 2);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('This auction is getting competitive!', 3, 3);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('I like the description of the item.', 4, 4);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Let’s see who wins this!', 5, 5);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('The starting bid was very reasonable.', 1, 1);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('I’ll be back for the next auction.', 2, 2);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('I hope this auction gets extended.', 3, 3);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Can’t wait to see the final result.', 4, 4);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Nice auction setup!', 5, 5);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Great item. Worth every penny.', 1, 1);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('I love bidding on unique items.', 2, 2);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('Looking forward to more auctions like this.', 3, 3);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('The competition is tough!', 4, 4);
-
-INSERT INTO CommentsLog (CommentText, UserID, BiddingID) 
-    VALUES ('This has been a fun experience.', 5, 5);
 
 -- Purchase Logs: ---------------------------------------------------
 INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 

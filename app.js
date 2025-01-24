@@ -34,6 +34,8 @@ app.use("/giftcards", require("./routes/giftcardRoutes"));
 
 app.use("/auctions", require("./routes/auctionRoutes"));
 
+app.use("/bids", require("./routes/biddingRoutes"));
+
 app.get("/login", (req, res) => {
   res.render("login", { title: "Login Page" }); 
 });
@@ -422,8 +424,6 @@ app.get("/gift_card_page/:id", async (req, res) => {
     }
 });
 
-//__________________________________________________________________________________________________________
-
 app.get("/deals", async (req, res) => {
 
 
@@ -435,44 +435,154 @@ app.get("/deals", async (req, res) => {
       },
     });
 
+    const Bidsresponse = await fetch("http://localhost:3000/bids/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     if (!response.ok) {
       throw new Error(`Error trying to GET auctions: ${response.statusText}`);
+    }
+
+    if (!Bidsresponse.ok) {
+      throw new Error(`Error trying to GET auctions: ${Bidsresponse.statusText}`);
     }
 
     const dataAuctions = await response.json();
     const auctions = dataAuctions.auctions;
 
-    for(let i = 0; i < auctions.length; i++) {
+    const dataBids = await Bidsresponse.json();
+    const bids = dataBids.biddings;
+    let highbid = []
+
+    for (let i = 0; i < auctions.length; i++) {
       const auction = auctions[i];
       auction.EndDate = auction.EndDate.substring(0, 10);
       auctions[i] = auction;
+    
+      let highestBid = 0;
+
+      for (let j = 0; j < bids.length; j++) {
+        const bid = bids[j];
+        if (auction.AuctionID == bid.AuctionID) {
+          if (bid.BiddingValue > highestBid) {
+            highestBid = bid.BiddingValue; 
+          }
+        }
+      }  
+      highbid[i] = highestBid;
     }
 
     res.render("discoveryauctions", {
-      auctions: auctions
+      auctions: auctions,
+      highbid: highbid
     });
 
   } catch (error) {
-    console.error("Error trying to GET games:", error);
+    console.error("Error trying to GET auctions:", error);
   }
 });
 
+app.get('/auction_page/:id', async (req, res) => {
+  const auctionId = req.params.id;
 
-//__________________________________________________________________________________________________________
+  try {
+      const response = await fetch(`http://localhost:3000/auctions/${auctionId}`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      });
 
-app.get("/auction_page/:id", (req, res) => {
-  res.render("auctionpage", { title: "Auction" }); 
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! Status: ${response.status}, Response: ${errorText}`);
+      }
+      
+      const responseBids = await fetch("http://localhost:3000/bids/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!responseBids.ok) {
+        const errorText = await responseBids.text();
+        throw new Error(`HTTP error! Status: ${responseBids.status}, Response: ${errorText}`);
+      }
+
+      const responseUser = await fetch("http://localhost:3000/Users/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!responseUser.ok) {
+        const errorText = await responseUser.text();
+        throw new Error(`HTTP error! Status: ${responseUser.status}, Response: ${errorText}`);
+      }
+
+      const auctionData = await response.json();
+      const auction = auctionData.auction;
+      auction.EndDate = auction.EndDate.substring(0, 10);
+
+      const bidData = await responseBids.json();
+      const bids = bidData.biddings;
+
+      const usersData = await responseUser.json();
+      const users = usersData.users;
+
+      const auctionBiddings = [];
+      const userbiddings = [];
+      let highestBid = 0;
+
+      for(let i = 0; i < bids.length; i++) {
+        bid = bids[i];
+        if (auction.AuctionID == bid.AuctionID) {
+          auctionBiddings.push(bid);
+        }
+      }
+
+      for (let i = 0; i < bids.length; i++) {
+        const bid = bids[i];
+        if (auction.AuctionID == bid.AuctionID) {
+          if (parseFloat(highestBid) < parseFloat(bid.BiddingValue)) {
+            highestBid = bid.BiddingValue; 
+          }
+        }
+      }
+
+      for (let i = 0; i < auctionBiddings.length; i++) {
+        for (let j = 0; j < users.length; j++) {
+          if (auctionBiddings[i].UserID == users[j].UserID) {
+            userbiddings.push(users[j]);
+          }
+        }
+      }
+
+
+      res.render('auctionpage', {
+        auction: auction,
+        highestBid: highestBid,
+        auctionBiddings : auctionBiddings,
+        userbiddings: userbiddings
+      });
+  } catch (error) {
+      console.error("Error fetching game data:", error.message);
+      res.status(500).send('Error loading game page');
+  }
 });
 
-
+//__________________________________________________________________________________________________________
 
 app.get("/cart_page", (req, res) => {
   res.render("cartpage", { title: "Your Cart" }); 
 });
 
-app.get("/payment", (req, res) => {
-  res.render("payment", { title: "Payment" }); 
-});
+//__________________________________________________________________________________________________________
 
 app.get("/profile", (req, res) => {
   res.render("profilepage", { title: "Profile" }); 
@@ -481,7 +591,6 @@ app.get("/profile", (req, res) => {
 app.get("/redeem", (req, res) => {
   res.render("redeempage", { title: "Redeem" }); 
 });
-
 
 //__________________________________________________________________________________________________________
 

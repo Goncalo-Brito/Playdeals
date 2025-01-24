@@ -23,7 +23,7 @@ class Auction {
     }
 
     static getById(id) {
-        let sql = `select * from auctions where id = ${id}`;
+        let sql = `select * from auctions where AuctionID = ${id}`;
 
         return database.execute(sql);
     }
