@@ -16,11 +16,11 @@
         <div class="grid-object-s" style="width: 25%;">
           <div class="chat-box">
             <% for(let i = 0; i < auctionBiddings.length; i++) { %>
-              <% const auction = auctionBiddings[i]; %>
+              <% const auctionbid = auctionBiddings[i]; %>
               <% const user = userbiddings[i]; %>
-              <div class="chat-message" id="auction-container" data-auction-id="<%= auction.AuctionID %>" data-user-id="<%= user.UserID %>">
+              <div class="chat-message">
                 <span class="user"><%= user.UserName %>:</span>
-                <span class="bid-value"><%= auction.BiddingValue %>€</span>
+                <span class="bid-value"><%= auctionbid.BiddingValue %>€</span>
               </div>
             <% } %>
           </div>          
@@ -29,6 +29,9 @@
           <div class="container vertical-grid" style="width: 80%;">
             <div>
               <h1><%= auction.AuctionTittle %></h1>
+            </div>
+            <div>
+              <h3 id="status" style="color: #339941;"><%= auction.Status %></h3>
             </div>
             <div class="horizontal-grid">
               <div class="left horizontal-grid">
@@ -51,7 +54,7 @@
                   <input placeholder="<%= highestBid || auction.AuctionInitialValue %>€" class="textbox" id="placebidtextbox" type="text" style="text-align: right;">
               </div>
               <span id="message"></span>
-              <button class="button button-l" type="submit">Place bid</button>
+              <button class="button button-l" type="submit" id="auction-container" data-auction-id="<%= auctionid %>" data-user-id="<%= userid %>">Place bid</button>
             </form>  
           </div>
         </div>

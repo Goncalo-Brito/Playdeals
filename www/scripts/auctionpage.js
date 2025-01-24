@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const userId = auctionContainer.getAttribute('data-user-id');
     let highestBidElement = document.getElementById('highestBid');
     let EndDateElement = document.getElementById('EndDate');
+    let Status = document.getElementById('status');
     let highestBid = parseFloat(highestBidElement.textContent);
     let EndDate = new Date(EndDateElement.textContent.trim());
     const message = document.getElementById("message");
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const bidValue = parseFloat(bidInput.value);
         const today = new Date();
 
-        if (EndDate < today) { 
+        if (EndDate < today || Status != "Active") { 
             message.textContent = "Please, only bid at auctions that are still ongoing.";
             message.style.color = "red";
             return;
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 if (data.success) {
-                    location.reload(); // Reload the page on success
+                    location.reload();
                 } else {
                     message.textContent = "Error placing bid. Please try again.";
                     message.style.color = "red";

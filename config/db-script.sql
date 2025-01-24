@@ -82,6 +82,21 @@ Create table if not exists GiftCards (
     Primary key(GiftCardID)
 );
 
+Create table if not exists ShoppingCart (
+    CartID int auto_increment,
+    UserID int not null,
+    GameID int, -- Opcional
+    DLCID int, -- Opcional
+    GiftCardID int, -- Opcional
+    DateAdded datetime not null,
+    primary key(CartID),
+    foreign key(UserID) references Users(UserID),
+    foreign key(GameID) references Games(GameID),
+    foreign key(DLCID) references DLCs(DLCID),
+    foreign key(GiftCardID) references GiftCards(GiftCardID)
+);
+
+
 Create table if not exists Biddings (
 	BiddingID int auto_increment,
     BiddingValue decimal(10, 2) not null,
@@ -273,6 +288,29 @@ INSERT INTO Biddings (BiddingValue, UserID, AuctionID)
 
 INSERT INTO Biddings (BiddingValue, UserID, AuctionID) 
     VALUES (1050, 5, 5);
+    
+-- Cart: ------------------------------------------------------------
+
+INSERT INTO ShoppingCart (UserID, GameID, DateAdded)
+VALUES (1, 2, NOW());
+
+INSERT INTO ShoppingCart (UserID, DLCID, DateAdded)
+VALUES (2, 1, NOW());
+
+INSERT INTO ShoppingCart (UserID, GiftCardID, DateAdded)
+VALUES (3, 1, NOW());
+
+INSERT INTO ShoppingCart (UserID, GameID, DateAdded)
+VALUES (1, 3, NOW());
+
+INSERT INTO ShoppingCart (UserID, DLCID, DateAdded)
+VALUES (1, 2, NOW());
+
+INSERT INTO ShoppingCart (UserID, GiftCardID, DateAdded)
+VALUES (1, 2, NOW());
+
+INSERT INTO ShoppingCart (UserID, GameID, DateAdded)
+VALUES (4, 4, NOW());
 
 -- Purchase Logs: ---------------------------------------------------
 INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 

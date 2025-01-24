@@ -36,6 +36,8 @@ app.use("/auctions", require("./routes/auctionRoutes"));
 
 app.use("/bids", require("./routes/biddingRoutes"));
 
+app.use("/shoppingcart", require("./routes/shoppingcartRoutes"));
+
 app.get("/login", (req, res) => {
   res.render("login", { title: "Login Page" }); 
 });
@@ -45,7 +47,7 @@ app.get("/register", (req, res) => {
 });
 
 //ATIVA A AUTH
-//app.use(authMiddleware); 
+app.use(authMiddleware); 
 
 app.get("/", async (req, res) => {
   const FeaturedGames = [];
@@ -287,6 +289,7 @@ app.get('/game_page/:id', async (req, res) => {
       const gameImages = gameImageData.gameimages;
       const dlcs = dlcData.dlcs;
       const arrayImage = [];
+      const userid = req.session.user.id;
       let gameImage = "";
 
       for(let i = 0; i < gameImages.length; i++) {
@@ -309,6 +312,7 @@ app.get('/game_page/:id', async (req, res) => {
 
       res.render('gamepage', {
         game: gameData.game,
+        userid: userid,
         gameImage: gameImage,
         imagesDlc: arrayImage
       });
@@ -349,7 +353,7 @@ app.get('/dlc_page/:id', async (req, res) => {
 
       const dlcData = await response.json();
       const dlc = dlcData.dlc;
-
+      const userid = req.session.user.id;
       const gameImageData = await responseImages.json();
       const gameImages = gameImageData.gameimages;
 
@@ -368,6 +372,7 @@ app.get('/dlc_page/:id', async (req, res) => {
 
       res.render('dlcpage', {
         dlc: dlc,
+        userid: userid,
         gameImage : gameImage,
         dlcImage : dlcImage
       });
@@ -395,6 +400,8 @@ app.get("/gift_card_page/:id", async (req, res) => {
         throw new Error(`Error trying to GET game images: ${response.statusText}`);
       }
 
+      
+      const userid = req.session.user.id;
       const dataGiftcards = await response.json();
       giftcards = dataGiftcards.giftcards;
 
@@ -405,6 +412,7 @@ app.get("/gift_card_page/:id", async (req, res) => {
         if(giftC.GiftCardID == giftcardID) {
           giftcard.push({
             path: imagePath,
+            id: giftC.GiftCardID,
             value: giftC.GFCValue,
           });
         } else {
@@ -417,6 +425,7 @@ app.get("/gift_card_page/:id", async (req, res) => {
       
       res.render("cardpage", {
         giftcard: giftcard,
+        userid : userid,
         giftcardsPath: giftcardsPath
       });
     } catch (error) {
@@ -535,6 +544,8 @@ app.get('/auction_page/:id', async (req, res) => {
       const usersData = await responseUser.json();
       const users = usersData.users;
 
+
+      const userid = req.session.user.id; 
       const auctionBiddings = [];
       const userbiddings = [];
       let highestBid = 0;
@@ -566,6 +577,8 @@ app.get('/auction_page/:id', async (req, res) => {
 
       res.render('auctionpage', {
         auction: auction,
+        userid : userid,
+        auctionid: auctionId,
         highestBid: highestBid,
         auctionBiddings : auctionBiddings,
         userbiddings: userbiddings
@@ -687,10 +700,159 @@ app.get("/staff_page", async (req, res) => {
 
 //___________________________________________________________
 
+app.get("/cart_page", async (req, res) => {
+    try {
+      const response = await fetch("http://localhost:3000/shoppingcart/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-app.get("/cart_page", (req, res) => {
-  res.render("cartpage", { title: "Your Cart" }); 
+      const responseGames = await fetch("http://localhost:3000/games/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const responseDlcs = await fetch("http://localhost:3000/dlcs/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const responseGiftCard = await fetch("http://localhost:3000/giftcards/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const responseImages = await fetch("http://localhost:3000/gameImages/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error trying to GET cart: ${response.statusText}`);
+      }
+
+      if (!responseGames.ok) {
+        throw new Error(`Error trying to GET Games: ${responseGames.statusText}`);
+      }
+
+      if (!responseDlcs.ok) {
+        throw new Error(`Error trying to GET dlcs: ${responseDlcs.statusText}`);
+      }
+
+      if (!responseGiftCard.ok) {
+        throw new Error(`Error trying to GET giftcards: ${responseGiftCard.statusText}`);
+      }
+
+      if (!responseImages.ok) {
+        throw new Error(`Error trying to GET game images: ${responseImages.statusText}`);
+      }
+
+      const dataCart = await response.json();
+      const cart = dataCart.shoppingcarts;
+
+      const dataGames = await responseGames.json();
+      const games = dataGames.games;
+
+      const dataDLCs = await responseDlcs.json();
+      const DLCs = dataDLCs.dlcs;
+
+      const dataGiftCards = await responseGiftCard.json();
+      const GiftCards = dataGiftCards.giftcards;
+
+      const dataGameImages = await responseImages.json();
+      const Images = dataGameImages.gameimages;
+
+      const gameimages = [];
+      const dlcimages = [];
+
+      const userid = req.session.user.id;
+
+      const cartGames = [];
+      const cartDLCs  = [];
+      const cartGiftCards  = [];
+
+      const gameimagesPath = [];
+      const dlcimagesPath = [];
+      const giftcardsPath = [];
+
+      for(let i = 0; i < dataCart.length; i++) {
+        if(dataCart[i].UserID == userid) {
+          if(dataCart[i].GameID != null) {
+            for(let j = 0; j < games.length; j++) {
+              if(dataCart[i].GameID == games[j].GameID) {
+                cartGames.push(games[j]);
+              }
+            }
+          } else if(dataCart[i].DLCID != null) {
+            for(let j = 0; j < DLCs.length; j++) {
+              if (dataCart[i].DLCID == DLCs[j].DLCID) {
+                cartDLCs.push(DLCs[j]);
+              }
+            }
+          } else if(dataCart[i].GiftCardID != null) {
+            for(let j = 0; j < GiftCards.length; j++) {
+              if (dataCart[i].GiftCardID == GiftCards[j].GiftCardID) {
+                cartDLCs.push(DLCs[j]);
+              }
+            }
+          }
+        }
+      }
+
+      for (let i = 0; i < Images.length; i++) {
+        let image = Images[i];
+        if (image.ImageName.includes("_1") || image.ImageName.includes("no_image_small")) { //jogo
+          gameimages.push(image);
+        } else if (image.ImageName.includes("_") && !image.ImageName.includes("_1") && !image.ImageName.includes("_0")) { //dlc
+          dlcimages.push(image);
+        }
+      }
+
+      for (let i = 0; i < gameimages.length; i++) {
+        const image = gameimages[i];
+        const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+        gameimagesPath.push(imagePath);
+      }
+
+      for(let i = 0; i < dlcimages.length; i++) {
+        const image = dlcimages[i];
+        const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+        dlcimagesPath.push(imagePath);
+      }
+
+      for (let i = 0; i < cartGiftCards.length; i++) {
+        const image = cartGiftCards[i];
+        const imagePath = `../images/giftcards/${image.GiftCardID}.png`;
+        giftcardsPath.push(imagePath);
+      }
+
+      res.render("cartpage", {
+        userid : userid,
+        cartGames: cartGames,
+        cartDLCs: cartDLCs,
+        cartGiftCards: cartGiftCards,
+        gameimagesPath: gameimagesPath,
+        dlcimagesPath: dlcimagesPath,
+        giftcardsPath: giftcardsPath
+      });
+    } catch (error) {
+      console.error("Error trying to GET game images:", error);
+    }
 });
+
+
+
+//___________________________________________________________
 
 
 app.get("/profile", (req, res) => {
