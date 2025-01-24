@@ -34,59 +34,79 @@
                 <img id="previewImage2" class="game-image" src="../images/games/no_image_big.jpg">
                 <input style="margin-top: 1rem;" type="file" id="image2" name="image2" accept="image/*">
               </div>
+    <div class="container-top">
+      <form id="createGameForm">
+        <div class="vertical-grid">
+          <div class="horizontal-grid">
+            <div class="image-select-container grid-object-s">
+              <img id="previewImage1" class="game-image" src="../images/games/no_image_small.jpg">
+              <input style="margin-top: 1rem;" type="file" id="image1" name="image1" accept="image/*">
+            </div> 
+            <div class="image-select-container grid-object-l">
+              <img id="previewImage2" class="game-image" src="../images/games/no_image_big.jpg">
+              <input style="margin-top: 1rem;" type="file" id="image2" name="image2" accept="image/*">
             </div>
           </div>
-        </div>
-        <div class="grid-object-l" style="margin-left: 5rem;">
-          <div class="vertical-grid">
-            <div class="vertical-grid">
-              <h1>Title:</h1>
-              <input id="title" class="textbox" type="text" style="width: 20rem;">
-              <p>Company Name:</p>
-              <input id="company" class="textbox" type="text" style="width: 20rem;">
+          <div class="horizontal-grid" style="gap: 3rem;">
+            <div class="left vertical-grid grid-object-s" style="width: 20rem;">
+              <h2>Title:</h2>
+              <input id="title" class="textbox" type="text">
+              <h3>Company Name:</h3>
+              <input id="company" class="textbox" type="text">
             </div>
-            <div class="horizontal-grid">
-              <div class="vertical-grid" >
-                <p>PEGI Rating:</p>
-                <div class="horizontal-grid">
-                  <select name="pegi" id="pegi">
-                    <option value="3">3</option>
-                    <option value="7">7</option>
-                    <option value="12">12</option>
-                    <option value="16">16</option>
-                    <option value="18">18</option>
-                  </select>
+            <div class="vertical-grid grid-object-l">
+              <div class="horizontal-grid left" style="gap: 2rem;">
+                <div class="vertical-grid grid-object-s left">
+                  <div class="horizontal-grid">
+                    <p>Platform:</p>
+                    <div class="dropdown-container">
+                      <select name="platform" id="platform" class="dropdown-content">
+                        <option value="PS1">PS1</option>
+                        <option value="PS2">PS2</option>
+                        <option value="PS3">PS3</option>
+                        <option value="PS4">PS4</option>
+                        <option value="PS5">PS5</option>
+                      </select>  
+                    </div>  
+                  </div>
+                  <div class="horizontal-grid">
+                    <p>PEGI Rating:</p>
+                    <div class="dropdown-container">
+                      <select name="pegi" id="pegi" class="dropdown-content">
+                        <option value="3">3</option>
+                        <option value="7">7</option>
+                        <option value="12">12</option>
+                        <option value="16">16</option>
+                        <option value="18">18</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="horizontal-grid" style="gap: 1rem;">
+                    <p>Price:</p>
+                    <input id="price" class="textbox" type="text" placeholder="0€">
+                  </div>
+                  <div class="horizontal-grid" style="gap: 1rem;">
+                    <p>Date:</p>
+                    <input id="date" class="textbox-date" type="date">
+                  </div>
+                </div>
+                <div class="vertical-grid grid-object-l">
+                  <p>Description:</p>
+                  <textarea id="description" class="textarea"></textarea>
                 </div>
               </div>
-              <div class="vertical-grid">
-                <p>Platform:</p>
-                <div class="horizontal-grid">
-                  <select name="platform" id="platform">
-                    <option value="PS1">PS1</option>
-                    <option value="PS2">PS2</option>
-                    <option value="PS3">PS3</option>
-                    <option value="PS4">PS4</option>
-                    <option value="PS5">PS5</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="vertical-grid">
-              <p>Description:</p>
-              <textarea id="description" class="textarea" style="width: 40rem;"></textarea>
             </div>
           </div>
+          <div class="horizontal-grid right" style="gap: 1rem;">
+            <button type="submit" class="button" style="width: auto;">Save</button>
+            <a href="/staff_page" class="button cancel">Cancel</a>
+          </div>
+          <div class="horizontal-grid right">
+            <span id="message"></span>
+          </div>
         </div>
-      </div>
-      <div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 4rem;">
-        <button type="submit" class="button" style="width: auto;">Save</button>
-        <a href="/staff_page" class="button cancel">Cancel</a>
-      </div>
-      <div class="horizontal-grid" style="justify-content: right; gap: 1rem;margin-top: 1rem;">
-        <span id="message"></span>
-      </div>
+    </form>
     </div>
-  </form>
   </section>
   <footer>
   	<script src="../scripts/creategame.js"></script>

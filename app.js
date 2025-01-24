@@ -191,7 +191,7 @@ app.get("/store", async (req, res) => {
       if (Array.isArray(Arrayimages)) {
         for (let i = 0; i < Arrayimages.length; i++) {
           let gameimage = Arrayimages[i];
-          if (gameimage.ImageName.includes("_1")) { //jogo
+          if (gameimage.ImageName.includes("_1") || gameimage.ImageName.includes("no_image_small")) { //jogo
             gameimages.push(gameimage);
           } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1") && !gameimage.ImageName.includes("_0")) { //dlc
             dlcimages.push(gameimage);
@@ -292,7 +292,7 @@ app.get('/game_page/:id', async (req, res) => {
       for(let i = 0; i < gameImages.length; i++) {
         const image = gameImages[i];
 
-        if (image.GameID === gameData.game.GameID && !image.ImageName.includes("_")) {
+        if (image.GameID === gameData.game.GameID && !image.ImageName.includes("_") || image.ImageName.includes("no_image_big") && image.GameID === gameData.game.GameID) {
           gameImage = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
         } else if(image.GameID == gameData.game.GameID && image.ImageName.includes("_") && !image.ImageName.includes("_1") && !image.ImageName.includes("_0")) {
           for(let j = 0; j < dlcs.length; j++) {
@@ -576,25 +576,6 @@ app.get('/auction_page/:id', async (req, res) => {
   }
 });
 
-//__________________________________________________________________________________________________________
-
-app.get("/cart_page", (req, res) => {
-  res.render("cartpage", { title: "Your Cart" }); 
-});
-
-//__________________________________________________________________________________________________________
-
-app.get("/profile", (req, res) => {
-  res.render("profilepage", { title: "Profile" }); 
-});
-
-app.get("/redeem", (req, res) => {
-  res.render("redeempage", { title: "Redeem" }); 
-});
-
-//__________________________________________________________________________________________________________
-
-
 app.get("/staff_page", async (req, res) => {
 
   let games = []; 
@@ -642,12 +623,11 @@ app.get("/staff_page", async (req, res) => {
     const dataauctions = await auctionsResponse.json();
     auctions = dataauctions.auctions;
 
-// ----------------------------------------------------------------
     for (let i = 0; i < Arrayimages.length; i++) {
       let gameimage = Arrayimages[i];
-      if (gameimage.ImageName.includes("_1")) { //jogo
+      if (gameimage.ImageName.includes("_1") || gameimage.ImageName.includes("no_image_small")) { // Game image
         gameimages.push(gameimage);
-      } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_1") && !gameimage.ImageName.includes("_0")) { //dlc
+      } else if (gameimage.ImageName.includes("_") && !gameimage.ImageName.includes("_0")) { // DLC
         dlcimages.push(gameimage);
       }
     }
@@ -682,7 +662,6 @@ app.get("/staff_page", async (req, res) => {
       auction.StartDate = auction.StartDate.substring(0, 10);
       auctions[i] = auction;
     }
-// ----------------------------------------------------------------
 
     res.render("staffpage", {
       title: "Staff",
@@ -705,6 +684,25 @@ app.get("/staff_page", async (req, res) => {
     });
   }
 });
+
+//___________________________________________________________
+
+
+app.get("/cart_page", (req, res) => {
+  res.render("cartpage", { title: "Your Cart" }); 
+});
+
+
+app.get("/profile", (req, res) => {
+  res.render("profilepage", { title: "Profile" }); 
+});
+
+app.get("/redeem", (req, res) => {
+  res.render("redeempage", { title: "Redeem" }); 
+});
+
+
+//___________________________________________________________
 
 app.get("/update_auction", (req, res) => {
     res.render("updateauctionpage", { title: "Update" }); 
