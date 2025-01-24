@@ -488,6 +488,12 @@ th, td {
     background-color: #f04c4c;
 }
 
+.image-select-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+}
+
 .chat-box {
     display: flex;
     flex-direction: column;

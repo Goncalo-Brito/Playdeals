@@ -93,11 +93,18 @@ exports.getById = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     let { imageextention, imagesource, imagename, gameID } = req.body;
 
-    let gameimage = new gameimage(imageextention, imagesource, imagename, gameID);
+    console.log({ imageextention, imagesource, imagename, gameID });
 
-    gameimage = await GameImage.create();
+    let gameimage = new GameImage(imageextention, imagesource, imagename, gameID);
 
-    res.send("Image created: " + gameimage);
+    try {
+        await gameimage.create();
+        res.status(201).json({ message: "Game Image created successfully." });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Error creating Game Image.");
+        next(error);
+    }
 }
 
 exports.updateById = async (req, res, next) => {
