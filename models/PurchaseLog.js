@@ -1,19 +1,6 @@
-/**
- * Represents a purchase log entry.
- * @class
- */
+const database = require("../config/database");
+
 class PurchaseLog {
-    /**
-     * Creates a new instance of PurchaseLog.
-     * @constructor
-     * @param {string} PurchaseDate - The date of the purchase.
-     * @param {number} PurchasePrice - The price of the purchase.
-     * @param {string} ItemKey - The key of the purchased item.
-     * @param {number} UserID - The ID of the user who made the purchase.
-     * @param {number} GameID - The ID of the purchased game.
-     * @param {number} DLCID - The ID of the purchased DLC.
-     * @param {number} GiftCardID - The ID of the GiftCard used in the purchase.
-     */
     constructor(PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) {
         this.PurchaseDate = PurchaseDate;
         this.PurchasePrice = PurchasePrice;
@@ -23,56 +10,39 @@ class PurchaseLog {
         this.DLCID = DLCID;
         this.GiftCardID = GiftCardID;
     }
-
-    /**
-     * Creates a new purchase log entry.
-     * @async
-     * @returns {Promise} - Returns a promise that resolves with the result of the SQL execution.
-     */
+    
     async create() {
+
         const sql = `INSERT INTO purchaselog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
                         VALUES (?, ?, ?, ?, ?, ?, ?)`;
-
+    
         const params = [this.PurchaseDate, this.PurchasePrice, this.ItemKey, this.UserID, this.GameID, this.DLCID, this.GiftCardID];
+<<<<<<< HEAD
+=======
+    
+        console.log(params);
+>>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
 
         return await database.execute(sql, params);
     }
 
-    /**
-     * Returns all purchase log entries.
-     * @static
-     * @returns {Promise} - Returns a promise that resolves with all purchase log entries.
-     */
     static getAll() {
         let sql = "SELECT * FROM purchaselog";
         return database.execute(sql);
     }
+    
 
-    /**
-     * Updates a specific purchase log entry by its ID.
-     * @async
-     * @param {number} id - The ID of the purchase log entry to be updated.
-     * @returns {Promise} - Returns a promise that resolves with the result of the SQL execution.
-     */
     async updateById(id) {
-        let sql = `UPDATE purchaselog SET PurchaseDate = ?, PurchasePrice = ?, ItemKey = ?, UserID = ?, GameID = ?, DLCID = ?, 
-                   GiftCardID = ? WHERE id = ?`;
+        let sql = `update purchaselog set PurchaseDate = ${this.purchasedate}, PurchasePrice = ${this.purchaseprice}, ItemKey = ${this.itemkey}, 
+        UserID = ${this.userID}, GameID = ${this.gameID}, DLCID = ${this.dlcID}, GiftCardID = ${this.giftcardID}`;
 
-        const params = [this.PurchaseDate, this.PurchasePrice, this.ItemKey, this.UserID, this.GameID, this.DLCID, this.GiftCardID, id];
-
-        return await database.execute(sql, params);
+        return await database.execute(sql);
     }
 
-    /**
-     * Deletes a specific purchase log entry by its ID.
-     * @async
-     * @param {number} id - The ID of the purchase log entry to be deleted.
-     * @returns {Promise} - Returns a promise that resolves with the result of the SQL execution.
-     */
     async deleteById(id) {
-        let sql = `DELETE FROM purchaselog WHERE id = ?`;
+        let sql = `delete from purchaselog where id = ${id}`;
 
-        return database.execute(sql, [id]);
+        return database.execute(sql);
     }
 }
 
