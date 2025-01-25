@@ -10,15 +10,28 @@ exports.getAll = async (req, res, next) => {
     }
 }
 
+const generateItemKey = () => {
+    return Math.random().toString(36).substr(2, 16); 
+};
+
 exports.create = async (req, res, next) => {
-    let { purchasedate, purchaseprice, itemkey, userID, gameID, dlcID, giftcardID } = req.body;
+    let { UserID, GameID, DLCID, GiftCardID, PurchasePrice } = req.body;
 
-    let PurchaseLog = new PurchaseLog(purchasedate, purchaseprice, itemkey, userID, gameID, dlcID, giftcardID);
+    let ItemKey = req.body.ItemKey || generateItemKey(); 
 
-    PurchaseLog = await PurchaseLog.create();
+    let date = new Date();
+    let PurchaseDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`; 
 
-    res.send("Profile Picture created: " + PurchaseLog);
-}
+    let purchaselog = new PurchaseLog(PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID);
+
+    try {
+        await purchaselog.create();
+        res.status(201).json({ success: true, message: "Shopping cart item created successfully." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Error creating shopping cart item." });
+    }
+};
 
 exports.updateById = async (req, res, next) => {
     try {
