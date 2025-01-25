@@ -13,7 +13,7 @@ router
     .delete(shoppingcartController.deleteById);
 
 router
-    .route("/:UserID")
+    .route("/delete/:UserID")
     .delete(shoppingcartController.deleteCartItems);
 
 module.exports = router;

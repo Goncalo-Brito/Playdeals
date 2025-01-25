@@ -13,7 +13,7 @@ class PurchaseLog {
     
     async create() {
 
-        const sql = `INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+        const sql = `INSERT INTO purchaselog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
                         VALUES (?, ?, ?, ?, ?, ?, ?)`;
     
         const params = [this.PurchaseDate, this.PurchasePrice, this.ItemKey, this.UserID, this.GameID, this.DLCID, this.GiftCardID];
@@ -24,10 +24,10 @@ class PurchaseLog {
     }
 
     static getAll() {
-        let sql = "select * from purchaselog";
-
+        let sql = "SELECT * FROM purchaselog";
         return database.execute(sql);
     }
+    
 
     async updateById(id) {
         let sql = `update purchaselog set PurchaseDate = ${this.purchasedate}, PurchasePrice = ${this.purchaseprice}, ItemKey = ${this.itemkey}, 

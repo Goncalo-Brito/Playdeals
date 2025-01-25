@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     async function deleteCartItems(userID) {
 
         try {
-            const response = await fetch(`/shoppingcart/${userID}`, {
+            const response = await fetch(`/shoppingcart/delete/${userID}`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' }
             });

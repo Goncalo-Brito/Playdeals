@@ -29,7 +29,7 @@ exports.create = async (req, res, next) => {
 };
 
 exports.deleteCartItems = async (req, res, next) => {
-    const userID = req.params.id;
+    const userID = req.params.UserID;
 
     try {
         await ShoppingCart.deleteCartItems(userID);
