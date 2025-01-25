@@ -53,18 +53,6 @@ Create table if not exists Users (
 	primary key(UserID)
 );
 
-
-
-Create table if not exists ProfilePictures (
-	PFPID int auto_increment,
-    PFPExtention varchar(8) not null,
-    PFPSource varchar(128) not null,
-    PFPName varchar(32) not null,
-    UserID int not null,
-    primary key(PFPID),
-    foreign key(UserID) references Users(UserID)
-);
-
 Create table if not exists GameImage (
 	ImageID int auto_increment,
     ImageExtention varchar(8) not null,
@@ -107,8 +95,9 @@ Create table if not exists Biddings (
 	foreign key(AuctionID) references Auctions(AuctionID)
 );
 
-Create table if not exists PurcharseLog (
-	PurcharseLogID int auto_increment,
+
+Create table if not exists PurchaseLog (
+	PurchaseLogID int auto_increment,
     PurchaseDate datetime not null,
     PurchasePrice decimal(10, 2) not null,
     ItemKey varchar(16) not null,
@@ -116,7 +105,7 @@ Create table if not exists PurcharseLog (
     GameID int, -- Needs to be optional
     DLCID int, -- Needs to be optional
     GiftCardID int, -- Needs to be optional
-	primary key(PurcharseLogID),
+	primary key(PurchaseLogID),
     foreign key(UserID) references Users(UserID),
     foreign key(GameID) references Games(GameID),
     foreign key(DLCID) references DLCs(DLCID),
@@ -178,19 +167,6 @@ INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType)
 
 INSERT INTO Users (UserName, FName, LName, Email, Pass, CreationDate, UserType) 
     VALUES ('gamelord', 'David', 'Lee', 'davidlee@example.com', 'davidpass', '2024-11-30', 'U');
-
--- Profile Images: --------------------------------------------------
-INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpg', 'images/users', '1', 1);
-
-INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpeg', 'images/users', '2', 2);
-
-INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpeg', 'images/users', '3', 3);
-
-INSERT INTO ProfilePictures (PFPExtention, PFPSource, PFPName, UserID) 
-    VALUES ('jpeg', 'images/users', '4', 4);
 
 -- Game Images: -----------------------------------------------------
 INSERT INTO GameImage (ImageExtention, ImageSource, ImageName, GameID) 
@@ -303,32 +279,32 @@ INSERT INTO ShoppingCart (UserID, GameID, DateAdded)
 VALUES (4, 4, NOW());
 
 -- Purchase Logs: ---------------------------------------------------
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-10 14:23:00', 60, 'pok4fposj343490b', 3, 1, NULL, NULL);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-11 15:45:00', 20, 'l3jnv92xodfiwe7q', 2, NULL, 1, NULL);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID)
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID)
     VALUES ('2025-01-12 10:30:00', 70, '0f7pdjkxl9v3yrq2', 3, 1, NULL, NULL);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-13 09:00:00', 15, 'xkq9bndm3r8fj20p', 4, NULL, 2, NULL);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-14 11:10:00', 60, 'v8jf24opqxw7ykl9', 5, 1, NULL, NULL);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-15 12:50:00', 0, '3npqxl8rfv20j9od', 5, NULL, NULL, 3);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-16 13:20:00', 40, 'jk9v2x07pfwl3o8q', 2, 1, NULL, NULL);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-17 14:00:00', 20, 'qx4po9n7fj32v8kl', 3, NULL, NULL, 5);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-18 16:40:00', 50, 'l7v0nqx32p9fjk84', 4, NULL, NULL, 6);
 
-INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+INSERT INTO PurchaseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
     VALUES ('2025-01-19 18:05:00', 15, 'rfj29klvq803xw7p', 5, NULL, 2, NULL);

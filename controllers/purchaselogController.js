@@ -3,12 +3,19 @@ const PurchaseLog = require("../models/PurchaseLog");
 exports.getAll = async (req, res, next) => {
     try {
         const [PurchaseLogs, _] = await PurchaseLog.getAll();
-        res.render("profilepage", { PurchaseLogs });
+        res.status(200).json({
+            success: true,
+            data: PurchaseLogs,
+        });
     } catch (error) {
-        console.log(error);
-        next(error);
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Erro ao obter os logs de compras.",
+            error: error.message,
+        });
     }
-}
+};
 
 const generateItemKey = () => {
     return Math.random().toString(36).substr(2, 16); 

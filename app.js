@@ -699,6 +699,14 @@ app.get("/staff_page", async (req, res) => {
   }
 });
 
+app.get("/new_game", (req, res) => {
+  res.render("addgamepage", { title: "New Game" }); 
+});
+
+app.get("/new_auction", (req, res) => {
+  res.render("addauctionspage", { title: "New Auction" }); 
+});
+
 app.get("/new_dlc", async (req, res) => {
   let games = []; 
 
@@ -905,14 +913,170 @@ app.get("/cart_page", async (req, res) => {
     }
 });
 
-
-
 //___________________________________________________________
 
 
-app.get("/profile", (req, res) => {
-  res.render("profilepage", { title: "Profile" }); 
+app.get("/profile", async (req, res) => {
+  const response = await fetch("http://localhost:3000/purchaselog/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const responseGames = await fetch("http://localhost:3000/games/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const responseDlcs = await fetch("http://localhost:3000/dlcs/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const responseGiftCard = await fetch("http://localhost:3000/giftcards/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const responseImages = await fetch("http://localhost:3000/gameImages/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error trying to GET cart: ${response.statusText}`);
+  }
+
+  if (!responseGames.ok) {
+    throw new Error(`Error trying to GET Games: ${responseGames.statusText}`);
+  }
+
+  if (!responseDlcs.ok) {
+    throw new Error(`Error trying to GET dlcs: ${responseDlcs.statusText}`);
+  }
+
+  if (!responseGiftCard.ok) {
+    throw new Error(`Error trying to GET giftcards: ${responseGiftCard.statusText}`);
+  }
+
+  if (!responseImages.ok) {
+    throw new Error(`Error trying to GET game images: ${responseImages.statusText}`);
+  }
+
+  const purchaselogData = await response.json();
+  console.log(purchaselogData)
+
+  const dataGames = await responseGames.json();
+  const games = dataGames.games;
+
+  const dataDLCs = await responseDlcs.json();
+  const DLCs = dataDLCs.dlcs;
+
+  const dataGiftCards = await responseGiftCard.json();
+  const GiftCards = dataGiftCards.giftcards;
+
+
+  const dataGameImages = await responseImages.json();
+  const Images = dataGameImages.gameimages;
+
+  const gameimages = [];
+  const dlcimages = [];
+
+  const purchaseGames = [];
+  const purchaseDLCs  = [];
+  const purchaseGiftCards  = [];
+
+  const gameimagesPath = [];
+  const dlcimagesPath = [];
+  const giftcardsPath = [];
+
+  const user = req.session.user;
+
+  for(let i = 0; i < purchaselogData.length; i++) {
+    if(purchaselogData[i].UserID == userid){
+      if(purchaselogData[i].GameID != null) {
+        for(let j = 0; j < games[j].length; j++) {
+          if(purchaselogData[i].GameID == games[j].GameID) {
+            purchaseGames.push(games[j]);
+          }
+        }
+      } else if (purchaselogData[i].DLCID != null) {
+        for(let j = 0; j < DLCs[j].length; j++) {
+          if(purchaselogData[i].DLCID == DLCs[j].DLCID) {
+            purchaseDLCs.push(DLCs[j]);
+          }
+        }
+      } else if (purchaselogData[i].GiftCardID != null) {
+        for(let j = 0; j < GiftCards[j].length; j++) {
+          if(purchaselogData[i].DLCID == GiftCards[j].GiftCardID) {
+            purchaseGiftCards.push(GiftCards[j]);
+          }
+        }
+      }  
+    }
+  }
+  
+  for (let i = 0; i < Images.length; i++) {
+    let image = Images[i];
+    if (image.ImageName.includes("_1") || image.ImageName.includes("no_image_small")) { //jogo
+      gameimages.push(image);
+    } else if (image.ImageName.includes("_") && !image.ImageName.includes("_1") && !image.ImageName.includes("_0")) { //dlc
+      dlcimages.push(image);
+    }
+  }
+
+  purchaseGames.sort((a, b) => a.GameID - b.GameID);
+
+  for (let i = 0; i < gameimages.length; i++) {
+    const image = gameimages[i];
+    const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+    for(let j = 0; j < purchaseGames.length; j++) {
+      if(image.GameID == purchaseGames[j].GameID) {
+        gameimagesPath.push(imagePath);
+      }
+    }
+  }
+
+  purchaseDLCs.sort((a, b) => a.GameID - b.GameID);
+
+  for(let i = 0; i < dlcimages.length; i++) {
+    const image = dlcimages[i];
+    const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
+    for(let j = 0; j < purchaseDLCs.length; j++) {
+      if(image.GameID == purchaseDLCs[j].GameID) {
+        dlcimagesPath.push(imagePath);
+      }
+    } 
+  }
+
+  for (let i = 0; i < purchaseGiftCards.length; i++) {
+    const image = purchaseGiftCards[i];
+    const imagePath = `../images/giftcards/${image.GiftCardID}.png`;
+    giftcardsPath.push(imagePath);
+  }
+  
+  res.render("profilepage", { 
+    user : user,
+    purchaseGames: purchaseGames,
+    purchaseDLCs: purchaseDLCs,
+    purchaseGiftCards: purchaseGiftCards,
+    gameimagesPath: gameimagesPath,
+    dlcimagesPath: dlcimagesPath,
+    giftcardsPath: giftcardsPath
+  }); 
 });
+
+
+//___________________________________________________________
 
 app.get("/redeem", (req, res) => {
   res.render("redeempage", { title: "Redeem" }); 
@@ -922,16 +1086,7 @@ app.get("/contact_page", (req, res) => {
   res.render("contactpage", { title: "Contact us" }); 
 });
 
-
 //___________________________________________________________
-
-app.get("/new_game", (req, res) => {
-  res.render("addgamepage", { title: "New Game" }); 
-});
-
-app.get("/new_auction", (req, res) => {
-  res.render("addauctionspage", { title: "New Auction" }); 
-});
 
 
 async function startupTask() {
@@ -974,8 +1129,6 @@ async function startupTask() {
       console.error("Error executing startup task:", error);
   }
 }
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {

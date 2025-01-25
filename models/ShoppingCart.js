@@ -34,6 +34,17 @@ class ShoppingCart {
         console.log("Executing delete for UserID:", userID); 
         return await database.execute(sql, [userID]);
     }
+
+    static async deleteById(id) {
+        if (!id) {
+            throw new Error('userID is required');
+        }
+    
+        const sql = `DELETE FROM shoppingcart WHERE CartID = ?`;
+    
+        console.log("Executing delete for CartID:", userID); 
+        return await database.execute(sql, [userID]);
+    }
 }
 
 module.exports = ShoppingCart;
