@@ -970,8 +970,6 @@ async function startupTask() {
   }
 }
 
-
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
     console.log(`Servidor a correr em http://localhost:${PORT}`);

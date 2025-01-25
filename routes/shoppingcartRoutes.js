@@ -10,6 +10,10 @@ router
 
 router
     .route("/:id")
+    .delete(shoppingcartController.deleteById);
+
+router
+    .route("/:UserID")
     .delete(shoppingcartController.deleteCartItems);
 
 module.exports = router;
