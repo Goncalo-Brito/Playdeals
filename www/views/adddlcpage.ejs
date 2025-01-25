@@ -26,14 +26,29 @@
 					<div class="horizontal-grid">
 						<div class="game-image-s" style="width: 20%;">
 							<div class="horizontal-grid" style="gap: .5rem;margin-top: 3rem;">
-								<div class="vertical-grid">
-									<div class="horizontal-grid" style="justify-content: right;">
-										<p>Price:</p>
-										<input id="price" class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
+								<div class="vertical-grid" style="gap: 1rem;">
+									<div class="vertical-grid">
+										<div class="horizontal-grid" style="justify-content: right;">
+											<p>Price:</p>
+											<input id="price" class="textbox" type="text" placeholder="0€" style="width: 8rem; margin-left: 1rem;">
+										</div>
+										<div class="horizontal-grid" style="justify-content: right;">
+											<p>Date:</p>
+											<input id="date" class="textbox-date" type="date" style="margin-left: 1rem;">
+										</div>
 									</div>
-									<div class="horizontal-grid" style="justify-content: right;">
-										<p>Date:</p>
-										<input id="date" class="textbox-date" type="date" style="margin-left: 1rem;">
+									<div class="vertical-grid">
+										<div class="horizontal-grid" style="justify-content: left;">
+											<h1>Game:</h1>
+										</div>
+										<div class="dropdown-container">
+											<select name="gameid" id="gameid" class="dropdown-content">
+												<% for(let i = 0; i < games.length; i++) { %>
+													<% const game = games[i]; %>
+													<option id="game" value="<%= game.GameID %>"><%= game.GameName %></option>
+												<% } %>
+											</select>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -48,15 +63,7 @@
 									<p>Description:</p>
 									<textarea id="description" class="textarea" style="width: 40rem;"></textarea>
 								</div>
-								<div class="horizontal-grid" style="justify-content: left;">
-									<h1>Game:</h1>
-								</div>
-								<select name="gameid" id="gameid">
-									<% for(let i = 0; i < games.length; i++) { %>
-										<% const game = games[i]; %>
-										<option id="game" value="<%= game.GameID %>"><%= game.GameName %></option>
-									<% } %>
-								</select>
+								
 							</div>
 						</div>
 					</div>

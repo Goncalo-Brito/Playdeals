@@ -135,16 +135,16 @@ Create table if not exists PurcharseLog (
 
 -- Auctions: --------------------------------------------------------
 INSERT INTO Auctions (AuctionTittle, AuctionInitialValue, Status, StartDate, EndDate, Description) 
-    VALUES ('Rare collection',60, 'Active', '2025-01-10', '2025-01-20', 'Auction for a rare PlayStation 1 game collection including: Suikoden II, Castlevania: Symphony of the Night, Final Fantasy VII (Black Label Edition), Silent Hill, Tomba!, Valkyrie Profile, Klonoa: Door to Phantomile, Lunar: Silver Star Story Complete, Persona 2: Eternal Punishment, Mega Man Legends 2');
+    VALUES ('Rare collection',60, 'Completed', '2025-01-10', '2025-01-20', 'Auction for a rare PlayStation 1 game collection including: Suikoden II, Castlevania: Symphony of the Night, Final Fantasy VII (Black Label Edition), Silent Hill, Tomba!, Valkyrie Profile, Klonoa: Door to Phantomile, Lunar: Silver Star Story Complete, Persona 2: Eternal Punishment, Mega Man Legends 2');
 
 INSERT INTO Auctions (AuctionTittle, AuctionInitialValue, Status, StartDate, EndDate, Description) 
     VALUES ('Limited PS4 console', 150, 'Completed', '2024-12-15', '2024-12-25', 'Spiderman limited edition PlayStation 4 console');
 
 INSERT INTO Auctions (AuctionTittle, AuctionInitialValue, Status, StartDate, EndDate, Description) 
-    VALUES ('Classic PlayStation 2 games', 90, 'Cancelled', '2025-01-05', '2025-01-15', 'Bundle of classic PlayStation 2 games including: Shadow of the Colossus, Silent Hill 2, Okami, Final Fantasy X, Kingdom Hearts (1 and 2), God of War (1 and 2), Persona 3 FES, Metal Gear Solid 3: Snake Eater, Jak and Daxter: The Precursor Legacy, Devil May Cry (Special Edition)');
+    VALUES ('Classic PlayStation 2 games', 90, 'Completed', '2025-01-05', '2025-01-15', 'Bundle of classic PlayStation 2 games including: Shadow of the Colossus, Silent Hill 2, Okami, Final Fantasy X, Kingdom Hearts (1 and 2), God of War (1 and 2), Persona 3 FES, Metal Gear Solid 3: Snake Eater, Jak and Daxter: The Precursor Legacy, Devil May Cry (Special Edition)');
 
 INSERT INTO Auctions (AuctionTittle, AuctionInitialValue, Status, StartDate, EndDate, Description) 
-    VALUES ('VR and accessories', 80, 'Active', '2025-01-12', '2025-01-22', 'PlayStation VR headset and accessories');
+    VALUES ('VR and accessories', 80, 'Completed', '2025-01-12', '2025-01-22', 'PlayStation VR headset and accessories');
 
 INSERT INTO Auctions (AuctionTittle, AuctionInitialValue, Status, StartDate, EndDate, Description) 
     VALUES ('New Limited PS5',200, 'Completed', '2025-01-18', '2025-01-28', 'Brand new limited edition PlayStation 5 with two controllers');

@@ -3,7 +3,7 @@
     --black: #222;
     --lgray: #bbb;
     --dgray: #444;
-    --blue: #1532b3;
+    --blue: #009dff;
     --orange: #ff9640;
     --red: #e93838;
     --purple: #381e66;
@@ -58,7 +58,7 @@ body, ul {
 
 .navbar-menu li a.active,
 .navbar-menu li a:hover {
-    color: var(--orange);
+    color: var(--blue);
 }
 
 .navbar-menu li a::before {
@@ -68,7 +68,7 @@ body, ul {
     left: 0;
     width: 100%; 
     height: .2rem; 
-    background-color: var(--orange);
+    background-color: var(--blue);
     transform: scaleX(0); 
     transform-origin: center; 
     transition: transform 0.3s ease;
@@ -94,5 +94,5 @@ body, ul {
 }
 
 .navbar-icons a:hover svg {
-    fill: var(--orange); 
+    fill: var(--blue); 
 }
