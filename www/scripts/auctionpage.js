@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const bidValue = parseFloat(bidInput.value);
         const today = new Date();
 
-        if (EndDate < today || Status != "Active") { 
+        if (EndDate < today) { 
             message.textContent = "Please, only bid at auctions that are still ongoing.";
             message.style.color = "red";
             return;

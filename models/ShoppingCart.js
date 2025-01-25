@@ -15,8 +15,6 @@ class ShoppingCart {
 
         const params = [this.UserID, this.GameID, this.DLCID, this.GiftCardID, this.DateAdded];
 
-        console.log(params);
-
         return await database.execute(sql, params);
     }
 
