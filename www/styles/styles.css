@@ -58,6 +58,7 @@ footer p {
 
 a {
     text-decoration: none;
+    color: var(--white);
 }
 
 a svg {
@@ -603,4 +604,13 @@ th, td {
     background-color: #444444; 
   }
   
-  
+  .profile-image {
+    box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.5);
+}
+
+
+  #Goncalo, #Andre {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}

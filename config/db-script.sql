@@ -107,16 +107,6 @@ Create table if not exists Biddings (
 	foreign key(AuctionID) references Auctions(AuctionID)
 );
 
-Create table if not exists CommentsLog (
-	CommentID int auto_increment,
-    CommentText varchar(256) not null,
-    UserID int not null,
-    BiddingID int not null,
-    primary key(CommentID),
-    foreign key(UserID) references Users(UserID),
-    foreign key(BiddingID) references Biddings(BiddingID)    
-);
-
 Create table if not exists PurcharseLog (
 	PurcharseLogID int auto_increment,
     PurchaseDate datetime not null,

@@ -12,17 +12,30 @@
 			<div class="navbar-space"></div>
 			<%- include("../components/navbar.ejs") %>
 			<div class="container-s">
-				<h1>Redeem Codes:</h1>
-				<img class="round-image" src="../images/Logo_PW.png" alt="PlayDealz Logo">
-				<div class="horizontal-grid">
-					<p>Enter you 12-digit code:</p>
-				</div>
-				<input class="textbox" type="text" placeholder="Your code:">
-				<a class="button button-l" href="/">Redeem</a>
-				<div class="horizontal-grid" style="justify-content: center;">
-					<a class="text" href="/profile">Go back</a>
-				</div>
+				<form id="RedeemForm">
+					<h1>Redeem Codes:</h1>
+					<img class="round-image" src="../images/Logo_PW.png" alt="PlayDealz Logo">
+					<div class="horizontal-grid">
+						<p>Enter you 16-digit code:</p>
+					</div>
+					<input id="code" class="textbox" type="text" placeholder="Your code:" maxlength="16">
+
+					<div class="horizontal-grid" style="justify-content: center; gap: 1rem;margin-top: 1rem;">
+						<span id="message"></span>
+					</div>
+
+					<div class="horizontal-grid center" style="gap: 1rem;">
+						<button type="submit" class="button center" style="width: 50%;">Redeem</button>
+					</div>
+
+					<div class="horizontal-grid" style="justify-content: center;">
+						<a class="text" href="/profile">Go back</a>
+					</div>
+				</form>
 			</div>
 		</section>
+		<footer>
+			<script src="../scripts/redeem.js"></script>
+		</footer>
 	</body>
 </html>
