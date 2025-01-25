@@ -1,21 +1,26 @@
 const database = require("../config/database");
 
 class PurchaseLog {
-    constructor(purchasedate, purchaseprice, itemkey, userID, gameID, dlcID, giftcardID) {
-        this.purchasedate = purchasedate;
-        this.purchaseprice = purchaseprice;
-        this.itemkey = itemkey;
-        this.userID = userID;
-        this.gameID = gameID;
-        this.dlcID = dlcID;
-        this.giftcardID = giftcardID;
+    constructor(PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) {
+        this.PurchaseDate = PurchaseDate;
+        this.PurchasePrice = PurchasePrice;
+        this.ItemKey = ItemKey;
+        this.UserID = UserID;
+        this.GameID = GameID;
+        this.DLCID = DLCID;
+        this.GiftCardID = GiftCardID;
     }
-
+    
     async create() {
-        let sql = `insert into purchaselog(PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
-                   values (${this.purchasedate}, ${this.purchaseprice}, ${this.itemkey}, ${this.userID}, ${this.gameID}, ${this.dlcID}, ${this.giftcardID})`;
 
-        return await database.execute(sql);
+        const sql = `INSERT INTO PurcharseLog (PurchaseDate, PurchasePrice, ItemKey, UserID, GameID, DLCID, GiftCardID) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    
+        const params = [this.PurchaseDate, this.PurchasePrice, this.ItemKey, this.UserID, this.GameID, this.DLCID, this.GiftCardID];
+    
+        console.log(params);
+
+        return await database.execute(sql, params);
     }
 
     static getAll() {

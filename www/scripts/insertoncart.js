@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const dlcId = dlcInput ? dlcInput.value : null;
         const giftcardId = giftcardInput ? giftcardInput.value : null;
 
+        console.log("User: ", userId);
+        console.log("game: ", gameId);
+        console.log("dlc: ", dlcId);
+        console.log("giftcard: ", giftcardId);
+
+
         const cartData = {
             UserID: userId,
             GameID: gameId,

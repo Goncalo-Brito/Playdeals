@@ -38,6 +38,8 @@ app.use("/bids", require("./routes/biddingRoutes"));
 
 app.use("/shoppingcart", require("./routes/shoppingcartRoutes"));
 
+app.use("/purchaselog", require("./routes/purchaselogRoutes"))
+
 app.get("/login", (req, res) => {
   res.render("login", { title: "Login Page" }); 
 });
@@ -917,18 +919,6 @@ app.get("/redeem", (req, res) => {
 
 
 //___________________________________________________________
-
-app.get("/update_auction", (req, res) => {
-    res.render("updateauctionpage", { title: "Update" }); 
-});
-
-app.get("/update_dlc", (req, res) => {
-    res.render("updatedlcpage", { title: "Update" }); 
-});
-
-app.get("/update_game", (req, res) => {
-    res.render("updategamepage", { title: "Update" }); 
-});
 
 app.get("/new_game", (req, res) => {
   res.render("addgamepage", { title: "New Game" }); 
