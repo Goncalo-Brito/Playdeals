@@ -31,7 +31,7 @@ class ShoppingCart {
     
         const sql = `DELETE FROM shoppingcart WHERE UserID = ?`;
     
-        console.log("Executing delete for UserID:", userID); // Log the value being passed
+        console.log("Executing delete for UserID:", userID); 
         return await database.execute(sql, [userID]);
     }
 }
