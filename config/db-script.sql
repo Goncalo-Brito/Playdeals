@@ -95,6 +95,7 @@ Create table if not exists Biddings (
 	foreign key(AuctionID) references Auctions(AuctionID)
 );
 
+
 Create table if not exists PurchaseLog (
 	PurchaseLogID int auto_increment,
     PurchaseDate datetime not null,

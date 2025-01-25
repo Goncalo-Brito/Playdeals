@@ -40,6 +40,9 @@ app.use("/shoppingcart", require("./routes/shoppingcartRoutes"));
 
 app.use("/purchaselog", require("./routes/purchaselogRoutes"))
 
+app.use("/contact", require("./routes/contactRoutes"));
+
+
 app.get("/login", (req, res) => {
   res.render("login", { title: "Login Page" }); 
 });
