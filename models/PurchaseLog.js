@@ -17,11 +17,6 @@ class PurchaseLog {
                         VALUES (?, ?, ?, ?, ?, ?, ?)`;
     
         const params = [this.PurchaseDate, this.PurchasePrice, this.ItemKey, this.UserID, this.GameID, this.DLCID, this.GiftCardID];
-<<<<<<< HEAD
-=======
-    
-        console.log(params);
->>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
 
         return await database.execute(sql, params);
     }
