@@ -949,19 +949,21 @@ async function startupTask() {
       const auctions = data.auctions;
       let today = new Date().toISOString().split('T')[0];
       const Auction = require("./models/Auction");
-      const sendEmail = require('./scripts/sendemail');
+      const sendEmail = require('./www/scripts/sendemail');
 
       for (let auction of auctions) {
-          if (auction.EndDate <= today && auction.Status == 'Available') {
-              console.log(`Updating Auction ID ${auction.AuctionID} to "Completed"`);
-              await Auction.updateByIdStatus(auction.AuctionID);
+          if((auction.Status !== 'Completed' && auction.Status !== 'Cancelled' && auction.Status !== 'Available') && auction.StartDate < today)
+          {
+            await Auction.updateByIdStatusA(auction.AuctionID);
+          }
+          if (auction.EndDate < today && (auction.Status !== 'Completed' && auction.Status !== 'Cancelled' && auction.Status !== 'TBA')) {
+            await Auction.updateByIdStatusC(auction.AuctionID);
 
-              try {
-                await sendEmail.wonauction(auction);
-                console.log(`Email sent successfully for auction ID: ${auction.AuctionID}`);
-              } catch (error) {
-                  console.error(`Error sending email for auction ID: ${auction.AuctionID}`, error);
-              }
+            try {
+              await sendEmail.wonauction(auction);
+            } catch (error) {
+                console.error(`Error sending email for auction ID: ${auction.AuctionID}`, error);
+            }
           }
       }
 

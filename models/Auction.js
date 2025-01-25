@@ -48,8 +48,14 @@ class Auction {
         return await database.execute(sql);
     }
 
-    static async updateByIdStatus(id) {
+    static async updateByIdStatusC(id) {
         let sql = `UPDATE Auctions SET Status = 'Completed' WHERE AuctionID = ?`;
+
+        return database.execute(sql, [id]);
+    }
+
+    static async updateByIdStatusA(id) {
+        let sql = `UPDATE Auctions SET Status = 'Available' WHERE AuctionID = ?`;
 
         return database.execute(sql, [id]);
     }

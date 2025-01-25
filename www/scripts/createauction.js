@@ -16,6 +16,10 @@ document.getElementById("createAuctionForm").addEventListener("submit", async fu
             message.textContent = "Please fill every field correctly.";  
             message.style.color = "red";
         }
+        else if (startDate > EndDate) {
+            message.textContent = "The Start Date can't be after the End Date!";  
+            message.style.color = "red";
+        }
         else if (parseFloat(innitialValue) <= 0 || isNaN(innitialValue)) {
             message.textContent = "Innitial Value must be VALID.";
             message.style.color = "red";
