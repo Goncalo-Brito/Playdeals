@@ -24,10 +24,15 @@ class ShoppingCart {
         return database.execute(sql);
     }
 
-    async deleteById(id) {
-        let sql = `delete from shoppingcart where CartID = ${id}`;
-
-        return database.execute(sql);
+    static async deleteCartItems(userID) {
+        if (!userID) {
+            throw new Error('userID is required');
+        }
+    
+        const sql = `DELETE FROM shoppingcart WHERE UserID = ?`;
+    
+        console.log("Executing delete for UserID:", userID); 
+        return await database.execute(sql, [userID]);
     }
 }
 

@@ -28,13 +28,14 @@ exports.create = async (req, res, next) => {
     }
 };
 
-exports.deleteById = async (req, res, next) => {
-    try {
-        const { id } = req.params;
+exports.deleteCartItems = async (req, res, next) => {
+    const userID = req.params.id;
 
-        const [result] = await ShoppingCart.deleteById(id);
+    try {
+        await ShoppingCart.deleteCartItems(userID);
+        res.status(200).json({ success: true, message: `Cart items deleted for UserID: ${userID}` });
     } catch (error) {
         console.error(error);
-        next(error);
+        res.status(500).json({ success: false, message: "Error deleting cart items." });
     }
 };
