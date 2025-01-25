@@ -1,18 +1,5 @@
-/**
- * Controller for handling operations related to purchase logs.
- * @module purchaseLogController
- */
-
 const PurchaseLog = require("../models/PurchaseLog");
 
-/**
- * Retrieves all purchase logs from the database and returns them as a JSON response.
- * @function
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @param {function} next - The next middleware function.
- * @returns {Promise} - A promise that resolves to a response with the list of purchase logs.
- */
 exports.getAll = async (req, res, next) => {
     try {
         const [PurchaseLogs, _] = await PurchaseLog.getAll();
@@ -24,29 +11,16 @@ exports.getAll = async (req, res, next) => {
         console.error(error);
         res.status(500).json({
             success: false,
-            message: "Error obtaining purchase logs.",
+            message: "Erro ao obter os logs de compras.",
             error: error.message,
         });
     }
 };
 
-/**
- * Generates a random item key for a new purchase log.
- * @function
- * @returns {string} - A random string representing the item key.
- */
 const generateItemKey = () => {
     return Math.random().toString(36).substr(2, 16); 
 };
 
-/**
- * Creates a new purchase log and stores it in the database.
- * @function
- * @param {Object} req - The request object containing the purchase log data.
- * @param {Object} res - The response object.
- * @param {function} next - The next middleware function.
- * @returns {Promise} - A promise that resolves to a response confirming the creation of the purchase log.
- */
 exports.create = async (req, res, next) => {
     let { UserID, GameID, DLCID, GiftCardID, PurchasePrice } = req.body;
 
@@ -59,21 +33,13 @@ exports.create = async (req, res, next) => {
 
     try {
         await purchaselog.create();
-        res.status(201).json({ success: true, message: "Purchase log created successfully." });
+        res.status(201).json({ success: true, message: "PurchaseLog created successfully." });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: "Error creating purchase log." });
+        res.status(500).json({ success: false, message: "Error creating PurchaseLog." });
     }
 };
 
-/**
- * Updates a purchase log by its ID.
- * @function
- * @param {Object} req - The request object containing the updated data and the ID of the purchase log.
- * @param {Object} res - The response object.
- * @param {function} next - The next middleware function.
- * @returns {Promise} - A promise that resolves to a response confirming the update of the purchase log.
- */
 exports.updateById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -87,14 +53,6 @@ exports.updateById = async (req, res, next) => {
     }
 };
 
-/**
- * Deletes a purchase log by its ID.
- * @function
- * @param {Object} req - The request object containing the ID of the purchase log.
- * @param {Object} res - The response object.
- * @param {function} next - The next middleware function.
- * @returns {Promise} - A promise that resolves to a response confirming the deletion of the purchase log.
- */
 exports.deleteById = async (req, res, next) => {
     try {
         const { id } = req.params;

@@ -30,7 +30,6 @@ router
  */
 router
     .route("/:id")
-    .get(gameimageController.getById)  // Get game image by ID
     .put(gameimageController.updateById) // Update game image by ID
     .delete(gameimageController.deleteById); // Delete game image by ID
 
