@@ -735,8 +735,6 @@ app.get("/new_dlc", async (req, res) => {
   }
 });
 
-//___________________________________________________________
-
 app.get("/cart_page", async (req, res) => {
     try {
       const response = await fetch("http://localhost:3000/shoppingcart/", {
@@ -915,6 +913,10 @@ app.get("/profile", (req, res) => {
 
 app.get("/redeem", (req, res) => {
   res.render("redeempage", { title: "Redeem" }); 
+});
+
+app.get("/contact_page", (req, res) => {
+  res.render("contactpage", { title: "Contact us" }); 
 });
 
 
