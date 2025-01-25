@@ -74,11 +74,13 @@ class Game {
     }
     
 
-    async deleteById(id) {
-        let sql = `delete from games where GameID = ${id}`;
-
-        return database.execute(sql);
+    static async deleteById(id) {
+        console.log("ID Game to Delete: " + id);
+        let sql = `DELETE FROM games WHERE GameID = ?`;
+    
+        return database.execute(sql, [id]);
     }
+    
 }
 
 module.exports = Game;

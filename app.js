@@ -675,7 +675,6 @@ app.get("/staff_page", async (req, res) => {
     }
 
     res.render("staffpage", {
-      title: "Staff",
       games: games,
       dlcs: dlcs,
       auctions: auctions,
@@ -686,7 +685,6 @@ app.get("/staff_page", async (req, res) => {
   } catch (error) {
     console.error("Error fetching staff data:", error);
     res.render("staffpage", {
-      title: "Staff",
       games: [],
       dlcs: [],
       auctions: [],
@@ -941,8 +939,49 @@ app.get("/new_auction", (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 3000;
+async function startupTask() {
 
-app.listen(PORT, () => {
+  try {
+      const response = await fetch("http://localhost:3000/auctions/", {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+          },
+      });
+
+      if (!response.ok) {
+          throw new Error(`Error fetching auctions: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const auctions = data.auctions;
+      let today = new Date().toISOString().split('T')[0];
+      const Auction = require("./models/Auction");
+      const sendEmail = require('./scripts/sendemail');
+
+      for (let auction of auctions) {
+          if (auction.EndDate <= today && auction.Status == 'Available') {
+              console.log(`Updating Auction ID ${auction.AuctionID} to "Completed"`);
+              await Auction.updateByIdStatus(auction.AuctionID);
+
+              try {
+                await sendEmail.wonauction(auction);
+                console.log(`Email sent successfully for auction ID: ${auction.AuctionID}`);
+              } catch (error) {
+                  console.error(`Error sending email for auction ID: ${auction.AuctionID}`, error);
+              }
+          }
+      }
+
+  } catch (error) {
+      console.error("Error executing startup task:", error);
+  }
+}
+
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, async () => {
     console.log(`Servidor a correr em http://localhost:${PORT}`);
+    await startupTask();
 });
