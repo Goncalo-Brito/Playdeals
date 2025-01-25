@@ -696,6 +696,45 @@ app.get("/staff_page", async (req, res) => {
   }
 });
 
+app.get("/new_dlc", async (req, res) => {
+  let games = []; 
+
+  try {
+    const gamesResponse = await fetch("http://localhost:3000/games/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+
+    if (!gamesResponse.ok) {
+      throw new Error("Error: Failed to fetch Games data");
+    }
+
+    const datagames = await gamesResponse.json();
+    games = datagames.games;
+
+    for(let i = 0; i < games.length; i++) {
+      const game = games[i];
+      game.GameReleaseDate = game.GameReleaseDate.substring(0, 10);
+      games[i] = game;
+    }
+
+    res.render("adddlcpage", {
+      title: "Add Dlc",
+      games: games,
+    });
+
+  } catch (error) {
+    console.error("Error fetching game data:", error);
+    res.render("adddlcpage", {
+      title: "Add Dlc",
+      games: [],
+    });
+  }
+});
+
 //___________________________________________________________
 
 app.get("/cart_page", async (req, res) => {
@@ -820,16 +859,28 @@ app.get("/cart_page", async (req, res) => {
         }
       }
 
+      cartGames.sort((a, b) => a.GameID - b.GameID);
+
       for (let i = 0; i < gameimages.length; i++) {
         const image = gameimages[i];
         const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
-        gameimagesPath.push(imagePath);
+        for(let j = 0; j < cartGames.length; j++) {
+          if(image.GameID == cartGames[j].GameID) {
+            gameimagesPath.push(imagePath);
+          }
+        }
       }
+
+      cartDLCs.sort((a, b) => a.GameID - b.GameID);
 
       for(let i = 0; i < dlcimages.length; i++) {
         const image = dlcimages[i];
         const imagePath = `../${image.ImageSource}/${image.ImageName}.${image.ImageExtention}`;
-        dlcimagesPath.push(imagePath);
+        for(let j = 0; j < cartDLCs.length; j++) {
+          if(image.GameID == cartDLCs[j].GameID) {
+            dlcimagesPath.push(imagePath);
+          }
+        } 
       }
 
       for (let i = 0; i < cartGiftCards.length; i++) {
@@ -879,49 +930,6 @@ app.get("/update_dlc", (req, res) => {
 
 app.get("/update_game", (req, res) => {
     res.render("updategamepage", { title: "Update" }); 
-});
-
-app.get("/new_dlc", async (req, res) => {
-  let games = []; 
-
-  try {
-    const gamesResponse = await fetch("http://localhost:3000/games/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-
-    if (!gamesResponse.ok) {
-      throw new Error("Error: Failed to fetch Games data");
-    }
-
-    const datagames = await gamesResponse.json();
-    games = datagames.games;
-
-// ----------------------------------------------------------------
-
-    for(let i = 0; i < games.length; i++) {
-      const game = games[i];
-      game.GameReleaseDate = game.GameReleaseDate.substring(0, 10);
-      games[i] = game;
-    }
-
-// ----------------------------------------------------------------
-
-    res.render("adddlcpage", {
-      title: "Add Dlc",
-      games: games,
-    });
-
-  } catch (error) {
-    console.error("Error fetching game data:", error);
-    res.render("adddlcpage", {
-      title: "Add Dlc",
-      games: [],
-    });
-  }
 });
 
 app.get("/new_game", (req, res) => {
