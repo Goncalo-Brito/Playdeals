@@ -26,20 +26,65 @@
               <% for(let i = 0; i < purchaseGames.length; i++) { %>
                 <% const game = purchaseGames[i]; %>
                 <% const path = gameimagesPath[i]; %>
+                <% const purchase = purchaselogUtil[i] %>
                 <div class="games-list-row">
                   <div class="grid-object-s">
-                    <a href="/game_page">
+                    <a href="/game_page/<%= game.GameID %>">
                       <img class="game-image m-top m-bottom" style="height: 10rem;" src="<%= path %>" alt="Purchased game">
                     </a>
                   </div>
                   <div class="grid-object-l flex-row left">
                     <div class="grid-object-l game-content">
                       <h3>Name: <%= game.GameName %></h3>
-                      <h3 class="canceled">Status: <%= game.GameStatus %></h3>
-                      <h3>Code: **** **** **** ****</h3>
+                      <h3>Status: <%= game.GameStatus %></h3>
+                      <h3>Code: <%= purchase.ItemKey %></h3>
                     </div>
                     <div class="grid-object-s">
-                      <h3>19.50€</h3>
+                      <h3><%= (game.GamePrice * (1 - game.GameDiscount / 100)).toFixed(2)  %>€</h3>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+              <% for(let i = 0; i < purchaseDLCs.length; i++) { %>
+                <% const dlc = purchaseDLCs[i]; %>
+                <% const path = dlcimagesPath[i]; %>
+                <% const purchase = purchaselogUtil[i] %>
+                <div class="games-list-row">
+                  <div class="grid-object-s">
+                    <a href="/dlc_page/<%= dlc.DLCID %>">
+                      <img class="game-image m-top m-bottom" style="height: 10rem;" src="<%= path %>" alt="Purchased game">
+                    </a>
+                  </div>
+                  <div class="grid-object-l flex-row left">
+                    <div class="grid-object-l game-content">
+                      <h3>Name: <%= dlc.DLCName %></h3>
+                      <h3>Status: <%= dlc.DLCStatus %></h3>
+                      <h3>Code: <%= purchase.ItemKey %></h3>
+                    </div>
+                    <div class="grid-object-s">
+                      <h3><%= (dlc.DLCPrice * (1 - dlc.DLCDiscount / 100)).toFixed(2)  %>€</h3>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+              <% for(let i = 0; i < purchaseGiftCards.length; i++) { %>
+                <% const GiftCard = purchaseGiftCards[i]; %>
+                <% const path = giftcardsPath[i]; %>
+                <% const purchase = purchaselogUtil[i] %>
+                <div class="games-list-row">
+                  <div class="grid-object-s">
+                    <a href="/gift_card_page/<%= GiftCard.GiftCardID %>">
+                      <img class="game-image m-top m-bottom" style="height: 10rem;" src="<%= path %>" alt="Purchased game">
+                    </a>
+                  </div>
+                  <div class="grid-object-l flex-row left">
+                    <div class="grid-object-l game-content">
+                      <h3>Name: <%= GiftCard.GFCValue %>€</h3>
+                      <h3>Status: <%= GiftCard.GFCStatus %></h3>
+                      <h3>Code: <%= purchase.ItemKey %></h3>
+                    </div>
+                    <div class="grid-object-s">
+                      <h3><%= GiftCard.GFCValue %>€</h3>
                     </div>
                   </div>
                 </div>
