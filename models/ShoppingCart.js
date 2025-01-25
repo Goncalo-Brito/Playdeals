@@ -30,12 +30,6 @@ class ShoppingCart {
         }
     
         const sql = `DELETE FROM shoppingcart WHERE UserID = ?`;
-<<<<<<< HEAD
-
-=======
-    
-        console.log("Executing delete for UserID:", userID); 
->>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
         return await database.execute(sql, [userID]);
     }
 
@@ -46,13 +40,8 @@ class ShoppingCart {
     
         const sql = `DELETE FROM shoppingcart WHERE CartID = ?`;
     
-<<<<<<< HEAD
         return await database.execute(sql, [userID]);
 
-=======
-        console.log("Executing delete for CartID:", userID); 
-        return await database.execute(sql, [userID]);
->>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
     }
 }
 
