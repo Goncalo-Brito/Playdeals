@@ -1,7 +1,20 @@
+/**
+ * Controller that handles the operations related to users.
+ * @module userController
+ */
+
 const User = require("../models/User");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+/**
+ * Retrieves all users from the database and sends them as a JSON response.
+ * @function
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {function} next - The next middleware function.
+ * @returns {Promise} - A promise that resolves to a response with the users.
+ */
 exports.getAll = async (req, res, next) => {
     try {
         const [users, _] = await User.getAll();
@@ -12,6 +25,14 @@ exports.getAll = async (req, res, next) => {
     }
 };
 
+/**
+ * Retrieves a specific user by ID and renders their profile page.
+ * @function
+ * @param {Object} req - The request object containing the user ID.
+ * @param {Object} res - The response object.
+ * @param {function} next - The next middleware function.
+ * @returns {Promise} - A promise that resolves to rendering the profile page.
+ */
 exports.getById = async (req, res, next) => {
     try {
         const [[user, _]] = await User.getById(req.params.id);
@@ -20,11 +41,19 @@ exports.getById = async (req, res, next) => {
         console.log(error);
         next(error);
     }
-}
+};
 
+/**
+ * Handles user login. Verifies username and password and starts a session if valid.
+ * @function
+ * @param {Object} req - The request object containing login credentials.
+ * @param {Object} res - The response object.
+ * @param {function} next - The next middleware function.
+ * @returns {Promise} - A promise that resolves to a response with login results.
+ */
 exports.getLogin = async (req, res, next) => {
     try {
-        const { username, password } = req.body; 
+        const { username, password } = req.body;
         const [[user, _]] = await User.getLogin(username);
         if (user) {
             bcrypt.compare(password, user.Pass, (err, isMatch) => {
@@ -48,6 +77,14 @@ exports.getLogin = async (req, res, next) => {
     }
 };
 
+/**
+ * Creates a new user and stores it in the database.
+ * @function
+ * @param {Object} req - The request object containing user data.
+ * @param {Object} res - The response object.
+ * @param {function} next - The next middleware function.
+ * @returns {Promise} - A promise that resolves to a response confirming user creation.
+ */
 exports.create = async (req, res, next) => {
     let { username, fname, lname, email, password } = req.body;
 
@@ -70,10 +107,17 @@ exports.create = async (req, res, next) => {
             res.status(500).send("Error creating user.");
         }
         next(error);
-
     }
 };
 
+/**
+ * Updates an existing user by ID with the provided updated data.
+ * @function
+ * @param {Object} req - The request object containing the user ID and updated data.
+ * @param {Object} res - The response object.
+ * @param {function} next - The next middleware function.
+ * @returns {Promise} - A promise that resolves to a response confirming user update.
+ */
 exports.updateById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -87,6 +131,14 @@ exports.updateById = async (req, res, next) => {
     }
 };
 
+/**
+ * Deletes a user by ID.
+ * @function
+ * @param {Object} req - The request object containing the user ID.
+ * @param {Object} res - The response object.
+ * @param {function} next - The next middleware function.
+ * @returns {Promise} - A promise that resolves to a response confirming user deletion.
+ */
 exports.deleteById = async (req, res, next) => {
     try {
         const { id } = req.params;
