@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 class User {
     constructor(username, fname, lname, email, pass, creationdate, usertype) {
-        console.log('User constructor input:', { username, fname, lname, email, pass, creationdate, usertype });
+
         this.username = username;
         this.fname = fname;
         this.lname = lname;
