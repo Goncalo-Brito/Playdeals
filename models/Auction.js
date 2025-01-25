@@ -48,11 +48,18 @@ class Auction {
         return await database.execute(sql);
     }
 
-    async deleteById(id) {
-        let sql = `delete from auctions where id = ${id}`;
+    static async updateByIdStatus(id) {
+        let sql = `UPDATE Auctions SET Status = 'Completed' WHERE AuctionID = ?`;
 
-        return database.execute(sql);
+        return database.execute(sql, [id]);
     }
+
+    static async deleteById(id) {
+        let sql = `DELETE FROM Auctions WHERE AuctionID = ?`;
+            
+        return database.execute(sql, [id]);
+    }
+    
 }
 
 module.exports = Auction;

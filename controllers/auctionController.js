@@ -59,6 +59,7 @@ exports.deleteById = async (req, res, next) => {
         const { id } = req.params;
 
         const [result] = await Auction.deleteById(id);
+        res.status(200).send({ message: "Success" });
     } catch (error) {
         console.error(error);
         next(error);

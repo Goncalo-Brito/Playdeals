@@ -54,13 +54,27 @@ exports.updateById = async (req, res, next) => {
     }
 };
 
+
+
 exports.deleteById = async (req, res, next) => {
     try {
         const { id } = req.params;
 
+        if (!id) {
+            return res.status(400).json({ message: 'ID is required' });
+        }
+
         const [result] = await Game.deleteById(id);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Game not found' });
+        }
+
+        res.status(200).json({ message: 'Game deleted successfully' });
     } catch (error) {
         console.error(error);
         next(error);
     }
 };
+
+

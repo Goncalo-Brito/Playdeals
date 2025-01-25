@@ -48,10 +48,11 @@ class DLC {
         return await database.execute(sql);
     }
 
-    async deleteById(id) {
-        let sql = `delete from dlcs where id = ${id}`;
-
-        return database.execute(sql);
+    static async deleteById(id) {
+        console.log("ID DLC to Delete: " + id);
+        let sql = `DELETE FROM games WHERE DLCID = ?`;
+            
+        return database.execute(sql, [id]);
     }
 }
 

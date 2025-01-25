@@ -1,34 +1,32 @@
-document.getElementById("deleteGameForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
 
-    try {
-essage.style.color = "red";
+document.querySelectorAll("[id^='deleteAuctionForm-']").forEach(form => {
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-        const response = await fetch("/auctions/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(
-                {
-                    
-                }
-            )
-        });
+        const auctionID = form.getAttribute("data-auction-id");
 
-        if (response.ok) {
-            const auction = await response.json();
-            window.location.href = "/staff_page";
-        } else {
-            const error = await response.json();
-            message.textContent = error.message;
-            message.style.color = "red";
+        try {
+            const response = await fetch(`/auctions/${auctionID}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            console.log(response);
+
+            if (response.ok) {
+                console.log("SUCCESS: Auction deleted successfully");
+                await response.json();
+                window.location.href = "/staff_page";
+            } else {
+                console.log("FAILED: Unable to delete auction");
+                alert("Error deleting auction: This aucting has biddings!");
+            }
+
+        } catch (error) {
+            console.log("FAILED: Error processing request");
+            console.error(error);
         }
-
-    } catch (error) {
-        console.error(error);
-        message.textContent = "Error invalid auction data.";
-        message.style.color = "red";
-    }
+    });
 });
-
