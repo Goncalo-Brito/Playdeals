@@ -14,7 +14,7 @@ class User {
      * @param {string} usertype - The type of the user (e.g., admin, regular user).
      */
     constructor(username, fname, lname, email, pass, creationdate, usertype) {
-        console.log('User constructor input:', { username, fname, lname, email, pass, creationdate, usertype });
+
         this.username = username;
         this.fname = fname;
         this.lname = lname;

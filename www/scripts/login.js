@@ -1,15 +1,32 @@
+/**
+ * User Login Form Script
+ *
+ * This script handles the submission of the login form.
+ * It validates user input, sends login credentials to the server, and processes the server response.
+ */
+
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
     e.preventDefault();
+
+    // Get form input values
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const message = document.getElementById("message");
 
     try {
-        if(username == '' || password == '') {
+        /**
+         * Form validation checks.
+         *
+         * - Ensures both username and password fields are filled.
+         */
+        if (username === '' || password === '') {
             message.textContent = "Please fill every field."; 
             message.style.color = "red";
-        }
+        } 
         else {
+            /**
+             * Send login data to the server via a POST request.
+             */
             const response = await fetch("/users/login", {
                 method: "POST",
                 headers: {
@@ -17,7 +34,13 @@ document.getElementById("loginForm").addEventListener("submit", async function (
                 },
                 body: JSON.stringify({ username: username, password: password }),
             });
-    
+
+            /**
+             * Handle server response.
+             *
+             * - If credentials are incorrect, display appropriate error message.
+             * - If successful, redirect to the homepage.
+             */
             if (!response.ok) {
                 if (response.status === 404) {
                     message.textContent = "Username or password wrong."; 
@@ -35,7 +58,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             }    
         }
     } catch (error) {
-        console.error(error);
+        console.error("Error during login:", error);
         message.textContent = "Error fetching user data.";
         message.style.color = "red";
     }

@@ -487,7 +487,6 @@ app.get("/deals", async (req, res) => {
       highbid[i] = highestBid;
     }
     auctions.reverse();
-    console.log(auctions);
 
     res.render("discoveryauctions", {
       auctions: auctions,
