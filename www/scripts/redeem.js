@@ -20,11 +20,11 @@ document.getElementById("RedeemForm").addEventListener("submit", async function 
                 throw new Error("Failed to fetch Purchase Logs.");
             }
     
-            const puchaselogsData = await response.json();
-            const puchaselogs = puchaselogsData.purchaselog;
+            const purchaselogsData = await response.json();
+            const purchaselogs = purchaselogsData.data;
 
-            puchaselogs.forEach(puchaselog => {
-                if(puchaselog.ItemKey == code){
+            purchaselogs.forEach(purchaselog => {
+                if(purchaselog.ItemKey == code){
                     success = true;
                 }
             });
