@@ -33,10 +33,10 @@ exports.create = async (req, res, next) => {
 
     try {
         await purchaselog.create();
-        res.status(201).json({ success: true, message: "Shopping cart item created successfully." });
+        res.status(201).json({ success: true, message: "PurchaseLog created successfully." });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: "Error creating shopping cart item." });
+        res.status(500).json({ success: false, message: "Error creating PurchaseLog." });
     }
 };
 
