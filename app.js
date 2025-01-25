@@ -973,7 +973,8 @@ app.get("/profile", async (req, res) => {
   }
 
   const purchaselogData = await response.json();
-  console.log(purchaselogData)
+  const purchaselog = purchaselogData.data; 
+  const purchaselogUtil = [];
 
   const dataGames = await responseGames.json();
   const games = dataGames.games;
@@ -1001,27 +1002,30 @@ app.get("/profile", async (req, res) => {
 
   const user = req.session.user;
 
-  for(let i = 0; i < purchaselogData.length; i++) {
-    if(purchaselogData[i].UserID == userid){
-      if(purchaselogData[i].GameID != null) {
-        for(let j = 0; j < games[j].length; j++) {
-          if(purchaselogData[i].GameID == games[j].GameID) {
+  for (let i = 0; i < purchaselog.length; i++) {
+    if (purchaselog[i].UserID == user.id) {
+      if (purchaselog[i].GameID != null) {
+        for (let j = 0; j < games.length; j++) {
+          if (purchaselog[i].GameID == games[j].GameID) {
             purchaseGames.push(games[j]);
+            purchaselogUtil.push(purchaselog[i]);
           }
         }
-      } else if (purchaselogData[i].DLCID != null) {
-        for(let j = 0; j < DLCs[j].length; j++) {
-          if(purchaselogData[i].DLCID == DLCs[j].DLCID) {
+      } else if (purchaselog[i].DLCID != null) {
+        for (let j = 0; j < DLCs.length; j++) {
+          if (purchaselog[i].DLCID == DLCs[j].DLCID) {
             purchaseDLCs.push(DLCs[j]);
+            purchaselogUtil.push(purchaselog[i]);
           }
         }
-      } else if (purchaselogData[i].GiftCardID != null) {
-        for(let j = 0; j < GiftCards[j].length; j++) {
-          if(purchaselogData[i].DLCID == GiftCards[j].GiftCardID) {
+      } else if (purchaselog[i].GiftCardID != null) {
+        for (let j = 0; j < GiftCards.length; j++) {
+          if (purchaselog[i].GiftCardID == GiftCards[j].GiftCardID) {
             purchaseGiftCards.push(GiftCards[j]);
+            purchaselogUtil.push(purchaselog[i]);
           }
         }
-      }  
+      }
     }
   }
   
@@ -1066,6 +1070,7 @@ app.get("/profile", async (req, res) => {
   
   res.render("profilepage", { 
     user : user,
+    purchaselogUtil : purchaselogUtil,
     purchaseGames: purchaseGames,
     purchaseDLCs: purchaseDLCs,
     purchaseGiftCards: purchaseGiftCards,
@@ -1075,9 +1080,6 @@ app.get("/profile", async (req, res) => {
   }); 
 });
 
-
-//___________________________________________________________
-
 app.get("/redeem", (req, res) => {
   res.render("redeempage", { title: "Redeem" }); 
 });
@@ -1085,9 +1087,6 @@ app.get("/redeem", (req, res) => {
 app.get("/contact_page", (req, res) => {
   res.render("contactpage", { title: "Contact us" }); 
 });
-
-//___________________________________________________________
-
 
 async function startupTask() {
 
