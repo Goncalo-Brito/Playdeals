@@ -2,7 +2,10 @@ const database = require("../config/database");
 const bcrypt = require("bcrypt");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 4708c13 (java doc)
 
 class User {
     constructor(username, fname, lname, email, pass, creationdate, usertype) {

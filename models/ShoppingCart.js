@@ -33,11 +33,15 @@ class ShoppingCart {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     
 <<<<<<< HEAD
 >>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
+=======
+    
+>>>>>>> parent of 4708c13 (java doc)
         console.log("Executing delete for UserID:", userID); 
 =======
     
@@ -59,6 +63,7 @@ class ShoppingCart {
         const sql = `DELETE FROM shoppingcart WHERE CartID = ?`;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         console.log("Executing delete for CartID:", id); 
         return await database.execute(sql, [id]);
@@ -75,6 +80,11 @@ class ShoppingCart {
         console.log("Executing delete for CartID:", userID); 
         return await database.execute(sql, [userID]);
 >>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
+=======
+    
+        console.log("Executing delete for CartID:", userID); 
+        return await database.execute(sql, [userID]);
+>>>>>>> parent of 4708c13 (java doc)
     }
 }
 
