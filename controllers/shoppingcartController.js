@@ -18,6 +18,7 @@ exports.getAll = async (req, res, next) => {
         const [shoppingcarts, _] = await ShoppingCart.getAll();
         res.status(200).json({ shoppingcarts: shoppingcarts });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: "An error occurred", error: error.message });
     }
 };

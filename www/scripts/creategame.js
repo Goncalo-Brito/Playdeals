@@ -1,14 +1,5 @@
-/**
- * Game Creation Form Script
- *
- * This script handles the submission of the game creation form.
- * It validates user input, processes the game data, uploads images, and submits the information to the server.
- */
-
 document.getElementById("createGameForm").addEventListener("submit", async function (e) {
     e.preventDefault();
-
-    // Get form input values
     let gamename = document.getElementById("title").value;
     let gamecompany = document.getElementById("company").value;
     let gamePEGI = document.getElementById("pegi").value;
@@ -24,46 +15,50 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
     let today = new Date();
     let todayFormatted = today.toISOString().split('T')[0]; 
     let imagesource = 'images/games';
+
     let gamestatus = '';
 
     try {
-        /**
-         * Form validation checks.
-         *
-         * - Ensures all required fields are filled correctly.
-         * - Checks if the game price is valid.
-         */
-        if (gamename === '' || gamecompany === '' || gamePEGI === '' || gameplatform === '' || gamedescription === '' || gameprice === '' || image1.files.length === 0 || image2.files.length === 0) {
-            message.textContent = "Please fill every field correctly. (Don't forget the images)";
+        if(gamename == '' || gamecompany == '' || gamePEGI == '' || gameplatform == '' || gamedescription == '' || gameprice == '' || image1.files.length == 0 || image2.files.length == 0) {
+            message.textContent = "Please fill every field correctly. (Don't forget the images)"; 
             message.style.color = "red";
-        } 
+        }
         else if (parseFloat(gameprice) <= 0 || isNaN(gameprice)) {
-            message.textContent = "Game price must be valid.";
+            message.textContent = "Game price must be VALID.";
             message.style.color = "red";
-        } 
+        }
         else {
-            if (gamereleasedate === '') {
+
+            if (gamereleasedate == '')
+            {
                 gamereleasedate = todayFormatted;
             }
 
-            gamestatus = (todayFormatted >= gamereleasedate) ? "Available" : "TBA";
+            if (todayFormatted >= gamereleasedate) {
+                gamestatus = "Available";
+            } else {
+                gamestatus = "TBA";
+            }
 
-            // Send game data to the server
             const response1 = await fetch("/games/", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    gamename,
-                    gamecompany,
-                    gameprice,
-                    gamereleasedate,
-                    gamePEGI,
-                    gameplatform,
-                    gamediscount,
-                    featuredgame,
-                    gamestatus,
-                    gamedescription,
-                })
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(
+                    {
+                        gamename,
+                        gamecompany,
+                        gameprice,
+                        gamereleasedate,
+                        gamePEGI,
+                        gameplatform,
+                        gamediscount,
+                        featuredgame,
+                        gamestatus,
+                        gamedescription,
+                    }
+                )
             });
 
             try {
@@ -72,68 +67,86 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
                 let imageExtension1 = '';
                 let imageExtension2 = '';
                 let gameID = '';
-
-                // Fetch all games to get the latest game ID
-                const data = await fetch("/games/", { method: "GET", headers: { "Content-Type": "application/json" } });
+        
+                const data = await fetch("/games/", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },            
+                });
+        
                 let gaming = await data.json();
                 let games = gaming.games;
-
+        
                 games.forEach(game => {
                     gameID = game.GameID;
                 });
-
-                // Process image file names and extensions
-                if (image1.files.length > 0 && image2.files.length > 0) {
+        
+        
+                if(image1.files.length > 0 && image2.files.length > 0){
                     imageExtension1 = image1.files[0].name.split('.').pop();
                     imageExtension2 = image2.files[0].name.split('.').pop();
-
+        
                     imagename1 = gameID + '_1'; 
                     imagename2 = gameID; 
                 }
-
-                // Upload images to server
+        
+        
                 const response2 = await fetch("/gameimages/", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        imageextention: imageExtension1,
-                        imagesource,
-                        imagename: imagename1,
-                        gameID,
-                    })
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(
+                        {
+                            imageextention: imageExtension1,
+                            imagesource,
+                            imagename: imagename1,
+                            gameID,
+                        }
+                    )
                 });
-
+        
                 const response3 = await fetch("/gameimages/", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        imageextention: imageExtension2,
-                        imagesource,
-                        imagename: imagename2,
-                        gameID,
-                    })
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(
+                        {
+                            imageextention: imageExtension2,
+                            imagesource,
+                            imagename: imagename2,
+                            gameID,
+                        }
+                    )
                 });
-
-                if (!response2.ok && !response3.ok) {
-                    if (response2.status === 400 || response3.status === 400) {
-                        message.textContent = "Please fill out all the fields correctly.";
-                        message.style.color = "red";
-                    } else if (response2.status === 500 || response3.status === 500) {
-                        message.textContent = "Server error occurred. Please try again later.";
-                        message.style.color = "red";
-                    } else {
-                        message.textContent = `Unexpected error: ${response2.statusText}`;
-                        message.style.color = "red"; 
-                    }
+            
+            if (!response2.ok && !response3.ok) {
+                if (response2.status === 400 || response3.status === 400) {
+                    message.textContent = "Please fill out all the fields correctly.";
+                    message.style.color = "red";
+                }else if (response2.status === 500 || response3.status === 500) {
+                    message.textContent = "Server error occurred. Please try again later.";
+                    message.style.color = "red";
                 } else {
-                    window.location.href = "/staff_page";
+                    message.textContent = `Unexpected error: ${
+                        response2.statusText
+                    }`;
+                    message.style.color = "red"; 
                 }
+            } else {
+                window.location.href = "/staff_page";
+            }
+        
             } catch (error) {
                 console.error(error);
                 message.textContent = "Error fetching game data.";
                 message.style.color = "red";
             }
+            
         }
+
     } catch (error) {
         console.error(error);
         message.textContent = "Error invalid game data.";
@@ -141,9 +154,7 @@ document.getElementById("createGameForm").addEventListener("submit", async funct
     }
 });
 
-/**
- * Image preview and validation for the first game image.
- */
+
 document.getElementById('image1').addEventListener('change', function(event) {
     const file = event.target.files[0];
 
@@ -153,9 +164,9 @@ document.getElementById('image1').addEventListener('change', function(event) {
         reader.onload = function(e) {
             const img = new Image();
             img.src = e.target.result;
-
+            
             img.onload = function() {
-                if (img.width !== 753 || img.height !== 950) {
+                if (img.width != 753 || img.height != 950) {
                     alert('A imagem excede as dimensões permitidas de 753x950 pixels.');
                     event.target.value = '';
                     document.getElementById('previewImage1').src = '../images/games/no_image_small.jpg';
@@ -164,14 +175,12 @@ document.getElementById('image1').addEventListener('change', function(event) {
                 }
             };
         };
-
+        
         reader.readAsDataURL(file);
     }
 });
 
-/**
- * Image preview and validation for the second game image.
- */
+
 document.getElementById('image2').addEventListener('change', function(event) {
     const file = event.target.files[0];
 
@@ -181,9 +190,9 @@ document.getElementById('image2').addEventListener('change', function(event) {
         reader.onload = function(e) {
             const img = new Image();
             img.src = e.target.result;
-
+            
             img.onload = function() {
-                if (img.width !== 3840 || img.height !== 2160) {
+                if (img.width != 3840 || img.height != 2160) {
                     alert('A imagem excede as dimensões permitidas de 3840x2160 pixels.');
                     event.target.value = '';
                     document.getElementById('previewImage2').src = '../images/games/no_image_big.jpg';
@@ -192,7 +201,9 @@ document.getElementById('image2').addEventListener('change', function(event) {
                 }
             };
         };
-
+        
         reader.readAsDataURL(file);
     }
 });
+
+

@@ -85,6 +85,7 @@ class DLC {
      * @returns {Promise} - A promise that resolves when the delete operation is complete.
      */
     static async deleteById(id) {
+        console.log("ID DLC to Delete: " + id);
         let sql = `DELETE FROM games WHERE DLCID = ?`;
         return database.execute(sql, [id]);
     }

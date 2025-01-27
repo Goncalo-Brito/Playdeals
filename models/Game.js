@@ -122,6 +122,7 @@ class Game {
      * @returns {Promise} - Returns a promise that resolves with the result of the SQL execution.
      */
     static async deleteById(id) {
+        console.log("ID Game to Delete: " + id);
         let sql = `DELETE FROM games WHERE GameID = ?`;
     
         return database.execute(sql, [id]);

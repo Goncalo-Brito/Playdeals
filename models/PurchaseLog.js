@@ -35,6 +35,8 @@ class PurchaseLog {
 
         const params = [this.PurchaseDate, this.PurchasePrice, this.ItemKey, this.UserID, this.GameID, this.DLCID, this.GiftCardID];
 
+        console.log(params);
+
         return await database.execute(sql, params);
     }
 

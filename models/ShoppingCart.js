@@ -60,6 +60,7 @@ class ShoppingCart {
     
         const sql = `DELETE FROM shoppingcart WHERE UserID = ?`;
 
+        console.log("Executing delete for UserID:", userID); 
         return await database.execute(sql, [userID]);
     }
 
@@ -77,9 +78,9 @@ class ShoppingCart {
         }
     
         const sql = `DELETE FROM shoppingcart WHERE CartID = ?`;
-    
-        return await database.execute(sql, [userID]);
 
+        console.log("Executing delete for CartID:", id); 
+        return await database.execute(sql, [id]);
     }
 }
 
