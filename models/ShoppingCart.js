@@ -30,6 +30,28 @@ class ShoppingCart {
         }
     
         const sql = `DELETE FROM shoppingcart WHERE UserID = ?`;
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+    
+<<<<<<< HEAD
+>>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
+=======
+    
+>>>>>>> parent of 4708c13 (java doc)
+        console.log("Executing delete for UserID:", userID); 
+=======
+    
+>>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
+=======
+    
+>>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
+=======
+        console.log("Executing delete for UserID:", userID); 
+>>>>>>> parent of 09cb55d (Javadoc)
         return await database.execute(sql, [userID]);
     }
 
@@ -39,9 +61,30 @@ class ShoppingCart {
         }
     
         const sql = `DELETE FROM shoppingcart WHERE CartID = ?`;
-    
-        return await database.execute(sql, [userID]);
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 
+        console.log("Executing delete for CartID:", id); 
+        return await database.execute(sql, [id]);
+=======
+    
+        console.log("Executing delete for CartID:", userID); 
+        return await database.execute(sql, [userID]);
+<<<<<<< HEAD
+>>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
+=======
+>>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
+=======
+    
+        console.log("Executing delete for CartID:", userID); 
+        return await database.execute(sql, [userID]);
+>>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
+=======
+    
+        console.log("Executing delete for CartID:", userID); 
+        return await database.execute(sql, [userID]);
+>>>>>>> parent of 4708c13 (java doc)
     }
 }
 
