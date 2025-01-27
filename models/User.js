@@ -6,12 +6,15 @@ const bcrypt = require("bcrypt");
 
 class User {
     constructor(username, fname, lname, email, pass, creationdate, usertype) {
+<<<<<<< HEAD
 >>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
 =======
 >>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
 
 class User {
     constructor(username, fname, lname, email, pass, creationdate, usertype) {
+=======
+>>>>>>> parent of 09cb55d (Javadoc)
         console.log('User constructor input:', { username, fname, lname, email, pass, creationdate, usertype });
         this.username = username;
         this.fname = fname;

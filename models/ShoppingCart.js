@@ -36,6 +36,7 @@ class ShoppingCart {
 
 =======
     
+<<<<<<< HEAD
 >>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
         console.log("Executing delete for UserID:", userID); 
 =======
@@ -44,6 +45,9 @@ class ShoppingCart {
 =======
     
 >>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
+=======
+        console.log("Executing delete for UserID:", userID); 
+>>>>>>> parent of 09cb55d (Javadoc)
         return await database.execute(sql, [userID]);
     }
 
@@ -60,6 +64,7 @@ class ShoppingCart {
         return await database.execute(sql, [id]);
 =======
     
+        console.log("Executing delete for CartID:", userID); 
         return await database.execute(sql, [userID]);
 <<<<<<< HEAD
 >>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
