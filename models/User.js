@@ -1,11 +1,14 @@
 const database = require("../config/database");
 const bcrypt = require("bcrypt");
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 class User {
     constructor(username, fname, lname, email, pass, creationdate, usertype) {
 >>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
+=======
+>>>>>>> parent of 7ee4fdf (Merge pull request #23 from Goncalo-Brito/Goncalo-dev)
 
 class User {
     constructor(username, fname, lname, email, pass, creationdate, usertype) {
