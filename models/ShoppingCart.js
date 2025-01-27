@@ -31,8 +31,12 @@ class ShoppingCart {
     
         const sql = `DELETE FROM shoppingcart WHERE UserID = ?`;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         console.log("Executing delete for UserID:", userID); 
+=======
+    
+>>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
 =======
     
 >>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
@@ -52,6 +56,9 @@ class ShoppingCart {
 =======
     
         return await database.execute(sql, [userID]);
+<<<<<<< HEAD
+>>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
+=======
 >>>>>>> parent of f5dbaa9 (Merge branch 'main' into Andre)
     }
 }
